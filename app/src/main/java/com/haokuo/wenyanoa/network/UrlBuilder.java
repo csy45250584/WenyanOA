@@ -20,6 +20,7 @@ public class UrlBuilder {
     private static final String GET_CONTACT_URL = "/oaCustom/getLoginUserContact.do";
     private static final String GET_MY_ATTENDANCE_LIST_URL = "/oaCustom/getMyAttendanceList.do";
     private static final String UPDATE_USER_INFO_URL = "/oaCustom/updateUserInfo.do";
+    private static final String UPDATE_USER_HEAD_PHOTO_URL = "/oaCustom/updateUserHeadPhoto.do";
 
     public static String buildLoginUrl() {
         return new StringBuilder(BASE_URL).append(LOGIN_URL).toString();
@@ -55,6 +56,9 @@ public class UrlBuilder {
 
     public static String buildUpdateUserInfo() {
         return new StringBuilder(BASE_URL).append(UPDATE_USER_INFO_URL).toString();
+    }
+public static String buildUpdateUserHeadPhoto() {
+        return new StringBuilder(BASE_URL).append(UPDATE_USER_HEAD_PHOTO_URL).toString();
     }
 
     public static List<String> parseImageUrl(String imagesUrl) {

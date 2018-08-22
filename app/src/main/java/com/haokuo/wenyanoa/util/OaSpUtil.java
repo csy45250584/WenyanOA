@@ -15,7 +15,7 @@ public class OaSpUtil {
         int userId = utils.getInt(SpConsts.KEY_USER_ID, -1);
         String apiKey = utils.getString(SpConsts.KEY_API_KEY);
         String username = utils.getString(SpConsts.KEY_USERNAME);
-        return new UserInfoBean(userId, apiKey, username);
+        return new UserInfoBean(userId, username, apiKey);
     }
 
     public static void saveUserInfo(UserInfoBean userInfoBean) {

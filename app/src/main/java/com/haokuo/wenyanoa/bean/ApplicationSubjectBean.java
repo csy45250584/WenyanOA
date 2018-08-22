@@ -16,4 +16,7 @@ public class ApplicationSubjectBean {
         this.title = title;
         this.appList = appList;
     }
+
+    public ApplicationSubjectBean() {
+    }
 }

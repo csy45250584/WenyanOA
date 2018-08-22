@@ -1,14 +1,16 @@
 package com.haokuo.wenyanoa.bean;
 
+import com.haokuo.wenyanoa.network.bean.base.IGetApiKey;
+
 import lombok.Data;
 
 /**
  * Created by zjf on 2018-08-17.
  */
 @Data
-public class UserInfoDetailBean {
+public class UserInfoDetailBean implements IGetApiKey{
     private int userId;
-    private String apiKey;
+    private String apikey;
     private String userName;
     private String realname;
     private String sex;
@@ -25,9 +27,9 @@ public class UserInfoDetailBean {
     private String weChat;
     private String headPhoto;
 
-    public UserInfoDetailBean(int userId, String apiKey, String userName, String realname, String sex, String birthday, String telPhone, String address, String qq, int userType, String userTypeName, String userJob, String userSecition, String mobilePhone, String sectionPhone, String weChat, String headPhoto) {
+    public UserInfoDetailBean(int userId, String apikey, String userName, String realname, String sex, String birthday, String telPhone, String address, String qq, int userType, String userTypeName, String userJob, String userSecition, String mobilePhone, String sectionPhone, String weChat, String headPhoto) {
         this.userId = userId;
-        this.apiKey = apiKey;
+        this.apikey = apikey;
         this.userName = userName;
         this.realname = realname;
         this.sex = sex;
@@ -43,5 +45,17 @@ public class UserInfoDetailBean {
         this.sectionPhone = sectionPhone;
         this.weChat = weChat;
         this.headPhoto = headPhoto;
+    }
+
+    public UserInfoDetailBean() {
+    }
+
+    public String getApikey() {
+        return apikey;
+    }
+
+    @Override
+    public String getApiKey() {
+        return apikey;
     }
 }

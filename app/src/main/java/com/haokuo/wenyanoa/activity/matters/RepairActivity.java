@@ -48,7 +48,7 @@ public class RepairActivity extends BaseActivity {
                             public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                                 Calendar selectDate = Calendar.getInstance();
                                 selectDate.set(year, monthOfYear, dayOfMonth);
-                                mItemDate.setSelectText(TimeUtils.mDateFormat.format(selectDate.getTime()));
+                                mItemDate.setSelectText(TimeUtils.CUSTOM_FORMAT.format(selectDate.getTime()));
                             }
                         },
                         mCurrentDay.get(Calendar.YEAR), // Initial year selection

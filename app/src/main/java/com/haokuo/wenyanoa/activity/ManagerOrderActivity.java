@@ -78,7 +78,7 @@ public class ManagerOrderActivity extends BaseActivity {
                                     mBeginDay = Calendar.getInstance();
                                 }
                                 mBeginDay.set(year, monthOfYear, dayOfMonth);
-                                mTvStartTime.setText(TimeUtils.mDateFormat.format(mBeginDay.getTime()));
+                                mTvStartTime.setText(TimeUtils.CUSTOM_FORMAT.format(mBeginDay.getTime()));
                             }
                         },
                         mCurrentDay.get(Calendar.YEAR), // Initial year selection
@@ -101,7 +101,7 @@ public class ManagerOrderActivity extends BaseActivity {
                                     mEndDay = Calendar.getInstance();
                                 }
                                 mEndDay.set(year, monthOfYear, dayOfMonth);
-                                mTvEndTime.setText(TimeUtils.mDateFormat.format(mEndDay.getTime()));
+                                mTvEndTime.setText(TimeUtils.CUSTOM_FORMAT.format(mEndDay.getTime()));
                             }
                         },
                         mCurrentDay.get(Calendar.YEAR), // Initial year selection

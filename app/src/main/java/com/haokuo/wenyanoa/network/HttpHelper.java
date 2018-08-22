@@ -11,6 +11,7 @@ import com.haokuo.wenyanoa.bean.UserInfoDetailBean;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
 import com.haokuo.wenyanoa.network.bean.LaunchTansferParams;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
+import com.haokuo.wenyanoa.network.bean.UpdateAvatarParams;
 import com.haokuo.wenyanoa.network.bean.base.IGetApiKey;
 import com.haokuo.wenyanoa.network.bean.base.IGetParamsMap;
 import com.haokuo.wenyanoa.network.bean.base.PageWithTimeParams;
@@ -147,7 +148,7 @@ public class HttpHelper {
         mClient.newCall(request).enqueue(new OkHttpCallBack(callback));
     }
 
-    private void doPost(Object object, String url, NetworkCallback callback) {
+    private void doPostWithoutApiKey(Object object, String url, NetworkCallback callback) {
         String jsonString = JSON.toJSONString(object);
         Log.i(TAG, "doPost: " + "jsonString = " + jsonString);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonString);
@@ -238,7 +239,7 @@ public class HttpHelper {
 
     /** 登录 */
     public void login(LoginParams params, NetworkCallback callback) {
-        doPost(params, UrlBuilder.buildLoginUrl(), callback);
+        doPostWithoutApiKey(params, UrlBuilder.buildLoginUrl(), callback);
     }
 
     public void launchTansfer(LaunchTansferParams params, NetworkCallback callback) {
@@ -272,5 +273,10 @@ public class HttpHelper {
     /** 修改用户信息 */
     public void updateUserInfo(UserInfoDetailBean params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildUpdateUserInfo(), callback);
+    }
+
+    /** 修改用户头像 */
+    public void updateUserHeadPhoto(UpdateAvatarParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildUpdateUserHeadPhoto(), callback);
     }
 }

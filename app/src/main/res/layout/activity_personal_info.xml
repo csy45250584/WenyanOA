@@ -21,6 +21,9 @@
                 app:midTitle="设置"/>
 
             <LinearLayout
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:id="@+id/ll_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_66"
                 android:layout_marginBottom="@dimen/dp_16"

@@ -63,18 +63,24 @@ public class MeFragment extends BaseLazyLoadFragment {
     }
 
     @Override
-    protected void initData() {
+    public void onResume() {
+        super.onResume();
         //在SP文件中加载用户数据
         UserInfoDetailBean userInfoDetail = OaSpUtil.getUserInfoDetail();
-        setUserUiFromBean(userInfoDetail);
+        setUserUiFromSp(userInfoDetail);
+    }
+
+    @Override
+    protected void initData() {
+        UserInfoDetailBean userInfoDetail = OaSpUtil.getUserInfoDetail();
         //从网络请求更新
-        UserIdApiKeyParams params = new UserIdApiKeyParams(userInfoDetail.getUserId(), userInfoDetail.getApiKey());
+        UserIdApiKeyParams params = new UserIdApiKeyParams(userInfoDetail.getUserId(), userInfoDetail.getApikey());
         HttpHelper.getInstance().getUserInfoUrl(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
                 UserInfoDetailBean userInfoDetailResult = JSON.parseObject(json, UserInfoDetailBean.class);
                 OaSpUtil.saveUserDetailInfo(userInfoDetailResult);
-                setUserUiFromBean(userInfoDetailResult);
+                setUserUiFromSp(userInfoDetailResult);
             }
 
             @Override
@@ -84,7 +90,7 @@ public class MeFragment extends BaseLazyLoadFragment {
         });
     }
 
-    private void setUserUiFromBean(UserInfoDetailBean userInfoDetail) {
+    private void setUserUiFromSp(UserInfoDetailBean userInfoDetail) {
         String realName = userInfoDetail.getRealname();
         mTvUserName.setText(realName);
         String userJob = userInfoDetail.getUserJob();

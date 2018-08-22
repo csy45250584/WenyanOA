@@ -16,4 +16,7 @@ public class ApplicationBean {
         this.title = title;
         this.iconSrc = iconSrc;
     }
+
+    public ApplicationBean() {
+    }
 }

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -193,7 +194,9 @@ public class ContactsFragment extends BaseLazyLoadFragment {
         //关闭加载更多功能
         mSrlContacts.setEnableLoadMore(false);
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
-        mParams = new UserIdApiKeyParams(userInfo.getUserId(), userInfo.getApikey());
+        String apikey = userInfo.getApikey();
+        Log.v("MY_CUSTOM_TAG", "ContactsFragment initData()-->" + apikey);
+        mParams = new UserIdApiKeyParams(userInfo.getUserId(), apikey);
     }
 
     @Subscribe

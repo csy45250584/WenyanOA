@@ -16,4 +16,7 @@ public class UserInfoBean {
         this.userName = userName;
         this.apikey = apikey;
     }
+
+    public UserInfoBean() {
+    }
 }

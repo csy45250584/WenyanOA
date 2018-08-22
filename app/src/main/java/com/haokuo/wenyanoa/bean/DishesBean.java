@@ -1,13 +1,11 @@
 package com.haokuo.wenyanoa.bean;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Created by zjf on 2018-08-08.
  */
-@Getter
-@Setter
+@Data
 public class DishesBean {
     private String name;
     private String imageUrl;
