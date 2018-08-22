@@ -63,7 +63,6 @@ public class DatePickerDialog extends DialogFragment implements
     private static final int UNINITIALIZED = -1;
     private static final int MONTH_AND_DAY_VIEW = 0;
     private static final int YEAR_VIEW = 1;
-
     private static final String KEY_SELECTED_YEAR = "year";
     private static final String KEY_SELECTED_YEAR_END = "year_end";
     private static final String KEY_SELECTED_MONTH = "month";

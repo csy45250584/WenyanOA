@@ -11,5 +11,6 @@
 	<dimen name="vertical_stepper_line_margin_top">8dp</dimen>
 	<dimen name="vertical_stepper_line_width">1dp</dimen>
 	<dimen name="vertical_stepper_item_space_height">8dp</dimen>
+    <dimen name="dp1">1dp</dimen>
 
 </resources>

@@ -16,6 +16,7 @@ import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.base.PageWithTimeParams;
 import com.haokuo.wenyanoa.util.OaSpUtil;
+import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -51,8 +52,9 @@ public class MyAttendanceActivity extends BaseActivity {
     protected void initData() {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this);
+        //设置RecyclerView
         mRvMyAttendance.setLayoutManager(new LinearLayoutManager(this));
-        mMyAttendanceAdapter = new MyAttendanceAdapter(R.layout.item_my_attendance);
+        mMyAttendanceAdapter = new MyAttendanceAdapter(R.layout.item_my_attendance, this);
         mRvMyAttendance.setAdapter(mMyAttendanceAdapter);
         //        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
         //        for (int i = 0; i < 20; i++) {
@@ -60,7 +62,13 @@ public class MyAttendanceActivity extends BaseActivity {
         //        }
         //        mMyAttendanceAdapter.setNewData(dishesBeans);
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
-        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApiKey(), 0, PAGE_SIZE, null, null);
+        Calendar instance = Calendar.getInstance();
+        String endDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.mDateFormat);
+        instance.add(Calendar.MONTH, -1);
+        String startDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.mDateFormat);
+        mMidTitleBar.setMidTitle(startDayStr + " ~ " + endDayStr);
+        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApiKey(), 0, PAGE_SIZE, startDayStr, endDayStr);
+        mSrlMyAttendance.autoRefresh();
     }
 
     @Override
@@ -122,7 +130,16 @@ public class MyAttendanceActivity extends BaseActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-
+                                Calendar instance = Calendar.getInstance();
+                                instance.set(year, monthOfYear, dayOfMonth);
+                                String startDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.mDateFormat);
+                                instance.set(yearEnd, monthOfYearEnd, dayOfMonthEnd);
+                                String endDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.mDateFormat);
+                                mParams.resetPageIndex();
+                                mParams.setStartTime(startDayStr);
+                                mParams.setEndTime(endDayStr);
+                                mSrlMyAttendance.autoRefresh();
+                                mMidTitleBar.setMidTitle(startDayStr + " ~ " + endDayStr);
                             }
                         },
                         now.get(Calendar.YEAR),

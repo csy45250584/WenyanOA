@@ -98,15 +98,17 @@ public class HttpHelper {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (successBean == null) {
-                            callback.onFailure(call, "未知错误");
-                        } else if (successBean.isSuccess()) {
-                            callback.onSuccess(call, json);
-                        } else {
-                            String message = successBean.getMessage();
-                            Log.e(TAG, "okhttp response, success = false, message = " + message);
-                            callback.onFailure(call, message);
-                        }
+                        callback.onSuccess(call, json);
+//                        if (successBean == null) {
+//                            callback.onFailure(call, "未知错误");
+//                        }
+//                        else if (successBean.isSuccess()) {
+//                            callback.onSuccess(call, json);
+//                        } else {
+//                            String message = successBean.getMessage();
+//                            Log.e(TAG, "okhttp response, success = false, message = " + message);
+//                            callback.onFailure(call, message);
+//                        }
                     }
                 });
             } catch (IOException e) {
@@ -260,6 +262,6 @@ public class HttpHelper {
 
     /** 获取我的出勤列表 */
     public void getMyAttendanceList(PageWithTimeParams params, NetworkCallback callback) {
-        doPost(params, UrlBuilder.buildGetLoginUserContactUrl(), callback);
+        doPost(params, UrlBuilder.buildGetMyAttendanceListUrl(), callback);
     }
 }

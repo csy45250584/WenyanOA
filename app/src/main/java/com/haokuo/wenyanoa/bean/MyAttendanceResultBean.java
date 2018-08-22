@@ -16,6 +16,7 @@ public class MyAttendanceResultBean {
 
     @Data
     public static class AttendanceBean {
+        private int id;
         private String onDutyDate; //上班日期
         private String minAttend; //出勤时长
         private String clockOnTime; //上班打卡时间
@@ -25,7 +26,7 @@ public class MyAttendanceResultBean {
         private String offStatus; //下班状态
         private String offTime; //下班时间
         private String minuteLate; //迟到时长（已有在状态为“迟到”时才有）
-        private String minuteLate; //迟到时长（已有在状态为“迟到”时才有）
+        private String minLeave; //早退时长（已有在状态为“迟到”时才有）
 
         public void setClockOnTime(String clockOnTime) {
             String[] split = clockOnTime.split(" ");
