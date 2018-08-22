@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_12"
+    android:paddingLeft="@dimen/dp_16"
+    android:paddingRight="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_12">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_news_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="姚春钢"
+            android:textColor="@color/text4"
+            android:textSize="@dimen/text_26px"/>
+
+        <TextView
+            android:id="@+id/tv_news_post_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:text="2018-05-05 23:00"
+            android:textColor="@color/text4"
+            android:textSize="@dimen/text_24px"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_news_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:lines="2"
+        android:text="明天下午召开明天下天下午召开明天下午召开明天下午召开"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_28px"/>
+</LinearLayout>

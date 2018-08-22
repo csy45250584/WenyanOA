@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="@dimen/dp_58"
+        android:layout_height="@dimen/dp_58"
+        >
+
+        <TextView
+            android:id="@+id/tv_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/sp_24"/>
+
+        <ImageView
+            android:id="@+id/iv_item_button"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_28"
+            android:layout_gravity="center"
+            android:src="@drawable/qingjia_1"
+            android:textSize="@dimen/sp_20"
+            android:visibility="visible"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="人员去向"
+        android:textColor="@color/text3"
+        android:textSize="@dimen/text_28px"/>
+</LinearLayout>

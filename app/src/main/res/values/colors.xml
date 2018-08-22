@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4787E4</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#009688</color>
+    <color name="colorDefBg">#fafafa</color>
+    <color name="text1">#FF000000</color>
+    <color name="text2">#dd000000</color>
+    <color name="text3">#88000000</color>
+    <color name="text4">#60000000</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#1e000000</color>
+    <color name="colorBarTitle">@color/color_FFFFFFED</color>
+    <color name="color_FFFFFFED">#FFFFFFED</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorHalfWhite">#88FFFFFF</color>
+    <color name="colorMoreWhite">#EEFFFFFF</color>
+    <color name="color80White">#ddFFFFFF</color>
+    <color name="textDarkScrims">#66000000</color>
+    <color name="textLightScrims">#33000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="colorRipple">#1f000000</color>
+
+</resources>

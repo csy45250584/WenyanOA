@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="title" format="string"/>
+    <attr name="titleColor" format="color"/>
+    <attr name="titleText" format="string"/>
+    <attr name="editorHint" format="string"/>
+    <attr name="itemType" format="enum">
+        <enum name="editor" value="0"/>
+        <enum name="selector" value="1"/>
+        <enum name="approver" value="2"/>
+        <enum name="cc" value="3"/>
+    </attr>
+    <declare-styleable name="ItemButton">
+        <attr name="recColor" format="color"/>
+        <attr name="iconText" format="string"/>
+        <attr name="titleText"/>
+        <attr name="iconSrc" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="ApprovalItem1">
+        <attr name="titleText"/>
+        <attr name="selectText" format="string"/>
+        <attr name="editorHint"/>
+
+        <attr name="itemType" />
+    </declare-styleable>
+    <declare-styleable name="ApprovalItem2">
+        <attr name="titleText"/>
+        <attr name="ccName" format="string"/>
+        <attr name="editorHeight" format="dimension"/>
+        <attr name="editorHint"/>
+        <attr name="itemType" />
+    </declare-styleable>
+    <declare-styleable name="ContactDetailItem">
+        <attr name="titleText"/>
+        <attr name="contentText" format="string"/>
+        <attr name="hasSmsIcon" format="boolean"/>
+        <attr name="hasPhoneIcon" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="SettingItemView">
+        <attr name="title"/>
+        <attr name="titleSize" format="dimension"/>
+        <attr name="titleColor"/>
+        <attr name="contentColor" format="color"/>
+        <attr name="hasRightArrow" format="boolean"/>
+        <attr name="icon" format="reference"/>
+        <attr name="rightIcon" format="reference"/>
+        <attr name="infoContent" format="string"/>
+    </declare-styleable>
+
+</resources>

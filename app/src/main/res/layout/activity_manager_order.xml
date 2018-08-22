@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <com.haokuo.midtitlebar.MidTitleBar
+        android:id="@+id/mid_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"
+        app:midTitle="订单管理"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_scrollFlags="scroll|enterAlways"
+                >
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:layout_marginRight="@dimen/dp_24"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@drawable/bg_gray_editor"
+                    android:drawableLeft="@drawable/xiaoxi_sousuo"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:hint="请输入姓名"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_12"
+                    android:paddingRight="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_8"
+                    android:textSize="@dimen/text_28px"/>
+
+                <include layout="@layout/include_divider"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dp_12"
+                    android:paddingLeft="@dimen/dp_24"
+                    android:paddingRight="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_12">
+
+                    <TextView
+                        android:id="@+id/tv_start_time"
+                        android:layout_width="@dimen/dp_160"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_gray_editor"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:paddingLeft="@dimen/dp_24"
+                        android:paddingRight="@dimen/dp_24"
+                        android:paddingTop="@dimen/dp_8"
+                        android:text="请选择开始时间"
+                        android:textColor="@color/text4"
+                        android:textSize="@dimen/text_28px"/>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="~"
+                        android:textColor="@color/text3"
+                        android:textSize="@dimen/text_32px"/>
+
+                    <TextView
+                        android:id="@+id/tv_end_time"
+                        android:layout_width="@dimen/dp_160"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/bg_gray_editor"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:paddingLeft="@dimen/dp_24"
+                        android:paddingRight="@dimen/dp_24"
+                        android:paddingTop="@dimen/dp_8"
+                        android:text="请选择结束时间"
+                        android:textColor="@color/text4"
+                        android:textSize="@dimen/text_28px"/>
+                </FrameLayout>
+
+                <include layout="@layout/include_divider"/>
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_order_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

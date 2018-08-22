@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.haokuo.midtitlebar.MidTitleBar
+        android:id="@+id/mid_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"
+        app:hasBackArrow="true"
+        app:midTitle="我的钱包"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_50"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账户余额（元）"
+            android:textColor="#ddffffff"
+            android:textSize="@dimen/text_24px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="1200.00"
+            android:textColor="#ddffffff"
+            android:textSize="@dimen/sp_70"/>
+    </LinearLayout>
+
+    <com.haokuo.wenyanoa.view.SettingItemView
+        android:id="@+id/item_order_food"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"
+        android:layout_marginTop="@dimen/dp_10"
+        app:icon="@drawable/qianbao_diancan"
+        app:title="去点餐"/>
+</LinearLayout>

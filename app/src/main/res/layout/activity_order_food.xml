@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.rey.material.widget.FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.haokuo.midtitlebar.MidTitleBar
+            android:id="@+id/mid_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_56"
+            app:midTitle="">
+        </com.haokuo.midtitlebar.MidTitleBar>
+
+        <com.rey.material.widget.Spinner
+            android:id="@+id/spinner_weekday"
+            style="@style/Material.Widget.Spinner"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_56"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|right"
+            android:popupBackground="@color/colorPrimary"
+            app:rd_style="@style/MyRippleWaveStyle"
+            app:spn_arrowAnimClockwise="true"
+            app:spn_arrowColor="@color/colorWhite"
+            app:spn_arrowSwitchMode="true"
+            app:spn_dividerHeight="0dp"
+            app:spn_popupItemAnimOffset="10"
+            />
+    </com.rey.material.widget.FrameLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"
+        />
+
+</LinearLayout>

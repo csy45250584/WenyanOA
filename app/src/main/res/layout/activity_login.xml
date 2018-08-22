@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_70"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="闻堰OA"
+                android:textColor="@color/text2"
+                android:textSize="@dimen/text_36px"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_80"
+            android:orientation="vertical"
+            >
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_24"
+                android:hint="请输入账号"
+                android:singleLine="true"
+                android:textSize="@dimen/text_30px"
+                app:met_floatingLabel="highlight"
+                app:met_iconLeft="@drawable/geren"
+                app:met_iconPadding="@dimen/dp_0"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_20"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textSize="@dimen/text_30px"
+                app:met_floatingLabel="highlight"
+                app:met_iconLeft="@drawable/mima"
+                app:met_iconPadding="@dimen/dp_0"
+                />
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/dp_24"
+                android:padding="@dimen/dp_3"
+                android:text="忘记密码？"/>
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btn_login"
+                android:layout_width="@dimen/dp_320"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_70"
+                android:background="@drawable/bg_red_button"
+                android:text="登录"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_18"
+                app:rd_style="@style/LoginButtonStyle"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:layout_gravity="bottom"
+        android:scaleType="fitXY"
+        android:src="@drawable/under"/>
+</FrameLayout>

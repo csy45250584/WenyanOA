@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/colorDefBg</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionMenuTextAppearance">@style/ToolbarMenuTextSize</item>
+    </style>
+
+    <style name="ToolbarMenuTextSize" parent="@style/TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <style name="MaterialSearchViewStyle">
+        <!-- Background for the search bar -->
+        <item name="searchBackground">@color/colorPrimary</item>
+        <!-- Change clear text icon -->
+        <item name="searchCloseIcon">@drawable/ic_action_navigation_close_inverted</item>
+        <!-- Change up icon -->
+        <item name="searchBackIcon">@drawable/ic_action_navigation_arrow_back_inverted</item>
+        <!-- Change icon for the suggestions -->
+        <item name="searchSuggestionIcon">@drawable/ic_suggestion</item>
+        <!-- Change background for the suggestions list view -->
+        <item name="searchSuggestionBackground">@android:color/white</item>
+        <!-- Change text color for edit text. This will also be the color of the cursor -->
+        <item name="android:textColor">@color/colorWhite</item>
+        <!-- Change hint text color for edit text -->
+        <item name="android:textColorHint">@color/colorHalfWhite</item>
+        <!-- Hint for edit text -->
+        <item name="android:hint">@string/search_hint</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
+    </style>
+
+    <style name="LightSpinnerItem" parent="MyRippleWaveStyle">
+        <item name="rd_maskType">rectangle</item>
+        <item name="rd_cornerRadius">0dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="text_approval_tips">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text4</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+    </style>
+
+    <style name="MyRippleWaveStyle" parent="Material.Drawable.Ripple.Wave">
+        <item name="rd_rippleAnimDuration">300</item>
+        <item name="rd_rippleColor">@color/colorRipple</item>
+        <item name="rd_delayClick">none</item>
+    </style>
+
+    <style name="LoginButtonStyle" parent="MyRippleWaveStyle">
+        <item name="rd_cornerRadius">@dimen/button_corners</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Button</item>
+    </style>
+
+
+</resources>

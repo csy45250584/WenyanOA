@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/dp_16"
+    android:paddingRight="@dimen/dp_16">
+
+    <ImageView
+        android:id="@+id/iv_dish_image"
+        android:layout_width="@dimen/dp_77"
+        android:layout_height="@dimen/dp_55"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_toRightOf="@id/iv_dish_image"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_dish_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="健康营养早餐"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_30px"/>
+
+        <TextView
+            android:id="@+id/tv_dining_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用餐时间：2018-08-04"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_30px"/>
+
+        <TextView
+            android:id="@+id/tv_dish_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量：3"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_30px"/>
+
+        <TextView
+            android:id="@+id/tv_dish_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总价：30元"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_30px"/>
+
+        <TextView
+            android:id="@+id/tv_delete_dish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="@drawable/bg_delete_dishes"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp_1"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4"
+            android:paddingTop="@dimen/dp_1"
+            android:text="删除"
+            android:textColor="#f46a6a"
+            android:textSize="@dimen/text_24px"/>
+    </LinearLayout>
+
+    <cn.refactor.library.SmoothCheckBox
+        android:id="@+id/cb_dish"
+        android:layout_width="@dimen/dp_23"
+
+        android:layout_height="@dimen/dp_23"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_5"
+        android:padding="@dimen/dp_5"
+        app:color_checked="@color/colorPrimaryDark"
+        app:duration="100"/>
+
+</RelativeLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<com.ogaclejapan.smarttablayout.SmartTabLayout-->
+    <!--android:id="@+id/indicator_dishes"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/dp_48"-->
+    <!--android:background="@android:color/white"-->
+    <!--app:stl_defaultTabTextAllCaps="true"-->
+    <!--app:stl_defaultTabTextColor="@color/text3"-->
+    <!--app:stl_defaultTabTextHorizontalPadding="@dimen/dp_16"-->
+    <!--app:stl_defaultTabTextMinWidth="@dimen/dp_0"-->
+    <!--app:stl_defaultTabTextSize="@dimen/sp_17"-->
+    <!--app:stl_distributeEvenly="true"-->
+    <!--app:stl_dividerColor="@android:color/transparent"-->
+    <!--app:stl_dividerThickness="@dimen/dp_0"-->
+    <!--app:stl_indicatorAlwaysInCenter="false"-->
+    <!--app:stl_indicatorColor="@color/colorPrimary"-->
+    <!--app:stl_indicatorCornerRadius="@dimen/dp_1"-->
+    <!--app:stl_indicatorInFront="false"-->
+    <!--app:stl_indicatorInterpolation="smart"-->
+    <!--app:stl_indicatorThickness="@dimen/dp_2"-->
+    <!--app:stl_indicatorWidth="@dimen/dp_88"-->
+    <!--app:stl_underlineColor="@color/divider"-->
+    <!--app:stl_underlineThickness="@dimen/dp_1"/>-->
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/indicator_dishes"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/colorWhite"
+        app:tl_divider_width="0dp"
+        app:tl_indicator_color="@color/colorPrimary"
+        app:tl_indicator_corner_radius="@dimen/dp_1_5"
+        app:tl_indicator_height="@dimen/dp_3"
+        app:tl_indicator_width="@dimen/dp_80"
+        app:tl_tab_space_equal="true"
+        app:tl_textBold="NONE"
+        app:tl_textSelectColor="@color/colorPrimary"
+        app:tl_textUnselectColor="@color/text3"
+        app:tl_textsize="@dimen/text_30px"
+        app:tl_underline_color="@color/divider"
+        app:tl_underline_height="1dp">
+    </com.flyco.tablayout.SlidingTabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_dishes"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

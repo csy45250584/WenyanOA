@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.haokuo.midtitlebar.MidTitleBar
+        android:id="@+id/mid_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"
+        app:hasBackArrow="true"
+        app:midTitle=""/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/dp_84"
+        android:layout_height="@dimen/dp_84"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_15"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_7"
+        android:text="刘完成"
+        android:textColor="@color/text2"
+        android:textSize="@dimen/text_36px"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.haokuo.wenyanoa.view.ContactDetailItem
+                android:id="@+id/contact_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentText="1234561616515646"
+                app:hasPhoneIcon="true"
+                app:hasSmsIcon="true"
+                app:titleText="手机号"/>
+
+            <com.haokuo.wenyanoa.view.ContactDetailItem
+                android:id="@+id/contact_short_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentText="1234561616515646"
+                app:hasPhoneIcon="true"
+                app:titleText="手机短号"/>
+
+            <com.haokuo.wenyanoa.view.ContactDetailItem
+                android:id="@+id/contact_office_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentText="1234561616515646"
+                app:hasPhoneIcon="true"
+                app:titleText="科室电话"/>
+
+            <com.haokuo.wenyanoa.view.ContactDetailItem
+                android:id="@+id/contact_duties"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentText="1234561616515646"
+                app:titleText="职务"/>
+
+            <com.haokuo.wenyanoa.view.ContactDetailItem
+                android:id="@+id/contact_office"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentText="1234561616515646"
+                app:titleText="所在科室"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

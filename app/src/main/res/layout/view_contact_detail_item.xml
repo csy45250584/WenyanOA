@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dp_67"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/dp_16"
+              android:paddingRight="@dimen/dp_16">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_2"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电话码"
+                android:textColor="@color/text2"
+                android:textSize="@dimen/text_30px"/>
+
+            <TextView
+                android:id="@+id/tv_contact_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="12323232323"
+                android:textColor="@color/text3"
+                android:textSize="@dimen/text_24px"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_contact_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_9"
+            android:padding="@dimen/dp_5"
+            android:src="@drawable/tx_xinxi"/>
+
+        <ImageView
+            android:id="@+id/iv_contact_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:src="@drawable/tx_dianhua"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/divider"/>
+</LinearLayout>

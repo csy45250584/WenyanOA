@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.haokuo.midtitlebar.MidTitleBar
+                android:id="@+id/mid_title_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                app:midTitle="个人资料"/>
+
+            <com.haokuo.wenyanoa.view.SettingItemView
+                android:id="@+id/siv_modify_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_53"
+                android:layout_marginTop="@dimen/dp_16"
+                app:title="修改密码"/>
+
+            <com.haokuo.wenyanoa.view.SettingItemView
+                android:id="@+id/siv_logout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_53"
+                android:layout_marginTop="@dimen/dp_16"
+                app:title="退出登录"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <com.haokuo.wenyanoa.view.ContactsNavigationView
+            android:id="@+id/contacts_navigation"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_contact_tips"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_contact_tips"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_40"
+        android:visibility="gone"/>
+</FrameLayout>

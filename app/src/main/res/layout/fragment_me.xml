@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_13"
+        android:paddingTop="@dimen/dp_20">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_user_avatar"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:src="@drawable/wo"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姚春钢"
+                android:textColor="@color/text2"
+                android:textSize="@dimen/text_32px"/>
+
+            <TextView
+                android:id="@+id/tv_user_duties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="职务：中心副主任"
+                android:textColor="@color/text3"
+                android:textSize="@dimen/text_24px"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.haokuo.wenyanoa.view.SettingItemView
+        android:id="@+id/item_personal_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_53"
+        android:layout_marginBottom="@dimen/dp_1"
+        app:icon="@drawable/xinxi"
+        app:title="个人信息"/>
+
+    <com.haokuo.wenyanoa.view.SettingItemView
+        android:id="@+id/item_attendance"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_53"
+        android:layout_marginBottom="@dimen/dp_1"
+        app:icon="@drawable/kaoqing"
+        app:title="我的考勤"/>
+
+    <com.haokuo.wenyanoa.view.SettingItemView
+        android:id="@+id/item_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_53"
+        app:icon="@drawable/qianbao"
+        app:title="我的钱包"/>
+
+    <com.haokuo.wenyanoa.view.SettingItemView
+        android:id="@+id/item_setting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_53"
+        android:layout_marginTop="@dimen/dp_16"
+        app:icon="@drawable/shezhi"
+        app:title="设置"/>
+</LinearLayout>

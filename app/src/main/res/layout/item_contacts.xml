@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_75"
+        android:layout_marginRight="@dimen/dp_30"
+        android:background="@color/divider"/>
+
+    <FrameLayout
+        android:id="@+id/fl_contact_first_letter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDefBg"
+        android:paddingTop="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_3"
+        android:paddingLeft="@dimen/dp_24"
+        >
+
+        <TextView
+            android:id="@+id/tv_contact_first_letter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:textColor="@color/text3"
+            android:textSize="@dimen/text_32px"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rv_contact_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingBottom="@dimen/dp_8"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_8">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_contact_avatar"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginRight="@dimen/dp_18"
+            android:src="@mipmap/ic_launcher"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_contact_avatar"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_contact_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kongwancheng"
+                android:textColor="@color/text2"
+                android:textSize="@dimen/text_30px"/>
+
+            <TextView
+                android:id="@+id/tv_contact_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_3"
+                android:text="kongwancheng"
+                android:textColor="@color/text3"
+                android:textSize="@dimen/text_24px"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

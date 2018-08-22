@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval">
+
+    <!-- padding：Button里面的文字与Button边界的间隔 -->
+    <!-- 边框的宽度和颜色颜色 -->
+    <size
+        android:width="@dimen/dp_10"
+        android:height="@dimen/dp_10"/>
+    <solid android:color="@color/colorPrimary"/>
+
+</shape>

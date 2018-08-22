@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.haokuo.wenyanoa">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <application
+        android:name=".application.OaApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ContactDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.MyWalletActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.OrderFoodActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.AttendanceClockActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.StaffDestinationActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.ApprovalActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.NewsActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.PersonalInfoActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.SettingActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.ModifyPasswordActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.MyAttendanceActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.ForgetPasswordActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.ManagerOrderActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.RepairActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.ApplyItemsActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.PurchaseItemsActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.ToleranceActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.LeaveActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.ChangeShiftActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.MattersApplyActivity"
+            android:launchMode="singleTop"/>
+    </application>
+
+</manifest>
