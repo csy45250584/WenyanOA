@@ -33,7 +33,7 @@ public class PurchaseItemsActivity extends BaseActivity {
         mMidTitleBar.addBackArrow(this);
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
         //数据准备
-        UserIdApiKeyParams params = new UserIdApiKeyParams(userInfo.getUserId(), userInfo.getApiKey());
+        UserIdApiKeyParams params = new UserIdApiKeyParams(userInfo.getUserId(), userInfo.getApikey());
         HttpHelper.getInstance().getInBuyItems(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json)  {

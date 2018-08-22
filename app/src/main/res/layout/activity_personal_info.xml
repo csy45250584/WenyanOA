@@ -142,16 +142,10 @@
                 android:id="@+id/siv_duties"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_53"
-                android:layout_marginBottom="@dimen/dp_1"
                 app:infoContent="456165164512"
                 app:title="担任职务"/>
 
-            <com.haokuo.wenyanoa.view.SettingItemView
-                android:id="@+id/siv_address"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_53"
-                app:infoContent="456165164512"
-                app:title="所在地址"/>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

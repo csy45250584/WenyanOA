@@ -67,7 +67,7 @@ public class MyAttendanceActivity extends BaseActivity {
         instance.add(Calendar.MONTH, -1);
         String startDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.mDateFormat);
         mMidTitleBar.setMidTitle(startDayStr + " ~ " + endDayStr);
-        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApiKey(), 0, PAGE_SIZE, startDayStr, endDayStr);
+        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, startDayStr, endDayStr);
         mSrlMyAttendance.autoRefresh();
     }
 

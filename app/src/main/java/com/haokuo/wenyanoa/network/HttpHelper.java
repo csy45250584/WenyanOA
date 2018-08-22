@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.haokuo.wenyanoa.bean.SuccessBean;
+import com.haokuo.wenyanoa.bean.UserInfoDetailBean;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
 import com.haokuo.wenyanoa.network.bean.LaunchTansferParams;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
@@ -98,17 +99,15 @@ public class HttpHelper {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onSuccess(call, json);
-//                        if (successBean == null) {
-//                            callback.onFailure(call, "未知错误");
-//                        }
-//                        else if (successBean.isSuccess()) {
-//                            callback.onSuccess(call, json);
-//                        } else {
-//                            String message = successBean.getMessage();
-//                            Log.e(TAG, "okhttp response, success = false, message = " + message);
-//                            callback.onFailure(call, message);
-//                        }
+                        if (successBean == null) {
+                            callback.onFailure(call, "未知错误");
+                        } else if (successBean.isSuccess()) {
+                            callback.onSuccess(call, json);
+                        } else {
+                            String message = successBean.getMessage();
+                            Log.e(TAG, "okhttp response, success = false, message = " + message);
+                            callback.onFailure(call, message);
+                        }
                     }
                 });
             } catch (IOException e) {
@@ -263,5 +262,15 @@ public class HttpHelper {
     /** 获取我的出勤列表 */
     public void getMyAttendanceList(PageWithTimeParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetMyAttendanceListUrl(), callback);
+    }
+
+    /** 获取用户信息 */
+    public void getUserInfoUrl(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUserInfoUrl(), callback);
+    }
+
+    /** 修改用户信息 */
+    public void updateUserInfo(UserInfoDetailBean params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildUpdateUserInfo(), callback);
     }
 }

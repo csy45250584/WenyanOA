@@ -8,12 +8,12 @@ import lombok.Data;
 @Data
 public class UserInfoBean {
     private int userId;
-    private String apiKey;
-    private String username;
+    private String userName;
+    private String apikey;
 
-    public UserInfoBean(int userId, String apiKey, String username) {
+    public UserInfoBean(int userId, String userName, String apikey) {
         this.userId = userId;
-        this.apiKey = apiKey;
-        this.username = username;
+        this.userName = userName;
+        this.apikey = apikey;
     }
 }

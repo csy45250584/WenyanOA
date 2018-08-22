@@ -7,11 +7,12 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.haokuo.wenyanoa.R;
-import com.haokuo.wenyanoa.bean.LoginResultBean;
+import com.haokuo.wenyanoa.bean.UserInfoBean;
 import com.haokuo.wenyanoa.consts.SpConsts;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
+import com.haokuo.wenyanoa.util.OaSpUtil;
 import com.haokuo.wenyanoa.util.utilscode.RegexUtils;
 import com.haokuo.wenyanoa.util.utilscode.SPUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
@@ -77,8 +78,8 @@ public class LoginActivity extends BaseActivity {
                 HttpHelper.getInstance().login(params, new NetworkCallback() {
                     @Override
                     public void onSuccess(Call call, String json) {
-                        LoginResultBean loginResult = JSON.parseObject(json, LoginResultBean.class);
-                        saveInfo2Sp(loginResult);
+                        UserInfoBean loginResult = JSON.parseObject(json, UserInfoBean.class);
+                        OaSpUtil.saveUserInfo(loginResult);
                         loadSuccess("登录成功");
                     }
 
@@ -105,9 +106,5 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void saveInfo2Sp(LoginResultBean loginResult) {
-        mInfoSp.put(SpConsts.KEY_USERNAME, loginResult.getUserName());
-        mInfoSp.put(SpConsts.KEY_USER_ID, loginResult.getUserId());
-        mInfoSp.put(SpConsts.KEY_API_KEY, loginResult.getApikey());
-    }
+
 }
