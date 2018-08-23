@@ -22,8 +22,8 @@ public class ContactResultBean {
         private int id;
         private String realname;
         private String telphone;
-        //        private String shortTel;
-        //        private String deptTel;
+        private String mobilePhone;
+        private String sectionPhone;
         private String job;
         private String secition;
         private String sex;
@@ -41,12 +41,5 @@ public class ContactResultBean {
             this.namePinyin = PinyinUtils.ccs2Pinyin(realname).toUpperCase();
             this.firstLetter = PinyinUtils.getPinyinFirstLetter(realname).toUpperCase();
         }
-
-        //        public ContactBean(String name, String tel) {
-        //            this.name = name;
-        //            this.tel = tel;
-        //            this.namePinyin = PinyinUtils.ccs2Pinyin(name).toUpperCase();
-        //            this.firstLetter = PinyinUtils.getPinyinFirstLetter(name).toUpperCase();
-        //        }
     }
 }

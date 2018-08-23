@@ -116,8 +116,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void loadClose() {
+      loadClose(false);
+    }
+
+    protected void loadClose(boolean isFinish) {
         getLoadingDialog().close();
         mLoadingDialog = null;
+        if (isFinish) {
+            finish();
+        }
     }
 
     protected abstract int initContentLayout();

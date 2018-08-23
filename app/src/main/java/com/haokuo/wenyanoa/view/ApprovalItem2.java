@@ -1,14 +1,14 @@
 package com.haokuo.wenyanoa.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -16,16 +16,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.bumptech.glide.Glide;
 import com.haokuo.wenyanoa.R;
+import com.haokuo.wenyanoa.activity.BaseActivity;
+import com.haokuo.wenyanoa.activity.matters.SelectCcActivity;
 import com.haokuo.wenyanoa.adapter.ApproverAdapter;
-import com.haokuo.wenyanoa.adapter.CcAdapter;
 import com.haokuo.wenyanoa.bean.ContactResultBean;
-import com.haokuo.wenyanoa.bean.DishesBean;
-import com.rey.material.app.Dialog;
-import com.rey.material.app.DialogFragment;
+import com.haokuo.wenyanoa.bean.PrepareMatterResultBean;
+import com.haokuo.wenyanoa.bean.StaffBean;
+import com.haokuo.wenyanoa.util.ImageLoadUtil;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +37,7 @@ import butterknife.ButterKnife;
 
 public class ApprovalItem2 extends FrameLayout {
 
+    private static final String TAG = "ApprovalItem2";
     @BindView(R.id.tv_title)
     TextView mTvTitle;
     @BindView(R.id.et_approval_item)
@@ -49,6 +51,10 @@ public class ApprovalItem2 extends FrameLayout {
     @BindView(R.id.ll_cc_container)
     LinearLayout mLlCcContainer;
     private ContactResultBean.ContactBean mSelectCc;
+    private int mItemType;
+    private ApproverAdapter mApproverAdapter;
+    private Context mContext;
+    private StaffBean mCcBean;
 
     public ApprovalItem2(@NonNull Context context) {
         this(context, null);
@@ -56,16 +62,17 @@ public class ApprovalItem2 extends FrameLayout {
 
     public ApprovalItem2(@NonNull final Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initView(context);
+        mContext = context;
+        initView(mContext);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ApprovalItem2);
         String titleText = typedArray.getString(R.styleable.ApprovalItem2_titleText);
         String editorHint = typedArray.getString(R.styleable.ApprovalItem2_editorHint);
         String ccName = typedArray.getString(R.styleable.ApprovalItem2_ccName);
         float editorHeight = typedArray.getDimension(R.styleable.ApprovalItem2_editorHeight, 100);
-        int itemType = typedArray.getInt(R.styleable.ApprovalItem2_itemType, 0);
+        mItemType = typedArray.getInt(R.styleable.ApprovalItem2_itemType, 0);
         typedArray.recycle();//释放
         mTvTitle.setText(titleText);
-        switch (itemType) {
+        switch (mItemType) {
             case 0:
                 mEtApprovalItem.setHint(editorHint);
                 mEtApprovalItem.setHeight((int) editorHeight);
@@ -75,13 +82,8 @@ public class ApprovalItem2 extends FrameLayout {
                 mLlCcContainer.setVisibility(GONE);
                 mEtApprovalItem.setVisibility(GONE);
                 mRvApprover.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                ApproverAdapter basketAdapter = new ApproverAdapter(R.layout.item_approver);
-                mRvApprover.setAdapter(basketAdapter);
-                ArrayList<DishesBean> dishesBeans = new ArrayList<>();
-                for (int i = 0; i < 20; i++) {
-                    dishesBeans.add(new DishesBean());
-                }
-                basketAdapter.setNewData(dishesBeans);
+                mApproverAdapter = new ApproverAdapter(R.layout.item_approver);
+                mRvApprover.setAdapter(mApproverAdapter);
                 break;
             case 3:
                 mEtApprovalItem.setVisibility(GONE);
@@ -90,32 +92,9 @@ public class ApprovalItem2 extends FrameLayout {
                 mLlCcContainer.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FragmentActivity fragmentActivity = (FragmentActivity) context;
-                        View inflate = LayoutInflater.from(context).inflate(R.layout.dialog_select_cc, null);
-                        RecyclerView rvSelectCc = inflate.findViewById(R.id.rv_select_cc);
-                        rvSelectCc.setLayoutManager(new LinearLayoutManager(context));
-                        final CcAdapter ccAdapter = new CcAdapter(R.layout.item_select_cc);
-                        rvSelectCc.setAdapter(ccAdapter);
-                        final ArrayList<ContactResultBean.ContactBean> contactBeans = new ArrayList<>();
-//                        for (int i = 0; i < 20; i++) {
-//                            contactBeans.add(new ContactResultBean.ContactBean("ffd", "1232323"));
-//                        }
-//                        ccAdapter.setNewData(contactBeans);
-
-                        Dialog.Builder builder = new Dialog.Builder();
-                        builder.contentView(inflate);
-                        //                                .neutralAction("取消")
-                        //                                .positiveAction("确定");
-                        final DialogFragment fragment = DialogFragment.newInstance(builder);
-                        fragment.show(fragmentActivity.getSupportFragmentManager(), null);
-                        ccAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                mSelectCc = ccAdapter.getItem(position);
-                                mTvCcName.setText(mSelectCc.getRealname());
-                                fragment.dismiss();
-                            }
-                        });
+                        BaseActivity activity = (BaseActivity) context;
+                        Intent intent = new Intent(context, SelectCcActivity.class);
+                        activity.startActivityForResult(intent, 0);
                     }
                 });
                 break;
@@ -126,5 +105,25 @@ public class ApprovalItem2 extends FrameLayout {
         View inflate = inflate(context, R.layout.view_item_approval2, null);
         ButterKnife.bind(this, inflate);
         addView(inflate);
+    }
+
+    public void applyApproverList(PrepareMatterResultBean bean) {
+        //检查type是否正确
+        if (mItemType != 2) {
+            Log.e(TAG, "applyApproverList: " + "type is incorrect");
+            return;
+        }
+        //处理信息
+        List<StaffBean> approverList = bean.getApproverList();
+        mApproverAdapter.setNewData(approverList);
+    }
+
+    public void setCc(StaffBean staffBean) {
+        mCcBean = staffBean;
+        mTvCcName.setText(staffBean.getName());
+        Glide.with(mContext).load(staffBean.getAvatar()).apply(ImageLoadUtil.sAvatarOptions).into(mIvCcAvatar);
+    }
+    public String getContentText() {
+        return mEtApprovalItem.getEditableText().toString();
     }
 }

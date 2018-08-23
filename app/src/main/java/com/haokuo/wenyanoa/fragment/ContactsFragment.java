@@ -1,5 +1,6 @@
 package com.haokuo.wenyanoa.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -8,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,8 +18,8 @@ import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.activity.ContactDetailActivity;
 import com.haokuo.wenyanoa.adapter.ContactsAdapter;
 import com.haokuo.wenyanoa.bean.ContactResultBean;
+import com.haokuo.wenyanoa.bean.StaffBean;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
-import com.haokuo.wenyanoa.eventbus.QueryTextChangeEvent;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.base.UserIdApiKeyParams;
@@ -29,9 +29,6 @@ import com.haokuo.wenyanoa.view.ContactsNavigationView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +43,7 @@ import okhttp3.Call;
  */
 
 public class ContactsFragment extends BaseLazyLoadFragment {
-
+    public static final String EXTRA_CC = "com.haokuo.wenyanoa.extra.EXTRA_CC";
     private static final int MSG_REMOVE_TIPS = 1;
     @BindView(R.id.rv_contacts)
     RecyclerView mRvContacts;
@@ -59,6 +56,7 @@ public class ContactsFragment extends BaseLazyLoadFragment {
     private ContactsAdapter mContactsAdapter;
     private List<ContactResultBean.ContactBean> mContactList;
     private UserIdApiKeyParams mParams;
+    private boolean mIsSelectCc;
 
     @Override
     protected void handleMessage(Message msg) {
@@ -71,7 +69,6 @@ public class ContactsFragment extends BaseLazyLoadFragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -115,14 +112,19 @@ public class ContactsFragment extends BaseLazyLoadFragment {
         mContactsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //                if (mListener != null) {
-                //                    mListener.onItemSelect(mContactsAdapter.getItem(position));
-                //                } else {
                 ContactResultBean.ContactBean item = mContactsAdapter.getItem(position);
-                Intent intent = new Intent(mContext, ContactDetailActivity.class);
-                intent.putExtra(ContactDetailActivity.EXTRA_CONTACT, item);
-                startActivity(intent);
-                //                }
+                if (item != null) {
+                    if (mIsSelectCc) {
+                        StaffBean cc = new StaffBean(item.getId(), item.getRealname(), item.getHeadPhoto());
+                        Intent intent = new Intent().putExtra(EXTRA_CC, cc);
+                        mContext.setResult(Activity.RESULT_OK, intent);
+                        mContext.finish();
+                    } else {
+                        Intent intent = new Intent(mContext, ContactDetailActivity.class);
+                        intent.putExtra(ContactDetailActivity.EXTRA_CONTACT, item);
+                        startActivity(intent);
+                    }
+                }
             }
         });
         mSrlContacts.setOnRefreshListener(new OnRefreshListener() {
@@ -195,17 +197,14 @@ public class ContactsFragment extends BaseLazyLoadFragment {
         mSrlContacts.setEnableLoadMore(false);
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
         String apikey = userInfo.getApikey();
-        Log.v("MY_CUSTOM_TAG", "ContactsFragment initData()-->" + apikey);
         mParams = new UserIdApiKeyParams(userInfo.getUserId(), apikey);
     }
 
-    @Subscribe
-    public void onQueryTextChange(QueryTextChangeEvent event) {
-        if (TextUtils.isEmpty(event.getNewText())) {
+    public void onQueryTextChange(String newText) {
+        if (TextUtils.isEmpty(newText)) {
             mContactsAdapter.setNewData(mContactList);
         }
         String gap = ".*";
-        String newText = event.getNewText();
         StringBuilder builder = new StringBuilder(gap);
         for (int i = 0; i < newText.length(); i++) {
             builder.append(newText.charAt(i)).append(gap);
@@ -230,6 +229,10 @@ public class ContactsFragment extends BaseLazyLoadFragment {
     @Override
     protected int initContentLayout() {
         return R.layout.fragment_contacts;
+    }
+
+    public void setIsSelectCc(boolean isSelectCc) {
+        mIsSelectCc = isSelectCc;
     }
 
     //    private OnItemSelectListener mListener;

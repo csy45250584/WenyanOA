@@ -9,12 +9,18 @@ import android.widget.TextView;
 
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
+import com.haokuo.wenyanoa.network.HttpHelper;
+import com.haokuo.wenyanoa.network.NetworkCallback;
+import com.haokuo.wenyanoa.network.bean.CodeCheckParams;
+import com.haokuo.wenyanoa.network.bean.GetResetVerfiyCodeParams;
+import com.haokuo.wenyanoa.network.bean.ResetPasswordParams;
 import com.haokuo.wenyanoa.util.utilscode.RegexUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.rey.material.widget.Button;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * Created by zjf on 2018-08-13.
@@ -55,10 +61,15 @@ public class ForgetPasswordActivity extends BaseActivity {
 
         @Override
         public void onFinish() {
-            canGetCode = true;
-            mTvGetCode.setText("重新获取");
+            resetGetVerifyCode();
         }
     };
+
+    private void resetGetVerifyCode() {
+        canGetCode = true;
+        mTvGetCode.setText("重新获取");
+    }
+
 
     @Override
     protected int initContentLayout() {
@@ -84,7 +95,7 @@ public class ForgetPasswordActivity extends BaseActivity {
     @OnClick({R.id.tv_get_code, R.id.btn_reset_password, R.id.btn_next_step})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_get_code:
+            case R.id.tv_get_code: {
                 if (canGetCode) {
                     String tel = mEtTel.getEditableText().toString().trim();
                     if (!RegexUtils.isMobileSimple(tel)) {
@@ -93,15 +104,86 @@ public class ForgetPasswordActivity extends BaseActivity {
                     }
                     canGetCode = false;
                     mTvGetCode.setText("发送中");
-                    countDownTimer.start();
+                    GetResetVerfiyCodeParams params = new GetResetVerfiyCodeParams(tel);
+                    HttpHelper.getInstance().getResetVerfiyCode(params, new NetworkCallback() {
+                        @Override
+                        public void onSuccess(Call call, String json) {
+                            countDownTimer.start();
+                        }
+                        @Override
+                        public void onFailure(Call call, String message) {
+                            ToastUtils.showShort("获取验证码失败，" + message);
+                            resetGetVerifyCode();
+                        }
+                    });
                 }
-                break;
-            case R.id.btn_next_step:
-                mLlFirstStep.setVisibility(View.GONE);
-                mLlSecondStep.setVisibility(View.VISIBLE);
-                break;
-            case R.id.btn_reset_password:
-                break;
+            }
+            break;
+            case R.id.btn_next_step: {
+                //检查信息
+                String tel = mEtTel.getEditableText().toString().trim();
+                String code = mEtCode.getEditableText().toString().trim();
+                if (!RegexUtils.isMobileSimple(tel)) {
+                    ToastUtils.showShort("请输入正确的手机号码");
+                    return;
+                }
+                if (code.length() != CODE_NUM) {
+                    ToastUtils.showShort("验证码格式错误");
+                    return;
+                }
+                // 发送请求
+                showLoading("验证中...");
+                CodeCheckParams params = new CodeCheckParams(tel, code);
+                HttpHelper.getInstance().codeCheck(params, new NetworkCallback() {
+                    @Override
+                    public void onSuccess(Call call, String json) {
+                        loadClose();
+                        mLlFirstStep.setVisibility(View.GONE);
+                        mLlSecondStep.setVisibility(View.VISIBLE);
+                        countDownTimer.cancel();
+                        resetGetVerifyCode();
+                    }
+
+                    @Override
+                    public void onFailure(Call call, String message) {
+                        ToastUtils.showShort("验证失败，" + message);
+                        countDownTimer.cancel();
+                        resetGetVerifyCode();
+                        loadClose();
+                    }
+                });
+            }
+            break;
+            case R.id.btn_reset_password: {
+                String tel = mEtTel.getEditableText().toString();
+                String code = mEtCode.getEditableText().toString();
+                String password = mEtPassword.getEditableText().toString();
+                String confirmPassword = mEtConfirmPassword.getEditableText().toString();
+                //验证格式
+                if (!RegexUtils.isSimplePassword(password)) {
+                    ToastUtils.showShort("密码格式错误！");
+                    return;
+                }
+                if (!password.equals(confirmPassword)) {
+                    ToastUtils.showShort("两次密码不一致，请重新输入");
+                    return;
+                }
+                //发送重置请求
+                showLoading("正在提交...");
+                ResetPasswordParams params = new ResetPasswordParams(tel, code, password);
+                HttpHelper.getInstance().resetPassword(params, new NetworkCallback() {
+                    @Override
+                    public void onSuccess(Call call, String json) {
+                        loadSuccess("重置密码成功，请登录");
+                    }
+
+                    @Override
+                    public void onFailure(Call call, String message) {
+                        loadFailed("重置密码失败，"+message);
+                    }
+                });
+            }
+            break;
         }
     }
 

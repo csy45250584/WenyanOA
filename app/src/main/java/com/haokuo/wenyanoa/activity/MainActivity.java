@@ -12,15 +12,12 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.MainFragmentPagerAdapter;
-import com.haokuo.wenyanoa.eventbus.QueryTextChangeEvent;
 import com.haokuo.wenyanoa.fragment.ContactsFragment;
 import com.haokuo.wenyanoa.fragment.IMFragment;
 import com.haokuo.wenyanoa.fragment.MeFragment;
 import com.haokuo.wenyanoa.fragment.WorkFragment;
 import com.haokuo.wenyanoa.util.utilscode.KeyboardUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -36,6 +33,7 @@ public class MainActivity extends BaseActivity {
     BottomNavigationBar mBottomNavigationBar;
     @BindView(R.id.search_view)
     MaterialSearchView mSearchView;
+    private ContactsFragment mContactsFragment;
 
     @Override
     protected int initContentLayout() {
@@ -78,7 +76,8 @@ public class MainActivity extends BaseActivity {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new IMFragment());
         fragments.add(new WorkFragment());
-        fragments.add(new ContactsFragment());
+        mContactsFragment = new ContactsFragment();
+        fragments.add(mContactsFragment);
         fragments.add(new MeFragment());
         MainFragmentPagerAdapter adapter = new MainFragmentPagerAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(adapter);
@@ -173,7 +172,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                EventBus.getDefault().post(new QueryTextChangeEvent(newText));
+                mContactsFragment.onQueryTextChange(newText);
                 return true;
             }
         });

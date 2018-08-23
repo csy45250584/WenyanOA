@@ -75,4 +75,8 @@ public class ApprovalItem1 extends FrameLayout {
     public void setSelectText(String selectText) {
         mTvSelect.setText(selectText);
     }
+
+    public String getContentText() {
+        return mEtApprovalItem.getEditableText().toString();
+    }
 }

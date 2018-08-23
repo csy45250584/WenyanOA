@@ -141,8 +141,9 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                             public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                                 calendar.set(year, monthOfYear, dayOfMonth);
                                 String birthday = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
-                                mUserInfoDetail.setBirthday(birthday);
-                                updateUserInfo(mUserInfoDetail);
+                                UserInfoDetailBean userInfoDetail = OaSpUtil.getUserInfoDetail();
+                                userInfoDetail.setBirthday(birthday);
+                                updateUserInfo(userInfoDetail);
                             }
                         },
                         calendar.get(Calendar.YEAR), // Initial year selection
@@ -156,8 +157,8 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
             case R.id.siv_real_name:
                 showEditDialog("真实姓名", false, new InfoApply() {
                     @Override
-                    public void applyInfo(String content) {
-                        mUserInfoDetail.setRealname(content);
+                    public void applyInfo(UserInfoDetailBean userInfoDetailBean, String content) {
+                        userInfoDetailBean.setRealname(content);
                     }
                 });
                 break;
@@ -174,8 +175,9 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mUserInfoDetail.setSex(sex);
-                                updateUserInfo(mUserInfoDetail);
+                                UserInfoDetailBean userInfoDetail = OaSpUtil.getUserInfoDetail();
+                                userInfoDetail.setSex(sex);
+                                updateUserInfo(userInfoDetail);
                             }
                         })
                         .setNegativeButton("取消", null)
@@ -185,32 +187,32 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
             case R.id.siv_tel:
                 showEditDialog("电话号码", true, new InfoApply() {
                     @Override
-                    public void applyInfo(String content) {
-                        mUserInfoDetail.setTelPhone(content);
+                    public void applyInfo(UserInfoDetailBean userInfoDetailBean, String content) {
+                        userInfoDetailBean.setTelPhone(content);
                     }
                 });
                 break;
             case R.id.siv_short_tel:
                 showEditDialog("手机短号", true, new InfoApply() {
                     @Override
-                    public void applyInfo(String content) {
-                        mUserInfoDetail.setMobilePhone(content);
+                    public void applyInfo(UserInfoDetailBean userInfoDetailBean, String content) {
+                        userInfoDetailBean.setMobilePhone(content);
                     }
                 });
                 break;
             case R.id.siv_qq:
                 showEditDialog("QQ号", true, new InfoApply() {
                     @Override
-                    public void applyInfo(String content) {
-                        mUserInfoDetail.setQq(content);
+                    public void applyInfo(UserInfoDetailBean userInfoDetailBean, String content) {
+                        userInfoDetailBean.setQq(content);
                     }
                 });
                 break;
             case R.id.siv_wechat:
                 showEditDialog("微信号", false, new InfoApply() {
                     @Override
-                    public void applyInfo(String content) {
-                        mUserInfoDetail.setWeChat(content);
+                    public void applyInfo(UserInfoDetailBean userInfoDetailBean, String content) {
+                        userInfoDetailBean.setWeChat(content);
                     }
                 });
                 break;
@@ -229,9 +231,9 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String content = etPersonalInfo.getEditableText().toString().trim();
-                        infoApply.applyInfo(content);
-                        OaSpUtil.getUserInfoDetail().set
-                        updateUserInfo(mUserInfoDetail);
+                        UserInfoDetailBean userInfoDetail = OaSpUtil.getUserInfoDetail();
+                        infoApply.applyInfo(userInfoDetail, content);
+                        updateUserInfo(userInfoDetail);
                     }
                 })
                 .setNegativeButton("取消", null)
@@ -239,7 +241,7 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
     }
 
     private interface InfoApply {
-        void applyInfo(String content);
+        void applyInfo(UserInfoDetailBean userInfoDetailBean, String content);
     }
 
     private void updateUserInfo(final UserInfoDetailBean userInfoDetail) {
@@ -249,6 +251,7 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
             public void onSuccess(Call call, String json) {
                 loadSuccess("修改成功", false);
                 OaSpUtil.saveUserDetailInfo(userInfoDetail);
+                mUserInfoDetail = userInfoDetail;
                 loadInfo();
             }
 
@@ -274,8 +277,9 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                     @Override
                     public void onSuccess(Call call, String json) {
                         UpdateAvatarResultBean updateAvatarResult = JSON.parseObject(json, UpdateAvatarResultBean.class);
-
-                        updateAvatarResult.getData()
+                        String avatarUrl = updateAvatarResult.getData();
+                        mUserInfoDetail.setHeadPhoto(avatarUrl);
+                        OaSpUtil.saveUserDetailInfo(mUserInfoDetail);
                         loadSuccess("修改成功", false);
                     }
 

@@ -8,12 +8,21 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.haokuo.wenyanoa.bean.SuccessBean;
 import com.haokuo.wenyanoa.bean.UserInfoDetailBean;
+import com.haokuo.wenyanoa.network.bean.CodeCheckParams;
+import com.haokuo.wenyanoa.network.bean.GetConferenceInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
+import com.haokuo.wenyanoa.network.bean.GetNewsInfoParams;
+import com.haokuo.wenyanoa.network.bean.GetNoticeInfoParams;
+import com.haokuo.wenyanoa.network.bean.GetResetVerfiyCodeParams;
 import com.haokuo.wenyanoa.network.bean.LaunchTansferParams;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
+import com.haokuo.wenyanoa.network.bean.ResetPasswordParams;
+import com.haokuo.wenyanoa.network.bean.SaveBuyItemsParams;
 import com.haokuo.wenyanoa.network.bean.UpdateAvatarParams;
+import com.haokuo.wenyanoa.network.bean.UpdatePasswordParams;
 import com.haokuo.wenyanoa.network.bean.base.IGetApiKey;
 import com.haokuo.wenyanoa.network.bean.base.IGetParamsMap;
+import com.haokuo.wenyanoa.network.bean.base.PageParams;
 import com.haokuo.wenyanoa.network.bean.base.PageWithTimeParams;
 import com.haokuo.wenyanoa.network.bean.base.UserIdApiKeyParams;
 
@@ -246,7 +255,8 @@ public class HttpHelper {
         doPost(params, UrlBuilder.buildLaunchTansferUrl(), callback);
     }
 
-    public void getInFoodList(GetInFoodListParams params, NetworkCallback callback) {
+    /** 获取菜品列表 */
+    public void getFoodList(GetInFoodListParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetInFoodListUrl(), callback);
     }
 
@@ -272,11 +282,76 @@ public class HttpHelper {
 
     /** 修改用户信息 */
     public void updateUserInfo(UserInfoDetailBean params, NetworkCallback callback) {
-        doPost(params, UrlBuilder.buildUpdateUserInfo(), callback);
+        doPost(params, UrlBuilder.buildUpdateUserInfoUrl(), callback);
     }
 
     /** 修改用户头像 */
     public void updateUserHeadPhoto(UpdateAvatarParams params, NetworkCallback callback) {
-        doPost(params, UrlBuilder.buildUpdateUserHeadPhoto(), callback);
+        doPost(params, UrlBuilder.buildUpdateUserHeadPhotoUrl(), callback);
+    }
+
+    /** 修改密码 */
+    public void updatePassword(UpdatePasswordParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildUpdatePasswordUrl(), callback);
+    }
+
+    /** 获取验证码 */
+    public void getResetVerfiyCode(GetResetVerfiyCodeParams params, NetworkCallback callback) {
+        doPostWithoutApiKey(params, UrlBuilder.buildGetResetVerfiyCodeUrl(), callback);
+    }
+
+    /** 短信验证码校验 */
+    public void codeCheck(CodeCheckParams params, NetworkCallback callback) {
+        doPostWithoutApiKey(params, UrlBuilder.buildCodeCheckUrl(), callback);
+    }
+
+    /** 重置密码 */
+    public void resetPassword(ResetPasswordParams params, NetworkCallback callback) {
+        doPostWithoutApiKey(params, UrlBuilder.buildResetPasswordUrl(), callback);
+    }
+
+    /** 获取会议通知 */
+    public void getConference(PageParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetConferenceUrl(), callback);
+    }
+
+    /** 获取会议通知详情 */
+    public void getConferenceInfo(GetConferenceInfoParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetConferenceInfoUrl(), callback);
+    }
+
+    /** 获取行业新闻 */
+    public void getNewsList(PageParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetNewsListUrl(), callback);
+    }
+
+    /** 获取行业新闻详情 */
+    public void getNewsInfo(GetNewsInfoParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetNewsInfoUrl(), callback);
+    }
+
+    /** 获取通知公告 */
+    public void getNoticeList(PageParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetNoticeListUrl(), callback);
+    }
+
+    /** 获取通知公告详情 */
+    public void getNoticeInfo(GetNoticeInfoParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetNoticeInfoUrl(), callback);
+    }
+
+    /** 我的钱包 */
+    public void getMyWallet(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetMyWalletUrl(), callback);
+    }
+
+    /** 获取我的订单 */
+    public void getFoodOrderList(PageWithTimeParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetFoodOrderListUrl(), callback);
+    }
+
+    /** 发起物品申购 */
+    public void saveBuyItems(SaveBuyItemsParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildSaveBuyItemsUrl(), callback);
     }
 }

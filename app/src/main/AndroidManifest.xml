@@ -87,6 +87,9 @@
         <activity
             android:name=".activity.matters.MattersApplyActivity"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.matters.SelectCcActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>
