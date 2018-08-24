@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.activity.BaseActivity;
+import com.haokuo.wenyanoa.activity.matters.BaseCcActivity;
 import com.haokuo.wenyanoa.activity.matters.SelectCcActivity;
 import com.haokuo.wenyanoa.adapter.ApproverAdapter;
 import com.haokuo.wenyanoa.bean.ContactResultBean;
@@ -94,7 +95,7 @@ public class ApprovalItem2 extends FrameLayout {
                     public void onClick(View v) {
                         BaseActivity activity = (BaseActivity) context;
                         Intent intent = new Intent(context, SelectCcActivity.class);
-                        activity.startActivityForResult(intent, 0);
+                        activity.startActivityForResult(intent, BaseCcActivity.REQUEST_CODE_CC);
                     }
                 });
                 break;

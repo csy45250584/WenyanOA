@@ -85,7 +85,7 @@ public class MattersApplyActivity extends BaseActivity {
                 startActivity(new Intent(MattersApplyActivity.this, LeaveActivity.class));
                 break;
             case 112:
-                startActivity(new Intent(MattersApplyActivity.this, ToleranceActivity.class));
+                startActivity(new Intent(MattersApplyActivity.this, TripActivity.class));
                 break;
             case 113:
                 startActivity(new Intent(MattersApplyActivity.this, ChangeShiftActivity.class));

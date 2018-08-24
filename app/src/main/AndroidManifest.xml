@@ -76,7 +76,7 @@
             android:name=".activity.matters.PurchaseItemsActivity"
             android:launchMode="singleTop"/>
         <activity
-            android:name=".activity.matters.ToleranceActivity"
+            android:name=".activity.matters.TripActivity"
             android:launchMode="singleTop"/>
         <activity
             android:name=".activity.matters.LeaveActivity"

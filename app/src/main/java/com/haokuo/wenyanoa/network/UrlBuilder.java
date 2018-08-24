@@ -36,15 +36,24 @@ public class UrlBuilder {
     //物品申购
     private static final String GET_IN_BUY_ITEMS_URL = "/oaOffice/getInbuyitems.do";
     private static final String SAVE_BUY_ITEMS_URL = "/oaOffice/saveInBuyItems.do";
-
-    private static final String LAUNCH_TANSFER_URL = "/oaCustom/launchTansfer.do";
+    //物品报修
+    private static final String PREPARE_REPAIR_URL = "/oaOffice/getInfix.do";
+    private static final String LAUNCH_REPAIR_URL = "/oaOffice/launchFix.do";
+    //物品领用
+    private static final String PREPARE_APPLY_ITEMS_URL = "/oaOffice/getInItemsapply.do";
+    private static final String LAUNCH_APPLY_ITEMS_URL = "/oaOffice/launchItemsApply.do";
+    //用户公差
+    private static final String PREPARE_TRIP_URL = "/oaOffice/getInTrip.do";
+    private static final String LAUNCH_TRIP_URL = "/oaOffice/launchTrip.do";
+    //用户事假
+    private static final String PREPARE_LEAVE_URL = "/oaOffice/getInApprove.do";
+    private static final String LAUNCH_LEAVE_URL = "/oaOffice/launchApproce.do";
+    //用户调班
+    private static final String PREPARE_CHANGE_SHIFT_URL = "/oaCustom/gotoInTransfer.do";
+    private static final String LAUNCH_CHANGE_SHIFT_URL = "/oaCustom/launchTansfer.do";
 
     public static String buildLoginUrl() {
         return new StringBuilder(BASE_URL).append(LOGIN_URL).toString();
-    }
-
-    public static String buildLaunchTansferUrl() {
-        return new StringBuilder(BASE_URL).append(LAUNCH_TANSFER_URL).toString();
     }
 
     public static String buildGetInFoodListUrl() {
@@ -125,6 +134,46 @@ public class UrlBuilder {
 
     public static String buildSaveBuyItemsUrl() {
         return new StringBuilder(BASE_URL).append(SAVE_BUY_ITEMS_URL).toString();
+    }
+
+    public static String buildPrepareRepairUrl() {
+        return new StringBuilder(BASE_URL).append(PREPARE_REPAIR_URL).toString();
+    }
+
+    public static String buildLaunchRepairUrl() {
+        return new StringBuilder(BASE_URL).append(LAUNCH_REPAIR_URL).toString();
+    }
+
+    public static String buildPrepareApplyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(PREPARE_APPLY_ITEMS_URL).toString();
+    }
+
+    public static String buildLaunchApplyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(LAUNCH_APPLY_ITEMS_URL).toString();
+    }
+
+    public static String buildPrepareTripUrl() {
+        return new StringBuilder(BASE_URL).append(PREPARE_TRIP_URL).toString();
+    }
+
+    public static String buildLaunchTripUrl() {
+        return new StringBuilder(BASE_URL).append(LAUNCH_TRIP_URL).toString();
+    }
+
+    public static String buildPrepareLeaveUrl() {
+        return new StringBuilder(BASE_URL).append(PREPARE_LEAVE_URL).toString();
+    }
+
+    public static String buildLaunchLeaveUrl() {
+        return new StringBuilder(BASE_URL).append(LAUNCH_LEAVE_URL).toString();
+    }
+
+    public static String buildPrepareChangeShiftUrl() {
+        return new StringBuilder(BASE_URL).append(PREPARE_CHANGE_SHIFT_URL).toString();
+    }
+
+    public static String buildLaunchChangeShiftUrl() {
+        return new StringBuilder(BASE_URL).append(LAUNCH_CHANGE_SHIFT_URL).toString();
     }
 
     public static List<String> parseImageUrl(String imagesUrl) {

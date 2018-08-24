@@ -24,12 +24,13 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/text_approval_tips"
+                style="@style/tv_approval_tips"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_16"
                 android:text="请选择换班人"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem1
+                android:id="@+id/ai_transfer_id"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_8"
@@ -38,12 +39,13 @@
                 app:titleText="换班人姓名"/>
 
             <TextView
-                style="@style/text_approval_tips"
+                style="@style/tv_approval_tips"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_16"
                 android:text="请选择换班时间"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem1
+                android:id="@+id/ai_original_date"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_8"
@@ -52,6 +54,7 @@
                 app:titleText="原定时间"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem1
+                android:id="@+id/ai_change_shift_date"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_1"
@@ -59,15 +62,8 @@
                 app:selectText="请选择"
                 app:titleText="调班时间"/>
 
-            <com.haokuo.wenyanoa.view.ApprovalItem1
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
-                android:layout_marginTop="@dimen/dp_1"
-                app:editorHint="请输入时长"
-                app:itemType="editor"
-                app:titleText="时长"/>
-
             <com.haokuo.wenyanoa.view.ApprovalItem2
+                android:id="@+id/ai_detail_info"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_160"
                 android:layout_marginTop="@dimen/dp_16"
@@ -91,8 +87,8 @@
                 android:layout_marginTop="@dimen/dp_16"
                 app:itemType="cc"
                 app:titleText="抄送人"/>
+
             <com.rey.material.widget.Button
-                app:rd_style="@style/LoginButtonStyle"
                 android:id="@+id/btn_commit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
@@ -102,7 +98,8 @@
                 android:background="@drawable/bg_red_button"
                 android:text="提交"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_30px"/>
+                android:textSize="@dimen/text_30px"
+                app:rd_style="@style/LoginButtonStyle"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

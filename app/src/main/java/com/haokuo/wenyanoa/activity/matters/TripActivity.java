@@ -9,7 +9,7 @@ import com.haokuo.wenyanoa.bean.PrepareMatterResultBean;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
-import com.haokuo.wenyanoa.network.bean.LaunchLeaveParams;
+import com.haokuo.wenyanoa.network.bean.LaunchTripParams;
 import com.haokuo.wenyanoa.network.bean.base.UserIdApiKeyParams;
 import com.haokuo.wenyanoa.util.OaSpUtil;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
@@ -25,11 +25,9 @@ import okhttp3.Call;
  * Created by zjf on 2018-08-14.
  */
 
-public class LeaveActivity extends BaseCcActivity {
+public class TripActivity extends BaseCcActivity {
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
-    @BindView(R.id.ai_leave_type)
-    ApprovalItem1 mAiLeaveType;
     @BindView(R.id.ai_start_date)
     ApprovalItem1 mAiStartDate;
     @BindView(R.id.ai_end_date)
@@ -49,22 +47,20 @@ public class LeaveActivity extends BaseCcActivity {
 
     @Override
     protected int initContentLayout() {
-        return R.layout.activity_leave;
+        return R.layout.activity_trip;
     }
 
     @Override
     protected void initData() {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this);
+        mUserInfo = OaSpUtil.getUserInfo();
         mAiStartDate.setDateSelector(this, "请选择开始日期");
         mAiEndDate.setDateSelector(this, "请选择结束日期");
-        String[] leaveTypes = {"公差", "病假", "事假", "其他"};
-        mAiLeaveType.setSingleChoiceSelector("请选择请假类别", leaveTypes);
-        mUserInfo = OaSpUtil.getUserInfo();
         //数据准备
         showLoading("正在准备数据...");
         UserIdApiKeyParams params = new UserIdApiKeyParams(mUserInfo.getUserId(), mUserInfo.getApikey());
-        HttpHelper.getInstance().prepareLeave(params, new NetworkCallback() {
+        HttpHelper.getInstance().prepareTrip(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
                 mApproverList = JSON.parseObject(json, PrepareMatterResultBean.class);
@@ -90,19 +86,18 @@ public class LeaveActivity extends BaseCcActivity {
         //检查数据
         String startDate = mAiStartDate.getContentText();
         String endDate = mAiEndDate.getContentText();
-        String leaveType = mAiLeaveType.getContentText();
         String duration = mAiDuration.getContentText();
         String detailInfo = mAiDetailInfo.getContentText();
-        if (TextUtils.isEmpty(startDate) || TextUtils.isEmpty(endDate) || TextUtils.isEmpty(leaveType) || TextUtils.isEmpty(duration)) {
+        if (TextUtils.isEmpty(startDate) || TextUtils.isEmpty(endDate) || TextUtils.isEmpty(duration)) {
             ToastUtils.showShort("请填写完整信息");
             return;
         }
         //发起请求
         showLoading("正在提交请求...");
-        LaunchLeaveParams params = new LaunchLeaveParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
+        LaunchTripParams params = new LaunchTripParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                 mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                mCcBean.getId(), leaveType, detailInfo, startDate, endDate, duration);
-        HttpHelper.getInstance().launchLeave(params, new NetworkCallback() {
+                mCcBean.getId(), null, detailInfo, startDate, endDate, duration);
+        HttpHelper.getInstance().launchTrip(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
                 loadSuccess("提交成功");

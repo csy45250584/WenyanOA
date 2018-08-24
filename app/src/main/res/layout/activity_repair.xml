@@ -24,13 +24,13 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/text_approval_tips"
+                style="@style/tv_approval_tips"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_16"
                 android:text="请填写维修物品"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem1
-                android:id="@+id/item_goods_name"
+                android:id="@+id/ai_goods_name"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_8"
@@ -39,13 +39,13 @@
                 app:titleText="维修物品"/>
 
             <TextView
-                style="@style/text_approval_tips"
+                style="@style/tv_approval_tips"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_16"
                 android:text="请填写报修信息"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem1
-                android:id="@+id/item_address"
+                android:id="@+id/ai_address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_8"
@@ -54,7 +54,7 @@
                 app:titleText="维修地点"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem1
-                android:id="@+id/item_date"
+                android:id="@+id/ai_date"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_1"
@@ -63,7 +63,7 @@
                 app:titleText="维修时间"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem2
-                android:id="@+id/item_content"
+                android:id="@+id/ai_content"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_160"
                 android:layout_marginTop="@dimen/dp_16"
@@ -73,7 +73,7 @@
                 app:titleText="损坏情况"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem2
-                android:id="@+id/item_approvers"
+                android:id="@+id/ai_approvers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"
@@ -81,7 +81,7 @@
                 app:titleText="审批人"/>
 
             <com.haokuo.wenyanoa.view.ApprovalItem2
-                android:id="@+id/item_cc"
+                android:id="@+id/ai_cc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"

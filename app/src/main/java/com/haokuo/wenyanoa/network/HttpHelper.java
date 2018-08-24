@@ -14,7 +14,11 @@ import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
 import com.haokuo.wenyanoa.network.bean.GetNewsInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetNoticeInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetResetVerfiyCodeParams;
-import com.haokuo.wenyanoa.network.bean.LaunchTansferParams;
+import com.haokuo.wenyanoa.network.bean.LaunchApplyItemsParams;
+import com.haokuo.wenyanoa.network.bean.LaunchChangeShiftParams;
+import com.haokuo.wenyanoa.network.bean.LaunchLeaveParams;
+import com.haokuo.wenyanoa.network.bean.LaunchRepairParams;
+import com.haokuo.wenyanoa.network.bean.LaunchTripParams;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
 import com.haokuo.wenyanoa.network.bean.ResetPasswordParams;
 import com.haokuo.wenyanoa.network.bean.SaveBuyItemsParams;
@@ -251,10 +255,6 @@ public class HttpHelper {
         doPostWithoutApiKey(params, UrlBuilder.buildLoginUrl(), callback);
     }
 
-    public void launchTansfer(LaunchTansferParams params, NetworkCallback callback) {
-        doPost(params, UrlBuilder.buildLaunchTansferUrl(), callback);
-    }
-
     /** 获取菜品列表 */
     public void getFoodList(GetInFoodListParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetInFoodListUrl(), callback);
@@ -353,5 +353,55 @@ public class HttpHelper {
     /** 发起物品申购 */
     public void saveBuyItems(SaveBuyItemsParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildSaveBuyItemsUrl(), callback);
+    }
+
+    /** 发起物品保修前的数据准备 */
+    public void prepareRepair(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildPrepareRepairUrl(), callback);
+    }
+
+    /** 发起物品保修 */
+    public void launchRepair(LaunchRepairParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildLaunchRepairUrl(), callback);
+    }
+
+    /** 发起物品领用前的数据准备 */
+    public void prepareApplyItems(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildPrepareApplyItemsUrl(), callback);
+    }
+
+    /** 发起物品领用 */
+    public void launchApplyItems(LaunchApplyItemsParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildLaunchApplyItemsUrl(), callback);
+    }
+
+    /** 发起公差前的数据准备 */
+    public void prepareTrip(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildPrepareTripUrl(), callback);
+    }
+
+    /** 发起公差 */
+    public void launchTrip(LaunchTripParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildLaunchTripUrl(), callback);
+    }
+
+    /** 发起事假前的数据准备 */
+    public void prepareLeave(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildPrepareLeaveUrl(), callback);
+    }
+
+    /** 发起事假 */
+    public void launchLeave(LaunchLeaveParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildLaunchLeaveUrl(), callback);
+    }
+
+    /** 发起调班前的数据准备 */
+    public void prepareChangeShift(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildPrepareChangeShiftUrl(), callback);
+    }
+
+    /** 发起调班 */
+    public void launchChangeShift(LaunchChangeShiftParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildLaunchChangeShiftUrl(), callback);
     }
 }

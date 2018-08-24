@@ -24,7 +24,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/text_approval_tips"
+                style="@style/tv_approval_tips"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_16"
                 android:text="请填写申购物品"/>

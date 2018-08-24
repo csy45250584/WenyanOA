@@ -12,8 +12,9 @@ import com.haokuo.wenyanoa.view.ApprovalItem2;
 /**
  * Created by zjf on 2018/8/23.
  */
-public abstract class HasCcActivity extends BaseActivity {
-
+public abstract class BaseCcActivity extends BaseActivity {
+    public static final int REQUEST_CODE_CC = 1;
+    public static final int REQUEST_CODE_CHANGE_SHIFT = 2;
     protected StaffBean mCcBean;
 
     @Override
@@ -24,7 +25,7 @@ public abstract class HasCcActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE_CC && resultCode == RESULT_OK && data != null) {
             mCcBean = (StaffBean) data.getSerializableExtra(ContactsFragment.EXTRA_CC);
             if (mCcBean != null) {
                 ApprovalItem2 aiCc = findViewById(R.id.ai_cc);

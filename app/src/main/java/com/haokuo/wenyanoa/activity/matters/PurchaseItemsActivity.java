@@ -25,7 +25,7 @@ import okhttp3.Call;
  * Created by zjf on 2018-08-14.
  */
 
-public class PurchaseItemsActivity extends HasCcActivity {
+public class PurchaseItemsActivity extends BaseCcActivity {
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
     @BindView(R.id.ai_goods_name)
