@@ -15,6 +15,7 @@
         app:midTitle=""/>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_avatar"
         android:layout_width="@dimen/dp_84"
         android:layout_height="@dimen/dp_84"
         android:layout_gravity="center_horizontal"
@@ -22,6 +23,7 @@
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

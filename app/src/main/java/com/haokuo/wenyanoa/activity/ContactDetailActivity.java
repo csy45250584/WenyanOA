@@ -6,13 +6,18 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
+import com.haokuo.wenyanoa.bean.ContactResultBean;
+import com.haokuo.wenyanoa.util.ImageLoadUtil;
 import com.haokuo.wenyanoa.util.utilscode.PhoneUtils;
 import com.haokuo.wenyanoa.view.ContactDetailItem;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by zjf on 2018-08-07.
@@ -32,6 +37,10 @@ public class ContactDetailActivity extends BaseActivity implements ContactDetail
     ContactDetailItem mContactDuties;
     @BindView(R.id.contact_office)
     ContactDetailItem mContactOffice;
+    @BindView(R.id.iv_avatar)
+    CircleImageView mIvAvatar;
+    @BindView(R.id.tv_name)
+    TextView mTvName;
 
     @Override
     protected int initContentLayout() {
@@ -42,6 +51,16 @@ public class ContactDetailActivity extends BaseActivity implements ContactDetail
     protected void initData() {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this, R.drawable.fanhui1);
+        ContactResultBean.ContactBean contactBean = (ContactResultBean.ContactBean) getIntent().getSerializableExtra(EXTRA_CONTACT);
+        if (contactBean != null) {
+            Glide.with(this).load(contactBean.getHeadPhoto()).apply(ImageLoadUtil.sAvatarOptions).into(mIvAvatar);
+            mTvName.setText(contactBean.getRealname());
+            mContactPhone.setContent(contactBean.getTelphone());
+            mContactShortPhone.setContent(contactBean.getMobilePhone());
+            mContactOfficePhone.setContent(contactBean.getSectionPhone());
+            mContactDuties.setContent(contactBean.getJob());
+            mContactOffice.setContent(contactBean.getSecition());
+        }
     }
 
     @Override

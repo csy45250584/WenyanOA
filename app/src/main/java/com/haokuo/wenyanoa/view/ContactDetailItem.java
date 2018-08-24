@@ -31,7 +31,6 @@ public class ContactDetailItem extends FrameLayout {
     @BindView(R.id.iv_contact_phone)
     ImageView mIvContactPhone;
     private Resources mResources;
-    private String mContentText;
 
     public ContactDetailItem(@NonNull Context context) {
         this(context, null);
@@ -43,12 +42,12 @@ public class ContactDetailItem extends FrameLayout {
         mResources = getResources();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ContactDetailItem);
         String titleText = typedArray.getString(R.styleable.ContactDetailItem_titleText);
-        mContentText = typedArray.getString(R.styleable.ContactDetailItem_contentText);
+        String contentText = typedArray.getString(R.styleable.ContactDetailItem_contentText);
         boolean hasSmsIcon = typedArray.getBoolean(R.styleable.ContactDetailItem_hasSmsIcon, false);
         boolean hasPhoneIcon = typedArray.getBoolean(R.styleable.ContactDetailItem_hasPhoneIcon, false);
         typedArray.recycle();//释放
         mTvContactTitle.setText(titleText);
-        mTvContactContent.setText(mContentText);
+        mTvContactContent.setText(contentText);
         mIvContactSms.setVisibility(hasSmsIcon ? VISIBLE : GONE);
         mIvContactPhone.setVisibility(hasPhoneIcon ? VISIBLE : GONE);
     }
@@ -59,17 +58,27 @@ public class ContactDetailItem extends FrameLayout {
         addView(inflate);
     }
 
+    public void setContent(String text) {
+        mTvContactContent.setText(text);
+    }
+
+    public String getTvContactContent() {
+        return mTvContactContent.getText().toString();
+    }
+
     public void setOnIconClickListener(final OnIconClickListener listener) {
         mIvContactSms.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onSmsClick(ContactDetailItem.this, mContentText);
+                String phone = mTvContactContent.getText().toString();
+                listener.onSmsClick(ContactDetailItem.this, phone);
             }
         });
         mIvContactPhone.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onPhoneClick(ContactDetailItem.this, mContentText);
+                String phone = mTvContactContent.getText().toString();
+                listener.onPhoneClick(ContactDetailItem.this, phone);
             }
         });
     }

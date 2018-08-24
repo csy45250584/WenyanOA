@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.bean.ContactResultBean;
+import com.haokuo.wenyanoa.util.ImageLoadUtil;
 
 /**
  * Created by Naix on 2017/8/7 17:29.
@@ -34,6 +35,6 @@ public class ContactsAdapter extends BaseQuickAdapter<ContactResultBean.ContactB
         helper.setText(R.id.tv_contact_name, item.getRealname());
         helper.setText(R.id.tv_contact_tel, item.getTelphone());
         ImageView ivContactAvatar = helper.getView(R.id.iv_contact_avatar);
-        Glide.with(mContext).load(item.getHeadPhoto()).into(ivContactAvatar);
+        Glide.with(mContext).load(item.getHeadPhoto()).apply(ImageLoadUtil.sAvatarOptions).into(ivContactAvatar);
     }
 }
