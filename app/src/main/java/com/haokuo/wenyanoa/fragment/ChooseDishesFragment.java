@@ -5,6 +5,10 @@ import android.support.v4.view.ViewPager;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.haokuo.wenyanoa.R;
+import com.haokuo.wenyanoa.eventbus.WeekdaySelectedEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -29,11 +33,12 @@ public class ChooseDishesFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         String[] titles = {"早餐", "午餐", "晚餐"};
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new DishesFragment());
-        fragments.add(new DishesFragment());
-        fragments.add(new DishesFragment());
+        fragments.add(DishesFragment.newInstance(DishesFragment.TYPE_BREAKFAST));
+        fragments.add(DishesFragment.newInstance(DishesFragment.TYPE_LAUNCH));
+        fragments.add(DishesFragment.newInstance(DishesFragment.TYPE_DINNER));
         //        mIndicatorDishes.setViewPager(mVpDishes);
         mIndicatorDishes.setViewPager(mVpDishes, titles, mContext, fragments);
     }
@@ -41,5 +46,16 @@ public class ChooseDishesFragment extends BaseLazyLoadFragment {
     @Override
     protected void initListener() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(priority = 2)
+    public void onWeekdaySelected(WeekdaySelectedEvent event) {
+        mIndicatorDishes.setCurrentTab(0, true);
     }
 }

@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haokuo.wenyanoa.R;
-import com.haokuo.wenyanoa.bean.DishesBean;
+import com.haokuo.wenyanoa.bean.GetFoodListResultBean;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -14,20 +14,20 @@ import java.text.NumberFormat;
 /**
  * Created by Naix on 2017/8/7 17:29.
  */
-public class DishesAdapter extends BaseQuickAdapter<DishesBean, BaseViewHolder> {
+public class DishesAdapter extends BaseQuickAdapter<GetFoodListResultBean.DishesBean, BaseViewHolder> {
 
     public DishesAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DishesBean item) {
+    protected void convert(BaseViewHolder helper, GetFoodListResultBean.DishesBean item) {
         ImageView ivDishImage = helper.getView(R.id.iv_dish_image);
-        Glide.with(mContext).load(item.getImageUrl()).into(ivDishImage);
-        helper.setText(R.id.tv_dish_name, item.getName());
+        Glide.with(mContext).load(item.getCoverImage()).into(ivDishImage);
+        helper.setText(R.id.tv_dish_name, item.getFoodName());
         //设置价格
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
-        String format = currencyInstance.format(new BigDecimal(item.getPrice()));
+        String format = currencyInstance.format(BigDecimal.valueOf(item.getFoodPrice()));
         helper.setText(R.id.tv_dish_price, format);
         int count = item.getCount();
         helper.setText(R.id.tv_dish_count, String.valueOf(count));
@@ -38,7 +38,7 @@ public class DishesAdapter extends BaseQuickAdapter<DishesBean, BaseViewHolder> 
     }
 
     public void changeCount(int position, boolean isAdd) {
-        DishesBean dishesBean = mData.get(position);
+        GetFoodListResultBean.DishesBean dishesBean = mData.get(position);
         if (isAdd) {
             dishesBean.setCount(dishesBean.getCount() + 1);
         } else {

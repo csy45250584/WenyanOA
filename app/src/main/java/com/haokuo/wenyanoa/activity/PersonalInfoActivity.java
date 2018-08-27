@@ -29,7 +29,7 @@ import com.haokuo.wenyanoa.view.SettingItemView;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TResult;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import java.io.File;
 import java.util.Calendar;
@@ -135,10 +135,10 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                     Date date = TimeUtils.string2Date(mUserInfoDetail.getBirthday(), TimeUtils.CUSTOM_FORMAT);
                     calendar.setTime(date);
                 }
-                DatePickerDialog birthdayDpd = DatePickerDialog.newInstance(
-                        new DatePickerDialog.OnDateSetListener() {
+                DatePickerFragmentDialog birthdayDpd = DatePickerFragmentDialog.newInstance(
+                        new DatePickerFragmentDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                            public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
                                 calendar.set(year, monthOfYear, dayOfMonth);
                                 String birthday = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
                                 UserInfoDetailBean userInfoDetail = OaSpUtil.getUserInfoDetail();
@@ -150,9 +150,8 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                         calendar.get(Calendar.MONTH), // Initial month selection
                         calendar.get(Calendar.DAY_OF_MONTH) // Inital day selection
                 );
-                birthdayDpd.vibrate(false);
                 birthdayDpd.setTitle("请选择出生日期");
-                birthdayDpd.show(getFragmentManager(), "BirthdayDatePickerDialog");
+                birthdayDpd.show(getSupportFragmentManager(), "BirthdayDatePickerDialog");
                 break;
             case R.id.siv_real_name:
                 showEditDialog("真实姓名", false, new InfoApply() {

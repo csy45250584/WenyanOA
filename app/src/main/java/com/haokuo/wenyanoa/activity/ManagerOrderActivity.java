@@ -11,13 +11,14 @@ import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.OrderListAdapter;
 import com.haokuo.wenyanoa.bean.DishesBean;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import lombok.val;
 
 /**
  * Created by zjf on 2018-08-14.
@@ -70,50 +71,46 @@ public class ManagerOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_start_time:
-                DatePickerDialog beginDpd = DatePickerDialog.newInstance(
-                        new DatePickerDialog.OnDateSetListener() {
+                val beginDpd = DatePickerFragmentDialog.newInstance(
+                        new DatePickerFragmentDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                            public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
                                 if (mBeginDay == null) {
                                     mBeginDay = Calendar.getInstance();
                                 }
                                 mBeginDay.set(year, monthOfYear, dayOfMonth);
                                 mTvStartTime.setText(TimeUtils.CUSTOM_FORMAT.format(mBeginDay.getTime()));
                             }
-                        },
-                        mCurrentDay.get(Calendar.YEAR), // Initial year selection
+                        }, mCurrentDay.get(Calendar.YEAR), // Initial year selection
                         mCurrentDay.get(Calendar.MONTH), // Initial month selection
                         mCurrentDay.get(Calendar.DAY_OF_MONTH) // Inital day selection
                 );
                 if (mEndDay != null) {
                     beginDpd.setMaxDate(mEndDay);
                 }
-                beginDpd.vibrate(false);
                 beginDpd.setTitle("请选择开始时间");
-                beginDpd.show(getFragmentManager(), "BeginDatePickerDialog");
+                beginDpd.show(getSupportFragmentManager(), "BeginDatePickerDialog");
                 break;
             case R.id.tv_end_time:
-                DatePickerDialog endDpd = DatePickerDialog.newInstance(
-                        new DatePickerDialog.OnDateSetListener() {
+                val endDpd = DatePickerFragmentDialog.newInstance(
+                        new DatePickerFragmentDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                            public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
                                 if (mEndDay == null) {
                                     mEndDay = Calendar.getInstance();
                                 }
                                 mEndDay.set(year, monthOfYear, dayOfMonth);
                                 mTvEndTime.setText(TimeUtils.CUSTOM_FORMAT.format(mEndDay.getTime()));
                             }
-                        },
-                        mCurrentDay.get(Calendar.YEAR), // Initial year selection
+                        }, mCurrentDay.get(Calendar.YEAR), // Initial year selection
                         mCurrentDay.get(Calendar.MONTH), // Initial month selection
                         mCurrentDay.get(Calendar.DAY_OF_MONTH) // Inital day selection
                 );
                 if (mBeginDay != null) {
                     endDpd.setMinDate(mBeginDay);
                 }
-                endDpd.vibrate(false);
                 endDpd.setTitle("请选择结束时间");
-                endDpd.show(getFragmentManager(), "BeginDatePickerDialog");
+                endDpd.show(getSupportFragmentManager(), "EndDatePickerDialog");
                 break;
         }
     }

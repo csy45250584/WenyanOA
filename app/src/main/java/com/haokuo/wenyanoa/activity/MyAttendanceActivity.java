@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
+import com.example.daterangepicker.date.DatePickerDialog;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.MyAttendanceAdapter;
@@ -124,28 +125,29 @@ public class MyAttendanceActivity extends BaseActivity {
         mMidTitleBar.setOnTitleClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Calendar now = Calendar.getInstance();
-//                DatePickerDialog dpd = DatePickerDialog.newInstance(
-//                        new DatePickerDialog.OnDateSetListener() {
-//                            @Override
-//                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-//                                Calendar instance = Calendar.getInstance();
-//                                instance.set(year, monthOfYear, dayOfMonth);
-//                                String startDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.CUSTOM_FORMAT);
-//                                instance.set(yearEnd, monthOfYearEnd, dayOfMonthEnd);
-//                                String endDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.CUSTOM_FORMAT);
-//                                mParams.resetPageIndex();
-//                                mParams.setStartTime(startDayStr);
-//                                mParams.setEndTime(endDayStr);
-//                                mSrlMyAttendance.autoRefresh();
-//                                mMidTitleBar.setMidTitle(startDayStr + " ~ " + endDayStr);
-//                            }
-//                        },
-//                        now.get(Calendar.YEAR),
-//                        now.get(Calendar.MONTH),
-//                        now.get(Calendar.DAY_OF_MONTH)
-//                );
-//                dpd.show(getFragmentManager(), "Datepickerdialog");
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+                                Calendar instance = Calendar.getInstance();
+                                instance.set(year, monthOfYear, dayOfMonth);
+                                String startDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.CUSTOM_FORMAT);
+                                instance.set(yearEnd, monthOfYearEnd, dayOfMonthEnd);
+                                String endDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.CUSTOM_FORMAT);
+                                mParams.resetPageIndex();
+                                mParams.setStartTime(startDayStr);
+                                mParams.setEndTime(endDayStr);
+                                mSrlMyAttendance.autoRefresh();
+                                mMidTitleBar.setMidTitle(startDayStr + " ~ " + endDayStr);
+                            }
+                        },
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.vibrate(false);
+                dpd.show(getFragmentManager(), "Datepickerdialog");
             }
         });
     }

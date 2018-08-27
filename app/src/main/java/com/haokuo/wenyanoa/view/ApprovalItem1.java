@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import java.util.Calendar;
 
@@ -82,10 +82,10 @@ public class ApprovalItem1 extends FrameLayout {
         mLlTvContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog beginDpd = DatePickerDialog.newInstance(
-                        new DatePickerDialog.OnDateSetListener() {
+                DatePickerFragmentDialog beginDpd = DatePickerFragmentDialog.newInstance(
+                        new DatePickerFragmentDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                            public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
                                 Calendar selectDate = Calendar.getInstance();
                                 selectDate.set(year, monthOfYear, dayOfMonth);
                                 mTvSelect.setText(TimeUtils.CUSTOM_FORMAT.format(selectDate.getTime()));
@@ -97,7 +97,7 @@ public class ApprovalItem1 extends FrameLayout {
                 );
                 beginDpd.setMinDate(mCurrentDay);
                 beginDpd.setTitle(title);
-                beginDpd.show(activity.getFragmentManager(), "BeginDatePickerDialog");
+                beginDpd.show(activity.getSupportFragmentManager(), "BeginDatePickerDialog");
             }
         });
     }

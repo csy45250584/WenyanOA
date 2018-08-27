@@ -6,30 +6,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.haokuo.midtitlebar.MidTitleBar
-        android:id="@+id/mid_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_56"
-        app:midTitle="审批"/>
+    <!--<com.haokuo.midtitlebar.MidTitleBar-->
+        <!--android:id="@+id/mid_title_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp_56"-->
+        <!--app:midTitle="">-->
 
+       <!---->
+    <!--</com.haokuo.midtitlebar.MidTitleBar>-->
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/indicator_approval"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"
-        android:background="@color/colorWhite"
+        android:layout_height="@dimen/dp_56"
+        android:background="@color/colorPrimary"
         app:tl_divider_width="0dp"
         app:tl_indicator_color="@color/colorPrimary"
         app:tl_indicator_corner_radius="@dimen/dp_0"
         app:tl_indicator_height="@dimen/dp_0"
         app:tl_tab_space_equal="true"
         app:tl_textBold="NONE"
-        app:tl_textSelectColor="@color/colorPrimary"
-        app:tl_textUnselectColor="@color/text3"
+        app:tl_textSelectColor="@color/colorWhite"
+        app:tl_textUnselectColor="@color/colorHalfWhite"
         app:tl_textsize="@dimen/text_28px"
         app:tl_underline_color="@color/divider"
         app:tl_underline_height="1dp">
     </com.flyco.tablayout.CommonTabLayout>
-
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/indicator_approval_subject"
         android:layout_width="match_parent"

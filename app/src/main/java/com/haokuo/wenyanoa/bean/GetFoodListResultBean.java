@@ -1,5 +1,7 @@
 package com.haokuo.wenyanoa.bean;
 
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -7,11 +9,22 @@ import lombok.Data;
  */
 @Data
 public class GetFoodListResultBean {
-    private String coverImage;
-    private String foodName;
-    private double foodPrice;
-    private String foodlistType;
-    private int id;
-    private int salesStatus;
-    private String salesStatusApply;
+    private List<DishesBean> data;
+
+    @Data
+    public static class DishesBean {
+        private String foodName;
+        private String coverImage;
+        private double foodPrice;
+        private String foodlistType;
+        private int id;
+        private int count;
+        private boolean isChecked;
+        /** 0早餐 1中餐 2晚餐 */
+        private int salesStatus;
+        private String salesStatusApply;
+
+        public DishesBean() {
+        }
+    }
 }

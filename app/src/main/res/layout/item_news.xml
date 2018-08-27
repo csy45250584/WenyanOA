@@ -16,7 +16,7 @@
         <TextView
             android:id="@+id/tv_news_source"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="姚春钢"
             android:textColor="@color/text4"
@@ -37,7 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_4"
-        android:lines="2"
+        android:ellipsize="end"
+        android:lines="3"
         android:text="明天下午召开明天下天下午召开明天下午召开明天下午召开"
         android:textColor="@color/text2"
         android:textSize="@dimen/text_28px"/>

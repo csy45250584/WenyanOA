@@ -201,6 +201,9 @@ public class ContactsFragment extends BaseLazyLoadFragment {
     }
 
     public void onQueryTextChange(String newText) {
+        if (mContactsAdapter == null) {
+            return;
+        }
         if (TextUtils.isEmpty(newText)) {
             mContactsAdapter.setNewData(mContactList);
         }

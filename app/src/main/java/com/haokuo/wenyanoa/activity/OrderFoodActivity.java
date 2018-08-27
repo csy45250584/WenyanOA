@@ -18,16 +18,18 @@ import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.MainFragmentPagerAdapter;
 import com.haokuo.wenyanoa.adapter.SelectDayAdapter;
+import com.haokuo.wenyanoa.eventbus.WeekdaySelectedEvent;
 import com.haokuo.wenyanoa.fragment.BasketFragment;
 import com.haokuo.wenyanoa.fragment.ChooseDishesFragment;
 import com.haokuo.wenyanoa.fragment.OrderListFragment;
 import com.haokuo.wenyanoa.util.utilscode.SizeUtils;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.haokuo.wenyanoa.view.RecyclerViewDivider;
-import com.rey.material.app.DatePickerDialog;
 import com.rey.material.app.Dialog;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.widget.Spinner;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,8 +56,8 @@ public class OrderFoodActivity extends BaseActivity {
     Spinner mSpinnerWeekday;
     private CustomPopWindow mPopWindow;
     private int mWindowWidth;
-    private DatePickerDialog.Builder builder;
     private BasketFragment mBasketFragment;
+    private ChooseDishesFragment mChooseDishesFragment;
 
     @Override
     protected int initContentLayout() {
@@ -67,7 +69,8 @@ public class OrderFoodActivity extends BaseActivity {
         initToolBar();
         initBottomNaviBar();
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new ChooseDishesFragment());
+        mChooseDishesFragment = new ChooseDishesFragment();
+        fragments.add(mChooseDishesFragment);
         mBasketFragment = new BasketFragment();
         fragments.add(mBasketFragment);
         fragments.add(new OrderListFragment());
@@ -78,44 +81,13 @@ public class OrderFoodActivity extends BaseActivity {
         String[] stringArray = getResources().getStringArray(R.array.weekday);
         List<String> strings = Arrays.asList(stringArray);
         mSpinnerWeekday.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner, strings));
-        mSpinnerWeekday.setSelection(2);
+
+        //        setWeekday(weekIndex);
     }
 
     private void initToolBar() {
         setSupportActionBar(mMidTitleBar);
-        //        mMidTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-        //            @Override
-        //            public boolean onMenuItemClick(MenuItem menuItem) {
-        //                switch (menuItem.getTitle().toString()) {
-        //                    case MENU_BASKET:
-        //                        //提交订单
-        //                        //                        new AlertDialog.Builder(OrderFoodActivity.this)
-        //                        //                                .setTitle("订单提交")
-        //                        //                                .setMessage("金额为")
-        //                        break;
-        //                    case MENU_ORDER:
-        //                        //金额汇总
-        //
-        //                        break;
-        //                }
-        //
-        //                return true;
-        //            }
-        //        });
-        //        String chineseWeek = TimeUtils.getChineseWeek(TimeUtils.getNowDate());
-        //        mMidTitleBar.setMidTitle(chineseWeek);
         mMidTitleBar.addBackArrow(this);
-        //        mMidTitleBar.setOnTitleClickListener(new View.OnClickListener() {
-        //            @Override
-        //            public void onClick(View v) {
-        //                if (mViewPager.getCurrentItem() == 0) {
-        //                    if (mPopWindow == null) {
-        //                        initPopWindow();
-        //                    }
-        //                    mPopWindow.showAsDropDown(mMidTitleBar, (ScreenUtils.getScreenWidth() - mWindowWidth) / 2, 0);
-        //                }
-        //            }
-        //        });
     }
 
     private void initPopWindow() {
@@ -164,7 +136,15 @@ public class OrderFoodActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
+        mSpinnerWeekday.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(Spinner parent, View view, int position, long id) {
+                EventBus.getDefault().post(new WeekdaySelectedEvent(position + 1));
+            }
+        });
+        int weekIndex = TimeUtils.getWeekIndex(TimeUtils.getNowDate());
+        weekIndex = weekIndex == 1 ? 7 : weekIndex - 1;
+        mSpinnerWeekday.setSelection(weekIndex - 1);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -239,4 +219,10 @@ public class OrderFoodActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //    public void setWeekday(int weekday) {
+    //
+    //        mSpinnerWeekday.setSelection(weekday);
+    //        mChooseDishesFragment.onWeekdaySelected(weekday);
+    //    }
 }

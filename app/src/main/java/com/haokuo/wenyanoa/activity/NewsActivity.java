@@ -1,5 +1,6 @@
 package com.haokuo.wenyanoa.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -35,9 +36,21 @@ public class NewsActivity extends BaseActivity {
         mMidTitleBar.addBackArrow(this);
         String[] titles = {"行业新闻", "最新公告", "会议通知"};
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new NewsFragment());
-        fragments.add(new NewsFragment());
-        fragments.add(new NewsFragment());
+        NewsFragment conferenceFragment = new NewsFragment();
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt(NewsFragment.TYPE, NewsFragment.TYPE_NEWS);
+        conferenceFragment.setArguments(bundle1);
+        fragments.add(conferenceFragment);
+        NewsFragment newsFragment = new NewsFragment();
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt(NewsFragment.TYPE, NewsFragment.TYPE_NOTICE);
+        newsFragment.setArguments(bundle2);
+        fragments.add(newsFragment);
+        NewsFragment noticeFragment = new NewsFragment();
+        Bundle bundle3 = new Bundle();
+        bundle3.putInt(NewsFragment.TYPE, NewsFragment.TYPE_CONFERENCE);
+        noticeFragment.setArguments(bundle3);
+        fragments.add(noticeFragment);
         //        mIndicatorDishes.setViewPager(mVpDishes);
         mIndicatorNews.setViewPager(mVpNews, titles, this, fragments);
     }
@@ -46,6 +59,4 @@ public class NewsActivity extends BaseActivity {
     protected void initListener() {
 
     }
-
-
 }

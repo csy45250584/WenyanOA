@@ -33,6 +33,8 @@ public class UrlBuilder {
     //食堂部分接口
     private static final String GET_IN_FOOD_LIST_URL = "/mess/getInFoodList.do";
     private static final String GET_FOOD_ORDER_LIST_URL = "/mess/getInOrderList.do";
+    private static final String SAVE_FOOD_IN_BASKET_URL = "/mess/saveInPreOrder.do";
+    private static final String GET_BASKET_LIST_URL = "/mess/getIPopuralityList.do";
     //物品申购
     private static final String GET_IN_BUY_ITEMS_URL = "/oaOffice/getInbuyitems.do";
     private static final String SAVE_BUY_ITEMS_URL = "/oaOffice/saveInBuyItems.do";
@@ -48,6 +50,7 @@ public class UrlBuilder {
     //用户事假
     private static final String PREPARE_LEAVE_URL = "/oaOffice/getInApprove.do";
     private static final String LAUNCH_LEAVE_URL = "/oaOffice/launchApproce.do";
+    private static final String GET_UNAPPROVED_LEAVE_URL = "/oaOffice/getUserDealtWithapproveList.do";
     //用户调班
     private static final String PREPARE_CHANGE_SHIFT_URL = "/oaCustom/gotoInTransfer.do";
     private static final String LAUNCH_CHANGE_SHIFT_URL = "/oaCustom/launchTansfer.do";
@@ -174,6 +177,18 @@ public class UrlBuilder {
 
     public static String buildLaunchChangeShiftUrl() {
         return new StringBuilder(BASE_URL).append(LAUNCH_CHANGE_SHIFT_URL).toString();
+    }
+
+    public static String buildGetUnapprovedLeaveUrl() {
+        return new StringBuilder(BASE_URL).append(GET_UNAPPROVED_LEAVE_URL).toString();
+    }
+
+    public static String buildSaveFoodInBasketUrl() {
+        return new StringBuilder(BASE_URL).append(SAVE_FOOD_IN_BASKET_URL).toString();
+    }
+
+    public static String buildGetBasketListUrl() {
+        return new StringBuilder(BASE_URL).append(GET_BASKET_LIST_URL).toString();
     }
 
     public static List<String> parseImageUrl(String imagesUrl) {

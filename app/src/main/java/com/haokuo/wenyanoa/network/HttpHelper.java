@@ -260,6 +260,16 @@ public class HttpHelper {
         doPost(params, UrlBuilder.buildGetInFoodListUrl(), callback);
     }
 
+    /** 保存菜品到我的菜篮 */
+    public void saveFoodInBasket(GetInFoodListParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildSaveFoodInBasketUrl(), callback);
+    }
+
+    /** 获取我的菜篮列表 */
+    public void getBasketList(GetInFoodListParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetBasketListUrl(), callback);
+    }
+
     /** 发起物品申购前的数据准备 */
     public void getInBuyItems(UserIdApiKeyParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetInBuyItemsUrl(), callback);
@@ -403,5 +413,10 @@ public class HttpHelper {
     /** 发起调班 */
     public void launchChangeShift(LaunchChangeShiftParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildLaunchChangeShiftUrl(), callback);
+    }
+
+    /** 获取我的待审批事项（领导） */
+    public void getUnapprovedLeave(PageParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUnapprovedLeaveUrl(), callback);
     }
 }
