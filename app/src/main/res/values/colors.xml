@@ -21,5 +21,6 @@
     <color name="transparent">#00000000</color>
     <color name="colorRipple">#1f000000</color>
     <color name="colorUnable">#FF2A3039</color>
+    <color name="colorApproveState">#e7a44c</color>
 
 </resources>

@@ -1,10 +1,13 @@
 package com.haokuo.wenyanoa.activity.approval;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.fastjson.JSON;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -120,12 +123,15 @@ public class ApprovalActivity extends BaseActivity {
         mLeaveCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveLeaveResultBean.LeaveBean> data = JSON.parseObject(json, ApproveLeaveResultBean.class).getData();
-                if (data != null) {
-                    mApprovalLeaveAdapter.setNewData(data);
-                    mParams.increasePageIndex();
-                }
+                ApproveLeaveResultBean approveLeaveResultBean = JSON.parseObject(json, ApproveLeaveResultBean.class);
+                List<ApproveLeaveResultBean.LeaveBean> data = approveLeaveResultBean.getData();
+                mApprovalLeaveAdapter.setNewData(data);
+                mParams.increasePageIndex();
                 mSrlApproval.finishRefresh();
+                if (approveLeaveResultBean.getCount() < PAGE_SIZE) {
+                    mSrlApproval.finishRefresh();
+                    mSrlApproval.finishLoadMoreWithNoMoreData();
+                }
             }
 
             @Override
@@ -392,6 +398,13 @@ public class ApprovalActivity extends BaseActivity {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 refreshList();
+            }
+        });
+
+        mApprovalLeaveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(ApprovalActivity.this, LeaveApprovalDetailActivity.class));
             }
         });
     }

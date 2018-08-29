@@ -64,6 +64,9 @@
             android:name=".activity.approval.ApprovalActivity"
             android:launchMode="singleTop"/>
         <activity
+            android:name=".activity.approval.LeaveApprovalDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
             android:name=".activity.NewsActivity"
             android:launchMode="singleTop"/>
         <activity

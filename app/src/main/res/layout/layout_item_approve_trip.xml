@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_2"
                     android:text="待审批"
-                    android:textColor="#e7a44c"
+                    android:textColor="@color/colorApproveState"
                     android:textSize="@dimen/text_26px"/>
             </LinearLayout>
         </LinearLayout>
