@@ -26,6 +26,7 @@ import com.haokuo.wenyanoa.network.bean.UpdateAvatarParams;
 import com.haokuo.wenyanoa.network.bean.UpdatePasswordParams;
 import com.haokuo.wenyanoa.network.bean.base.IGetApiKey;
 import com.haokuo.wenyanoa.network.bean.base.IGetParamsMap;
+import com.haokuo.wenyanoa.network.bean.base.PageParamWithFillTime;
 import com.haokuo.wenyanoa.network.bean.base.PageParams;
 import com.haokuo.wenyanoa.network.bean.base.PageWithTimeParams;
 import com.haokuo.wenyanoa.network.bean.base.UserIdApiKeyParams;
@@ -415,8 +416,68 @@ public class HttpHelper {
         doPost(params, UrlBuilder.buildLaunchChangeShiftUrl(), callback);
     }
 
-    /** 获取我的待审批事项（领导） */
-    public void getUnapprovedLeave(PageParams params, NetworkCallback callback) {
+    /** 获取我的待审批事假 */
+    public void getUnapprovedLeave(PageParamWithFillTime params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetUnapprovedLeaveUrl(), callback);
+    }
+
+    /** 我发起的事假 */
+    public void getMyLeave(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetMyLeaveUrl(), callback);
+    }
+
+    /** 获取我的待审批公差 */
+    public void getUnapprovedTrip(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUnapprovedTripUrl(), callback);
+    }
+
+    /** 我发起的公差 */
+    public void getMyTrip(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetMyTripUrl(), callback);
+    }
+
+    /** 获取我的待审批调班 */
+    public void getUnapprovedChangeShift(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUnapprovedChangeShiftUrl(), callback);
+    }
+
+    /** 我发起的调班 */
+    public void getMyChangeShift(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetMyChangeShiftUrl(), callback);
+    }
+
+    /** 获取我的待审批申购 */
+    public void getUnapprovedBuyItems(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUnapprovedBuyItemsUrl(), callback);
+    }
+
+    /** 我发起的申购 */
+    public void getMyBuyItems(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetMyBuyItemsUrl(), callback);
+    }
+
+    /** 获取我的待审批报修 */
+    public void getUnapprovedRepair(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUnapprovedRepairUrl(), callback);
+    }
+
+    /** 我发起的报修 */
+    public void getMyRepair(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetMyRepairUrl(), callback);
+    }
+
+    /** 获取我的待审批领用 */
+    public void getUnapprovedApplyItems(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUnapprovedApplyItemsUrl(), callback);
+    }
+
+    /** 我发起的领用 */
+    public void getMyApplyItems(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetMyApplyItemsUrl(), callback);
+    }
+
+    /** 获取抄送给我信息 */
+    public void getCopy2MeApproval(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildCopy2MeApprovalUrl(), callback);
     }
 }

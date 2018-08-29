@@ -23,6 +23,7 @@ public class UrlBuilder {
     private static final String GET_CONTACT_URL = "/oaCustom/getLoginUserContact.do";
     private static final String GET_MY_ATTENDANCE_LIST_URL = "/oaCustom/getMyAttendanceList.do";
     private static final String GET_MY_WALLET_URL = "/oaCustom/listMywallet.do";
+    private static final String GET_COPY2ME_APPROVAL_URL = "/oaOffice/getInUnmessageList.do";
     //通知讯息类
     private static final String GET_CONFERENCE_URL = "/noteNew/getInConferenceJson.do";
     private static final String GET_INFO_CONFERENCE_URL = "/noteNew/getInfoConference.do";
@@ -38,22 +39,34 @@ public class UrlBuilder {
     //物品申购
     private static final String GET_IN_BUY_ITEMS_URL = "/oaOffice/getInbuyitems.do";
     private static final String SAVE_BUY_ITEMS_URL = "/oaOffice/saveInBuyItems.do";
+    private static final String GET_UNAPPROVED_BUY_ITEMS_URL = "/oaOffice/doDealWithBuyItem.do";
+    private static final String GET_MY_BUY_ITEMS_URL = "/oaOffice/getMylistBuy.do";
     //物品报修
     private static final String PREPARE_REPAIR_URL = "/oaOffice/getInfix.do";
     private static final String LAUNCH_REPAIR_URL = "/oaOffice/launchFix.do";
+    private static final String GET_UNAPPROVED_REPAIR_URL = "/oaOffice/doDealWithFix.do";
+    private static final String GET_MY_REPAIR_URL = "/oaOffice/getInlistFix.do";
     //物品领用
     private static final String PREPARE_APPLY_ITEMS_URL = "/oaOffice/getInItemsapply.do";
     private static final String LAUNCH_APPLY_ITEMS_URL = "/oaOffice/launchItemsApply.do";
+    private static final String GET_UNAPPROVED_APPLY_ITEMS_URL = "/oaOffice/doDealWithTransfer.do";
+    private static final String GET_MY_APPLY_ITEMS_URL = "/oaOffice/loginItemsapply.do";
     //用户公差
     private static final String PREPARE_TRIP_URL = "/oaOffice/getInTrip.do";
     private static final String LAUNCH_TRIP_URL = "/oaOffice/launchTrip.do";
+    private static final String GET_UNAPPROVED_TRIP_URL = "/oaOffice/getaMyDealtWithTripList.do";
+    private static final String GET_MY_TRIP_URL = "/oaOffice/getInlistTrip.do";
+
     //用户事假
     private static final String PREPARE_LEAVE_URL = "/oaOffice/getInApprove.do";
     private static final String LAUNCH_LEAVE_URL = "/oaOffice/launchApproce.do";
     private static final String GET_UNAPPROVED_LEAVE_URL = "/oaOffice/getUserDealtWithapproveList.do";
+    private static final String GET_MY_LEAVE_URL = "/oaOffice/getInlistApprove.do";
     //用户调班
     private static final String PREPARE_CHANGE_SHIFT_URL = "/oaCustom/gotoInTransfer.do";
     private static final String LAUNCH_CHANGE_SHIFT_URL = "/oaCustom/launchTansfer.do";
+    private static final String GET_UNAPPROVED_CHANGE_SHIFT_URL = "/oaCustom/doDealWithTransfer.do";
+    private static final String GET_MY_CHANGE_SHIFT_URL = "/oaCustom/loginUserTransfer.do";
 
     public static String buildLoginUrl() {
         return new StringBuilder(BASE_URL).append(LOGIN_URL).toString();
@@ -181,6 +194,54 @@ public class UrlBuilder {
 
     public static String buildGetUnapprovedLeaveUrl() {
         return new StringBuilder(BASE_URL).append(GET_UNAPPROVED_LEAVE_URL).toString();
+    }
+
+    public static String buildGetMyLeaveUrl() {
+        return new StringBuilder(BASE_URL).append(GET_MY_LEAVE_URL).toString();
+    }
+
+    public static String buildGetUnapprovedTripUrl() {
+        return new StringBuilder(BASE_URL).append(GET_UNAPPROVED_TRIP_URL).toString();
+    }
+
+    public static String buildGetMyTripUrl() {
+        return new StringBuilder(BASE_URL).append(GET_MY_TRIP_URL).toString();
+    }
+
+    public static String buildGetUnapprovedChangeShiftUrl() {
+        return new StringBuilder(BASE_URL).append(GET_UNAPPROVED_CHANGE_SHIFT_URL).toString();
+    }
+
+    public static String buildGetMyChangeShiftUrl() {
+        return new StringBuilder(BASE_URL).append(GET_MY_CHANGE_SHIFT_URL).toString();
+    }
+
+    public static String buildGetUnapprovedBuyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(GET_UNAPPROVED_BUY_ITEMS_URL).toString();
+    }
+
+    public static String buildGetMyBuyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(GET_MY_BUY_ITEMS_URL).toString();
+    }
+
+    public static String buildGetUnapprovedRepairUrl() {
+        return new StringBuilder(BASE_URL).append(GET_UNAPPROVED_REPAIR_URL).toString();
+    }
+
+    public static String buildGetMyRepairUrl() {
+        return new StringBuilder(BASE_URL).append(GET_MY_REPAIR_URL).toString();
+    }
+
+    public static String buildGetUnapprovedApplyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(GET_UNAPPROVED_APPLY_ITEMS_URL).toString();
+    }
+
+    public static String buildGetMyApplyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(GET_MY_APPLY_ITEMS_URL).toString();
+    }
+
+    public static String buildCopy2MeApprovalUrl() {
+        return new StringBuilder(BASE_URL).append(GET_COPY2ME_APPROVAL_URL).toString();
     }
 
     public static String buildSaveFoodInBasketUrl() {

@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haokuo.wenyanoa.R;
-import com.haokuo.wenyanoa.activity.ApprovalActivity;
+import com.haokuo.wenyanoa.activity.approval.ApprovalActivity;
 import com.haokuo.wenyanoa.activity.AttendanceClockActivity;
 import com.haokuo.wenyanoa.activity.ManagerOrderActivity;
 import com.haokuo.wenyanoa.activity.NewsActivity;

@@ -163,9 +163,9 @@ public class NewsFragment extends BaseLazyLoadFragment {
 
             @Override
             public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                mParams.resetPageIndex();
                 switch (type) {
                     case TYPE_CONFERENCE: {
-                        mParams.resetPageIndex();
                         HttpHelper.getInstance().getConference(mParams, new NetworkCallback() {
                             @Override
                             public void onSuccess(Call call, String json) {
@@ -186,7 +186,6 @@ public class NewsFragment extends BaseLazyLoadFragment {
                     }
                     break;
                     case TYPE_NEWS: {
-                        mParams.resetPageIndex();
                         HttpHelper.getInstance().getNewsList(mParams, new NetworkCallback() {
                             @Override
                             public void onSuccess(Call call, String json) {
@@ -207,7 +206,6 @@ public class NewsFragment extends BaseLazyLoadFragment {
                     }
                     break;
                     case TYPE_NOTICE: {
-                        mParams.resetPageIndex();
                         HttpHelper.getInstance().getNoticeList(mParams, new NetworkCallback() {
                             @Override
                             public void onSuccess(Call call, String json) {

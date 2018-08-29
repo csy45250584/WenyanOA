@@ -1,4 +1,4 @@
-package com.haokuo.wenyanoa.bean;
+package com.haokuo.wenyanoa.bean.approval;
 
 import java.util.List;
 
@@ -16,7 +16,8 @@ public class ApproveLeaveResultBean {
     @Data
     public static class LeaveBean {
         private String appStatus; //审批状态
-        private String creator; //创建人
+        private int state; //审批状态
+        private String realname; //创建人
         private String startDate; //请假开始时间
         private String endDate; //请假结束时间
         private String fillformDate; //创建时间
