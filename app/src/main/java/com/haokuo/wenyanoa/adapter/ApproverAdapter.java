@@ -23,6 +23,6 @@ public class ApproverAdapter extends BaseQuickAdapter<StaffBean, BaseViewHolder>
         helper.setGone(R.id.iv_approver_arrow, helper.getLayoutPosition() != mData.size() - 1);
         helper.setText(R.id.tv_approver_name, item.getName());
         ImageView ivApproverAvatar = helper.getView(R.id.iv_approver_avatar);
-        Glide.with(mContext).load(item.getAvatar()).apply(ImageLoadUtil.sAvatarOptions).into(ivApproverAvatar);
+        ImageLoadUtil.getInstance().loadAvatar(mContext,item.getAvatar(),ivApproverAvatar,item.getSex());
     }
 }

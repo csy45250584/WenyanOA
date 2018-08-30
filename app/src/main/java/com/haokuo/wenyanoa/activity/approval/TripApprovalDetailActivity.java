@@ -34,7 +34,7 @@ import okhttp3.Call;
  * Created by zjf on 2018-08-09.
  */
 
-public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
+public class TripApprovalDetailActivity extends BaseApprovalDetailActivity {
 
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
@@ -44,24 +44,22 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
     TextView mTvName;
     @BindView(R.id.tv_approve_state)
     TextView mTvApproveState;
-    @BindView(R.id.tv_dept_name)
-    TextView mTvDeptName;
-    @BindView(R.id.tv_duties)
-    TextView mTvDuties;
-    @BindView(R.id.tv_leave_type)
-    TextView mTvLeaveType;
-    @BindView(R.id.tv_begin_time)
-    TextView mTvBeginTime;
     @BindView(R.id.tv_reject_reason)
     TextView mTvRejectReason;
     @BindView(R.id.ll_reject_container)
     LinearLayout mLlRejectContainer;
+    @BindView(R.id.tv_dept_name)
+    TextView mTvDeptName;
+    @BindView(R.id.tv_duties)
+    TextView mTvDuties;
+    @BindView(R.id.tv_begin_time)
+    TextView mTvBeginTime;
     @BindView(R.id.tv_end_time)
     TextView mTvEndTime;
-    @BindView(R.id.tv_leave_duration)
-    TextView mTvLeaveDuration;
-    @BindView(R.id.tv_leave_reason)
-    TextView mTvLeaveReason;
+    @BindView(R.id.tv_trip_duration)
+    TextView mTvTripDuration;
+    @BindView(R.id.tv_trip_reason)
+    TextView mTvTripReason;
     @BindView(R.id.rv_approver)
     RecyclerView mRvApprover;
     @BindView(R.id.iv_cc_avatar)
@@ -80,7 +78,7 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
 
     @Override
     protected int initContentLayout() {
-        return R.layout.activity_leave_approval_detail;
+        return R.layout.activity_trip_approval_detail;
     }
 
     @Override
@@ -98,13 +96,12 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
 
         //请求内容
         showLoading("加载数据中...");
-        HttpHelper.getInstance().getLeaveById(params, new NetworkCallback() {
+        HttpHelper.getInstance().getTripById(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
                 loadClose();
                 try {
-                    //                    ApprovalContentBean resultBean = (ApprovalContentBean) (new JSONObject(json).get("approve"));
-                    String jsonString = new JSONObject(json).getString("approve");
+                    String jsonString = new JSONObject(json).getString("trip");
                     ApprovalContentBean resultBean = JSON.parseObject(jsonString, ApprovalContentBean.class);
                     //设置信息
                     applyInfo(resultBean);
@@ -136,7 +133,7 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
             case R.id.btn_agree: {
                 HandlerApprovalParams params = new HandlerApprovalParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mId, null);
                 showLoading("提交中...");
-                HttpHelper.getInstance().agreeLeave(params, mHandleCallback);
+                HttpHelper.getInstance().agreeTrip(params, mHandleCallback);
             }
             break;
         }
@@ -145,16 +142,15 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
     public void applyInfo(ApprovalContentBean infoBean) {
         ApprovalUserInfoBean userInfo = infoBean.getUserInfo();
         mTvName.setText(userInfo.getRealName());
-        mMidTitleBar.setMidTitle(String.format("%s的请假", userInfo.getRealName()));
+        mMidTitleBar.setMidTitle(String.format("%s的公差", userInfo.getRealName()));
         ImageLoadUtil.getInstance().loadAvatar(this, userInfo.getHeadPhoto(), mIvAvatar, infoBean.getUser().getSex());
-        mTvApproveState.setText(infoBean.getAppStatus());
+        mTvApproveState.setText(infoBean.getAppState());
         mTvDeptName.setText(userInfo.getSecition());
         mTvDuties.setText(userInfo.getJob());
-        mTvLeaveType.setText(infoBean.getLeaveType());
         mTvBeginTime.setText(infoBean.getStartDate());
         mTvEndTime.setText(infoBean.getEndDate());
-        mTvLeaveDuration.setText(infoBean.getHowlong());
-        mTvLeaveReason.setText(infoBean.getIncident());
+        mTvTripDuration.setText(infoBean.getHowlong());
+        mTvTripReason.setText(infoBean.getIncident());
         mApproverAdapter.setNewData(infoBean.getApproverList());
         if (infoBean.getCourtesyCopyId() != 0) {
             ImageLoadUtil.getInstance().loadAvatar(this, infoBean.getCopylP(), mIvCcAvatar, infoBean.getCopySex());
@@ -172,6 +168,6 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
     protected void rejectApproval(String rejectReason) {
         HandlerApprovalParams params = new HandlerApprovalParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mId, rejectReason);
         showLoading("提交中...");
-        HttpHelper.getInstance().rejectLeave(params, mHandleCallback);
+        HttpHelper.getInstance().rejectTrip(params, mHandleCallback);
     }
 }

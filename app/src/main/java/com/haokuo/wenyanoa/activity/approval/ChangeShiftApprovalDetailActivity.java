@@ -1,5 +1,6 @@
 package com.haokuo.wenyanoa.activity.approval;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,7 +13,6 @@ import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.ApproverAdapter;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
 import com.haokuo.wenyanoa.bean.approval.ApprovalContentBean;
-import com.haokuo.wenyanoa.bean.approval.ApprovalUserInfoBean;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.ApprovalDetailParams;
@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -34,7 +35,7 @@ import okhttp3.Call;
  * Created by zjf on 2018-08-09.
  */
 
-public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
+public class ChangeShiftApprovalDetailActivity extends BaseApprovalDetailActivity {
 
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
@@ -46,22 +47,20 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
     TextView mTvApproveState;
     @BindView(R.id.tv_dept_name)
     TextView mTvDeptName;
-    @BindView(R.id.tv_duties)
-    TextView mTvDuties;
-    @BindView(R.id.tv_leave_type)
-    TextView mTvLeaveType;
-    @BindView(R.id.tv_begin_time)
-    TextView mTvBeginTime;
     @BindView(R.id.tv_reject_reason)
     TextView mTvRejectReason;
     @BindView(R.id.ll_reject_container)
     LinearLayout mLlRejectContainer;
-    @BindView(R.id.tv_end_time)
-    TextView mTvEndTime;
-    @BindView(R.id.tv_leave_duration)
-    TextView mTvLeaveDuration;
-    @BindView(R.id.tv_leave_reason)
-    TextView mTvLeaveReason;
+    @BindView(R.id.tv_duties)
+    TextView mTvDuties;
+    @BindView(R.id.tv_original_time)
+    TextView mTvOriginalTime;
+    @BindView(R.id.tv_target_time)
+    TextView mTvTargetTime;
+    @BindView(R.id.tv_change_name)
+    TextView mTvChangeName;
+    @BindView(R.id.tv_change_shift_reason)
+    TextView mTvChangeShiftReason;
     @BindView(R.id.rv_approver)
     RecyclerView mRvApprover;
     @BindView(R.id.iv_cc_avatar)
@@ -80,7 +79,7 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
 
     @Override
     protected int initContentLayout() {
-        return R.layout.activity_leave_approval_detail;
+        return R.layout.activity_change_shift_approval_detail;
     }
 
     @Override
@@ -98,13 +97,13 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
 
         //请求内容
         showLoading("加载数据中...");
-        HttpHelper.getInstance().getLeaveById(params, new NetworkCallback() {
+        HttpHelper.getInstance().getChangeShiftById(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
                 loadClose();
                 try {
                     //                    ApprovalContentBean resultBean = (ApprovalContentBean) (new JSONObject(json).get("approve"));
-                    String jsonString = new JSONObject(json).getString("approve");
+                    String jsonString = new JSONObject(json).getString("taTransfer");
                     ApprovalContentBean resultBean = JSON.parseObject(jsonString, ApprovalContentBean.class);
                     //设置信息
                     applyInfo(resultBean);
@@ -136,25 +135,23 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
             case R.id.btn_agree: {
                 HandlerApprovalParams params = new HandlerApprovalParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mId, null);
                 showLoading("提交中...");
-                HttpHelper.getInstance().agreeLeave(params, mHandleCallback);
+                HttpHelper.getInstance().agreeChangeShift(params, mHandleCallback);
             }
             break;
         }
     }
 
     public void applyInfo(ApprovalContentBean infoBean) {
-        ApprovalUserInfoBean userInfo = infoBean.getUserInfo();
-        mTvName.setText(userInfo.getRealName());
-        mMidTitleBar.setMidTitle(String.format("%s的请假", userInfo.getRealName()));
-        ImageLoadUtil.getInstance().loadAvatar(this, userInfo.getHeadPhoto(), mIvAvatar, infoBean.getUser().getSex());
-        mTvApproveState.setText(infoBean.getAppStatus());
-        mTvDeptName.setText(userInfo.getSecition());
-        mTvDuties.setText(userInfo.getJob());
-        mTvLeaveType.setText(infoBean.getLeaveType());
-        mTvBeginTime.setText(infoBean.getStartDate());
-        mTvEndTime.setText(infoBean.getEndDate());
-        mTvLeaveDuration.setText(infoBean.getHowlong());
-        mTvLeaveReason.setText(infoBean.getIncident());
+        mTvName.setText(infoBean.getUserName());
+        mMidTitleBar.setMidTitle(String.format("%s的调班", infoBean.getUserName()));
+        ImageLoadUtil.getInstance().loadAvatar(this, infoBean.getNowPhoto(), mIvAvatar, infoBean.getNowSex());
+        mTvApproveState.setText(infoBean.getState());
+        mTvDeptName.setText(infoBean.getTransferSection());
+        mTvDuties.setText(infoBean.getTransferJob());
+        mTvOriginalTime.setText(infoBean.getOldWorkDate());
+        mTvTargetTime.setText(infoBean.getNowWorkDate());
+        mTvChangeName.setText(infoBean.getTransferName());
+        mTvChangeShiftReason.setText(infoBean.getIncident());
         mApproverAdapter.setNewData(infoBean.getApproverList());
         if (infoBean.getCourtesyCopyId() != 0) {
             ImageLoadUtil.getInstance().loadAvatar(this, infoBean.getCopylP(), mIvCcAvatar, infoBean.getCopySex());
@@ -172,6 +169,13 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
     protected void rejectApproval(String rejectReason) {
         HandlerApprovalParams params = new HandlerApprovalParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mId, rejectReason);
         showLoading("提交中...");
-        HttpHelper.getInstance().rejectLeave(params, mHandleCallback);
+        HttpHelper.getInstance().rejectChangeShift(params, mHandleCallback);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

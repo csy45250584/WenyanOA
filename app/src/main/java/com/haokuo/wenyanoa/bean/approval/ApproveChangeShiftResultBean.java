@@ -14,14 +14,16 @@ public class ApproveChangeShiftResultBean {
     private List<ChangeShiftBean> data;
 
     @Data
-    public static class ChangeShiftBean {
-        private int id; //id
+    public static class ChangeShiftBean extends GetIdBean{
         private String oldWorkDate;
         private String newWorkDate;
         private String createDate;
+        private String nowPhoto;
+        private String transferSex;
         private String realname;
         private int state;
         private String stateString;
+
 
         public void setState(int state) {
             this.state = state;

@@ -2,6 +2,7 @@ package com.haokuo.wenyanoa.activity.approval;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.haokuo.wenyanoa.bean.approval.ApproveChangeShiftResultBean;
 import com.haokuo.wenyanoa.bean.approval.ApproveLeaveResultBean;
 import com.haokuo.wenyanoa.bean.approval.ApproveRepairResultBean;
 import com.haokuo.wenyanoa.bean.approval.ApproveTripResultBean;
+import com.haokuo.wenyanoa.bean.approval.GetIdBean;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.base.PageParamWithFillTime;
@@ -45,8 +47,10 @@ import okhttp3.Call;
  * Created by zjf on 2018-08-09.
  */
 
-public class ApprovalActivity extends BaseActivity {
+public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
     private static final int PAGE_SIZE = 10;
+    public static final String EXTRA_ID = "com.haokuo.wenyanoa.extra.EXTRA_ID";
+    public static final String EXTRA_STATE = "com.haokuo.wenyanoa.extra.EXTRA_STATE";
     //    @BindView(R.id.mid_title_bar)
     //    MidTitleBar mMidTitleBar;
     @BindView(R.id.indicator_approval)
@@ -59,8 +63,8 @@ public class ApprovalActivity extends BaseActivity {
     SmartRefreshLayout mSrlApproval;
     private int mCurrentTab;
     private int mCurrentSubTab;
-    private ApprovalLeaveAdapter mApprovalLeaveAdapter;
     private PageParamWithFillTime mParams;
+    private ApprovalLeaveAdapter mApprovalLeaveAdapter;
     private ApprovalTripAdapter mApprovalTripAdapter;
     private ApprovalChangeShiftAdapter mApprovalChangeShiftAdapter;
     private ApprovalBuyItemsAdapter mApprovalBuyItemsAdapter;
@@ -111,12 +115,12 @@ public class ApprovalActivity extends BaseActivity {
     }
 
     private void initAdapters() {
-        mApprovalLeaveAdapter = new ApprovalLeaveAdapter(R.layout.layout_item_approve_leave);
-        mApprovalTripAdapter = new ApprovalTripAdapter(R.layout.layout_item_approve_trip);
-        mApprovalChangeShiftAdapter = new ApprovalChangeShiftAdapter(R.layout.layout_item_approve_change_shift);
-        mApprovalBuyItemsAdapter = new ApprovalBuyItemsAdapter(R.layout.layout_item_approve_buy_items);
-        mApprovalRepairAdapter = new ApprovalRepairAdapter(R.layout.layout_item_approve_repair);
-        mApprovalApplyItemsAdapter = new ApprovalApplyItemsAdapter(R.layout.layout_item_approve_apply_items);
+        mApprovalLeaveAdapter = new ApprovalLeaveAdapter(R.layout.item_approve_leave);
+        mApprovalTripAdapter = new ApprovalTripAdapter(R.layout.item_approve_trip);
+        mApprovalChangeShiftAdapter = new ApprovalChangeShiftAdapter(R.layout.item_approve_change_shift);
+        mApprovalBuyItemsAdapter = new ApprovalBuyItemsAdapter(R.layout.item_approve_buy_items);
+        mApprovalRepairAdapter = new ApprovalRepairAdapter(R.layout.item_approve_repair);
+        mApprovalApplyItemsAdapter = new ApprovalApplyItemsAdapter(R.layout.item_approve_apply_items);
     }
 
     private void initNetworkCallbacks() {
@@ -401,12 +405,12 @@ public class ApprovalActivity extends BaseActivity {
             }
         });
 
-        mApprovalLeaveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(ApprovalActivity.this, LeaveApprovalDetailActivity.class));
-            }
-        });
+        mApprovalLeaveAdapter.setOnItemClickListener(this);
+        mApprovalTripAdapter.setOnItemClickListener(this);
+        mApprovalChangeShiftAdapter.setOnItemClickListener(this);
+        mApprovalBuyItemsAdapter.setOnItemClickListener(this);
+        mApprovalRepairAdapter.setOnItemClickListener(this);
+        mApprovalApplyItemsAdapter.setOnItemClickListener(this);
     }
 
     private void loadMoreList() {
@@ -455,7 +459,7 @@ public class ApprovalActivity extends BaseActivity {
                     }
                     break;
                     case 3: {//申购
-                        HttpHelper.getInstance().getMyChangeShift(mParams, mLoadMoreBuyItemsCallback);
+                        HttpHelper.getInstance().getMyBuyItems(mParams, mLoadMoreBuyItemsCallback);
                     }
                     break;
                     case 4: {//报修
@@ -567,7 +571,7 @@ public class ApprovalActivity extends BaseActivity {
                     case 3: {//申购
                         mApprovalBuyItemsAdapter.setNewData(null);
                         mRvApproval.setAdapter(mApprovalBuyItemsAdapter);
-                        HttpHelper.getInstance().getMyChangeShift(mParams, mBuyItemsCallback);
+                        HttpHelper.getInstance().getMyBuyItems(mParams, mBuyItemsCallback);
                     }
                     break;
                     case 4: {//报修
@@ -634,6 +638,38 @@ public class ApprovalActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Class cls = null;
+        if (adapter instanceof ApprovalLeaveAdapter) {
+            cls = LeaveApprovalDetailActivity.class;
+        } else if (adapter instanceof ApprovalTripAdapter) {
+            cls = TripApprovalDetailActivity.class;
+        } else if (adapter instanceof ApprovalChangeShiftAdapter) {
+            cls = ChangeShiftApprovalDetailActivity.class;
+        } else if (adapter instanceof ApprovalBuyItemsAdapter) {
+            cls = BuyItemsApprovalDetailActivity.class;
+        } else if (adapter instanceof ApprovalRepairAdapter) {
+            cls = RepairApprovalDetailActivity.class;
+        } else if (adapter instanceof ApprovalApplyItemsAdapter) {
+            cls = ApplyItemsApprovalDetailActivity.class;
+        }
+        GetIdBean item = (GetIdBean) adapter.getItem(position);
+        if (item != null) {
+            Intent intent = new Intent(ApprovalActivity.this, cls);
+            intent.putExtra(EXTRA_ID, item.getId());
+            intent.putExtra(EXTRA_STATE, mCurrentTab);
+            startActivityForResult(intent, 0);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            refreshList();
+        }
+    }
     //    public static class MyNetworkCallback implements NetworkCallback {
     //
     //        private final Class mClassName;

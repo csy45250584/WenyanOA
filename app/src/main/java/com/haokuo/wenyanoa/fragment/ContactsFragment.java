@@ -115,7 +115,7 @@ public class ContactsFragment extends BaseLazyLoadFragment {
                 ContactResultBean.ContactBean item = mContactsAdapter.getItem(position);
                 if (item != null) {
                     if (mIsSelectCc) {
-                        StaffBean cc = new StaffBean(item.getId(), item.getRealname(), item.getHeadPhoto());
+                        StaffBean cc = new StaffBean(item.getId(), item.getRealname(), item.getHeadPhoto(),item.getSex());
                         Intent intent = new Intent().putExtra(EXTRA_CC, cc);
                         mContext.setResult(Activity.RESULT_OK, intent);
                         mContext.finish();

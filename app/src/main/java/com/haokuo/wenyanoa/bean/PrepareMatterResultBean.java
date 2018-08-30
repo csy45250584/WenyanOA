@@ -19,17 +19,20 @@ public class PrepareMatterResultBean {
     private String oneLevelP;
     private String twoLevelP;
     private String threeLevelP;
+    private String oneLeveSex;
+    private String twoLeveSex;
+    private String threeLeveSex;
 
     public List<StaffBean> getApproverList() {
         ArrayList<StaffBean> approverBeans = new ArrayList<>();
         if (oneLevelId != 0) {
-            approverBeans.add(new StaffBean(oneLevelId, oneLevelN, oneLevelP));
+            approverBeans.add(new StaffBean(oneLevelId, oneLevelN, oneLevelP,oneLeveSex));
         }
         if (twoLevelId != 0) {
-            approverBeans.add(new StaffBean(twoLevelId, twoLevelN, twoLevelP));
+            approverBeans.add(new StaffBean(twoLevelId, twoLevelN, twoLevelP,twoLeveSex));
         }
         if (threeLevelId != 0) {
-            approverBeans.add(new StaffBean(threeLevelId, threeLevelN, threeLevelP));
+            approverBeans.add(new StaffBean(threeLevelId, threeLevelN, threeLevelP,threeLeveSex));
         }
 
         return approverBeans;

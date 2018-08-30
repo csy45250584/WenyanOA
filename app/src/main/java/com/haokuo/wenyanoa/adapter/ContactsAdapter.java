@@ -35,6 +35,6 @@ public class ContactsAdapter extends BaseQuickAdapter<ContactResultBean.ContactB
         helper.setText(R.id.tv_contact_name, item.getRealname());
         helper.setText(R.id.tv_contact_tel, item.getTelphone());
         ImageView ivContactAvatar = helper.getView(R.id.iv_contact_avatar);
-        Glide.with(mContext).load(item.getHeadPhoto()).apply(ImageLoadUtil.sAvatarOptions).into(ivContactAvatar);
+        ImageLoadUtil.getInstance().loadAvatar(mContext,item.getHeadPhoto(),ivContactAvatar,item.getSex());
     }
 }

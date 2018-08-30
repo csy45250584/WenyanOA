@@ -8,12 +8,14 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.haokuo.wenyanoa.bean.SuccessBean;
 import com.haokuo.wenyanoa.bean.UserInfoDetailBean;
+import com.haokuo.wenyanoa.network.bean.ApprovalDetailParams;
 import com.haokuo.wenyanoa.network.bean.CodeCheckParams;
 import com.haokuo.wenyanoa.network.bean.GetConferenceInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
 import com.haokuo.wenyanoa.network.bean.GetNewsInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetNoticeInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetResetVerfiyCodeParams;
+import com.haokuo.wenyanoa.network.bean.HandlerApprovalParams;
 import com.haokuo.wenyanoa.network.bean.LaunchApplyItemsParams;
 import com.haokuo.wenyanoa.network.bean.LaunchChangeShiftParams;
 import com.haokuo.wenyanoa.network.bean.LaunchLeaveParams;
@@ -474,6 +476,96 @@ public class HttpHelper {
     /** 我发起的领用 */
     public void getMyApplyItems(PageParamWithFillTime params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetMyApplyItemsUrl(), callback);
+    }
+
+    /** 根据ID获取事假详情 */
+    public void getLeaveById(ApprovalDetailParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetLeaveByIdUrl(), callback);
+    }
+
+    /** 同意事假申请 */
+    public void agreeLeave(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildAgreeLeaveUrl(), callback);
+    }
+
+    /** 拒绝事假申请 */
+    public void rejectLeave(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildRejectLeaveUrl(), callback);
+    }
+
+    /** 根据ID获取公差详情 */
+    public void getTripById(ApprovalDetailParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetTripByIdUrl(), callback);
+    }
+
+    /** 同意公差申请 */
+    public void agreeTrip(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildAgreeTripUrl(), callback);
+    }
+
+    /** 拒绝公差申请 */
+    public void rejectTrip(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildRejectTripUrl(), callback);
+    }
+
+    /** 根据ID获取调班详情 */
+    public void getChangeShiftById(ApprovalDetailParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetChangeShiftByIdUrl(), callback);
+    }
+
+    /** 同意调班申请 */
+    public void agreeChangeShift(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildAgreeChangeShiftUrl(), callback);
+    }
+
+    /** 拒绝调班申请 */
+    public void rejectChangeShift(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildRejectChangeShiftUrl(), callback);
+    }
+
+    /** 根据ID获取申购详情 */
+    public void getBuyItemsById(ApprovalDetailParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetBuyItemsByIdUrl(), callback);
+    }
+
+    /** 同意申购申请 */
+    public void agreeBuyItems(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildAgreeBuyItemsUrl(), callback);
+    }
+
+    /** 拒绝申购申请 */
+    public void rejectBuyItems(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildRejectBuyItemsUrl(), callback);
+    }
+
+    /** 根据ID获取报修详情 */
+    public void getRepairById(ApprovalDetailParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetRepairByIdUrl(), callback);
+    }
+
+    /** 同意报修申请 */
+    public void agreeRepair(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildAgreeRepairUrl(), callback);
+    }
+
+    /** 拒绝报修申请 */
+    public void rejectRepair(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildRejectRepairUrl(), callback);
+    }
+
+    /** 根据ID获取领用详情 */
+    public void getApplyItemsById(ApprovalDetailParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetApplyItemsByIdUrl(), callback);
+    }
+
+    /** 同意领用申请 */
+    public void agreeApplyItems(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildAgreeApplyItemsUrl(), callback);
+    }
+
+    /** 拒绝领用申请 */
+    public void rejectApplyItems(HandlerApprovalParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildRejectApplyItemsUrl(), callback);
     }
 
     /** 获取抄送给我信息 */

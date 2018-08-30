@@ -41,32 +41,50 @@ public class UrlBuilder {
     private static final String SAVE_BUY_ITEMS_URL = "/oaOffice/saveInBuyItems.do";
     private static final String GET_UNAPPROVED_BUY_ITEMS_URL = "/oaOffice/doDealWithBuyItem.do";
     private static final String GET_MY_BUY_ITEMS_URL = "/oaOffice/getMylistBuy.do";
+    private static final String GET_BUY_ITEMS_BY_ID_URL = "/oaOffice/getInfoBuy.do";
+    private static final String AGREE_BUY_ITEMS_URL = "/oaOffice/updatebuyItem.do";
+    private static final String REJECT_BUY_ITEMS_URL = "/oaOffice/buyInReusefor.do";
     //物品报修
     private static final String PREPARE_REPAIR_URL = "/oaOffice/getInfix.do";
     private static final String LAUNCH_REPAIR_URL = "/oaOffice/launchFix.do";
     private static final String GET_UNAPPROVED_REPAIR_URL = "/oaOffice/doDealWithFix.do";
     private static final String GET_MY_REPAIR_URL = "/oaOffice/getInlistFix.do";
+    private static final String GET_REPAIR_BY_ID_URL = "/oaOffice/getInfofix.do";
+    private static final String AGREE_REPAIR_URL = "/oaOffice/agreeFixState.do";
+    private static final String REJECT_REPAIR_URL = "/oaOffice/infixReusefor.do";
     //物品领用
     private static final String PREPARE_APPLY_ITEMS_URL = "/oaOffice/getInItemsapply.do";
     private static final String LAUNCH_APPLY_ITEMS_URL = "/oaOffice/launchItemsApply.do";
     private static final String GET_UNAPPROVED_APPLY_ITEMS_URL = "/oaOffice/doDealWithTransfer.do";
     private static final String GET_MY_APPLY_ITEMS_URL = "/oaOffice/loginItemsapply.do";
+    private static final String GET_APPLY_ITEMS_BY_ID_URL = "/oaOffice/getInfoItemsapply.do";
+    private static final String AGREE_APPLY_ITEMS_URL = "/oaOffice/updateItemsApply.do";
+    private static final String REJECT_APPLY_ITEMS_URL = "/oaOffice/refuseItemsApply.do";
     //用户公差
     private static final String PREPARE_TRIP_URL = "/oaOffice/getInTrip.do";
     private static final String LAUNCH_TRIP_URL = "/oaOffice/launchTrip.do";
     private static final String GET_UNAPPROVED_TRIP_URL = "/oaOffice/getaMyDealtWithTripList.do";
     private static final String GET_MY_TRIP_URL = "/oaOffice/getInlistTrip.do";
+    private static final String GET_TRIP_BY_ID_URL = "/oaOffice/getInfoTrip.do";
+    private static final String AGREE_TRIP_URL = "/oaOffice/toDealtWithTrip.do";
+    private static final String REJECT_TRIP_URL = "/oaOffice/toDealtRefusedTrip.do";
 
     //用户事假
     private static final String PREPARE_LEAVE_URL = "/oaOffice/getInApprove.do";
     private static final String LAUNCH_LEAVE_URL = "/oaOffice/launchApproce.do";
     private static final String GET_UNAPPROVED_LEAVE_URL = "/oaOffice/getUserDealtWithapproveList.do";
     private static final String GET_MY_LEAVE_URL = "/oaOffice/getInlistApprove.do";
+    private static final String GET_LEAVE_BY_ID_URL = "/oaOffice/getApproveInfoById.do";
+    private static final String AGREE_LEAVE_URL = "/oaOffice/toDealtWithApprove.do";
+    private static final String REJECT_LEAVE_URL = "/oaOffice/toDealtRefusedApprove.do";
     //用户调班
     private static final String PREPARE_CHANGE_SHIFT_URL = "/oaCustom/gotoInTransfer.do";
     private static final String LAUNCH_CHANGE_SHIFT_URL = "/oaCustom/launchTansfer.do";
     private static final String GET_UNAPPROVED_CHANGE_SHIFT_URL = "/oaCustom/doDealWithTransfer.do";
     private static final String GET_MY_CHANGE_SHIFT_URL = "/oaCustom/loginUserTransfer.do";
+    private static final String GET_CHANGE_SHIFT_BY_ID_URL = "/oaCustom/getInfoTransfer.do";
+    private static final String AGREE_CHANGE_SHIFT_URL = "/oaCustom/updateTransferA.do";
+    private static final String REJECT_CHANGE_SHIFT_URL = "/oaCustom/updateTransferN.do";
 
     public static String buildLoginUrl() {
         return new StringBuilder(BASE_URL).append(LOGIN_URL).toString();
@@ -250,6 +268,78 @@ public class UrlBuilder {
 
     public static String buildGetBasketListUrl() {
         return new StringBuilder(BASE_URL).append(GET_BASKET_LIST_URL).toString();
+    }
+
+    public static String buildGetLeaveByIdUrl() {
+        return new StringBuilder(BASE_URL).append(GET_LEAVE_BY_ID_URL).toString();
+    }
+
+    public static String buildGetTripByIdUrl() {
+        return new StringBuilder(BASE_URL).append(GET_TRIP_BY_ID_URL).toString();
+    }
+
+    public static String buildGetChangeShiftByIdUrl() {
+        return new StringBuilder(BASE_URL).append(GET_CHANGE_SHIFT_BY_ID_URL).toString();
+    }
+
+    public static String buildGetBuyItemsByIdUrl() {
+        return new StringBuilder(BASE_URL).append(GET_BUY_ITEMS_BY_ID_URL).toString();
+    }
+
+    public static String buildGetRepairByIdUrl() {
+        return new StringBuilder(BASE_URL).append(GET_REPAIR_BY_ID_URL).toString();
+    }
+
+    public static String buildGetApplyItemsByIdUrl() {
+        return new StringBuilder(BASE_URL).append(GET_APPLY_ITEMS_BY_ID_URL).toString();
+    }
+
+    public static String buildAgreeLeaveUrl() {
+        return new StringBuilder(BASE_URL).append(AGREE_LEAVE_URL).toString();
+    }
+
+    public static String buildRejectLeaveUrl() {
+        return new StringBuilder(BASE_URL).append(REJECT_LEAVE_URL).toString();
+    }
+
+    public static String buildAgreeTripUrl() {
+        return new StringBuilder(BASE_URL).append(AGREE_TRIP_URL).toString();
+    }
+
+    public static String buildRejectTripUrl() {
+        return new StringBuilder(BASE_URL).append(REJECT_TRIP_URL).toString();
+    }
+
+    public static String buildAgreeChangeShiftUrl() {
+        return new StringBuilder(BASE_URL).append(AGREE_CHANGE_SHIFT_URL).toString();
+    }
+
+    public static String buildRejectChangeShiftUrl() {
+        return new StringBuilder(BASE_URL).append(REJECT_CHANGE_SHIFT_URL).toString();
+    }
+
+    public static String buildAgreeBuyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(AGREE_BUY_ITEMS_URL).toString();
+    }
+
+    public static String buildRejectBuyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(REJECT_BUY_ITEMS_URL).toString();
+    }
+
+    public static String buildAgreeRepairUrl() {
+        return new StringBuilder(BASE_URL).append(AGREE_REPAIR_URL).toString();
+    }
+
+    public static String buildRejectRepairUrl() {
+        return new StringBuilder(BASE_URL).append(REJECT_REPAIR_URL).toString();
+    }
+
+    public static String buildAgreeApplyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(AGREE_APPLY_ITEMS_URL).toString();
+    }
+
+    public static String buildRejectApplyItemsUrl() {
+        return new StringBuilder(BASE_URL).append(REJECT_APPLY_ITEMS_URL).toString();
     }
 
     public static List<String> parseImageUrl(String imagesUrl) {

@@ -14,14 +14,14 @@ public class ApproveApplyItemsResultBean {
     private List<ApplyItemsBean> data;
 
     @Data
-    public static class ApplyItemsBean {
-        private int id; //id
+    public static class ApplyItemsBean extends GetIdBean {
         private int state; //审批状态
-        private String appStatus; //审批状态
+        private String appState; //审批状态
         private String realname; //创建人
         private String fillformDate; //创建时间
-
         private String items_name; //申领物品
         private String incident; //用途
+        private UserBean user;
+        private ApprovalUserInfoBean userInfo;
     }
 }

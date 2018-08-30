@@ -10,7 +10,7 @@
         android:id="@+id/mid_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"
-        app:midTitle="请假"/>
+        app:midTitle="公差"/>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -118,28 +118,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dp_12"
-                        android:text="请假类别"
-                        android:textColor="@color/text3"
-                        android:textSize="@dimen/text_30px"/>
-
-                    <TextView
-                        android:id="@+id/tv_leave_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text2"
-                        android:textSize="@dimen/text_30px"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/dp_12"
                         android:text="开始时间"
                         android:textColor="@color/text3"
                         android:textSize="@dimen/text_30px"/>
@@ -184,12 +162,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dp_12"
-                        android:text="请假时长"
+                        android:text="公差时长"
                         android:textColor="@color/text3"
                         android:textSize="@dimen/text_30px"/>
 
                     <TextView
-                        android:id="@+id/tv_leave_duration"
+                        android:id="@+id/tv_trip_duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text2"
@@ -206,34 +184,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dp_12"
-                        android:text="请假事由"
+                        android:text="公差事由"
                         android:textColor="@color/text3"
                         android:textSize="@dimen/text_30px"/>
 
                     <TextView
-                        android:id="@+id/tv_leave_reason"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text2"
-                        android:textSize="@dimen/text_30px"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ll_reject_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/dp_12"
-                        android:text="拒绝理由"
-                        android:textColor="@color/text3"
-                        android:textSize="@dimen/text_30px"/>
-
-                    <TextView
-                        android:id="@+id/tv_reject_reason"
+                        android:id="@+id/tv_trip_reason"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text2"

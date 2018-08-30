@@ -14,8 +14,7 @@ public class ApproveRepairResultBean {
     private List<RepairBean> data;
 
     @Data
-    public static class RepairBean {
-        private int id; //id
+    public static class RepairBean extends GetIdBean{
         private int state; //审批状态
         private String appStatus; //审批状态
         private String realname; //创建人

@@ -12,7 +12,6 @@ import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.ApproverAdapter;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
 import com.haokuo.wenyanoa.bean.approval.ApprovalContentBean;
-import com.haokuo.wenyanoa.bean.approval.ApprovalUserInfoBean;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.ApprovalDetailParams;
@@ -34,12 +33,16 @@ import okhttp3.Call;
  * Created by zjf on 2018-08-09.
  */
 
-public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
+public class BuyItemsApprovalDetailActivity extends BaseApprovalDetailActivity {
 
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
     @BindView(R.id.iv_avatar)
     CircleImageView mIvAvatar;
+    @BindView(R.id.tv_reject_reason)
+    TextView mTvRejectReason;
+    @BindView(R.id.ll_reject_container)
+    LinearLayout mLlRejectContainer;
     @BindView(R.id.tv_name)
     TextView mTvName;
     @BindView(R.id.tv_approve_state)
@@ -48,20 +51,12 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
     TextView mTvDeptName;
     @BindView(R.id.tv_duties)
     TextView mTvDuties;
-    @BindView(R.id.tv_leave_type)
-    TextView mTvLeaveType;
-    @BindView(R.id.tv_begin_time)
-    TextView mTvBeginTime;
-    @BindView(R.id.tv_reject_reason)
-    TextView mTvRejectReason;
-    @BindView(R.id.ll_reject_container)
-    LinearLayout mLlRejectContainer;
-    @BindView(R.id.tv_end_time)
-    TextView mTvEndTime;
-    @BindView(R.id.tv_leave_duration)
-    TextView mTvLeaveDuration;
-    @BindView(R.id.tv_leave_reason)
-    TextView mTvLeaveReason;
+    @BindView(R.id.tv_buy_items)
+    TextView mTvBuyItems;
+    @BindView(R.id.tv_approval_time)
+    TextView mTvApprovalTime;
+    @BindView(R.id.tv_buy_reason)
+    TextView mTvBuyReason;
     @BindView(R.id.rv_approver)
     RecyclerView mRvApprover;
     @BindView(R.id.iv_cc_avatar)
@@ -80,7 +75,7 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
 
     @Override
     protected int initContentLayout() {
-        return R.layout.activity_leave_approval_detail;
+        return R.layout.activity_buy_items_approval_detail;
     }
 
     @Override
@@ -98,13 +93,13 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
 
         //请求内容
         showLoading("加载数据中...");
-        HttpHelper.getInstance().getLeaveById(params, new NetworkCallback() {
+        HttpHelper.getInstance().getBuyItemsById(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
                 loadClose();
                 try {
                     //                    ApprovalContentBean resultBean = (ApprovalContentBean) (new JSONObject(json).get("approve"));
-                    String jsonString = new JSONObject(json).getString("approve");
+                    String jsonString = new JSONObject(json).getString("buy");
                     ApprovalContentBean resultBean = JSON.parseObject(jsonString, ApprovalContentBean.class);
                     //设置信息
                     applyInfo(resultBean);
@@ -136,25 +131,22 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
             case R.id.btn_agree: {
                 HandlerApprovalParams params = new HandlerApprovalParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mId, null);
                 showLoading("提交中...");
-                HttpHelper.getInstance().agreeLeave(params, mHandleCallback);
+                HttpHelper.getInstance().agreeBuyItems(params, mHandleCallback);
             }
             break;
         }
     }
 
     public void applyInfo(ApprovalContentBean infoBean) {
-        ApprovalUserInfoBean userInfo = infoBean.getUserInfo();
-        mTvName.setText(userInfo.getRealName());
-        mMidTitleBar.setMidTitle(String.format("%s的请假", userInfo.getRealName()));
-        ImageLoadUtil.getInstance().loadAvatar(this, userInfo.getHeadPhoto(), mIvAvatar, infoBean.getUser().getSex());
+        mTvName.setText(infoBean.getRealname());
+        mMidTitleBar.setMidTitle(String.format("%s的物品申购", infoBean.getRealname()));
+        ImageLoadUtil.getInstance().loadAvatar(this, infoBean.getNowPhoto(), mIvAvatar, infoBean.getNowSex());
         mTvApproveState.setText(infoBean.getAppStatus());
-        mTvDeptName.setText(userInfo.getSecition());
-        mTvDuties.setText(userInfo.getJob());
-        mTvLeaveType.setText(infoBean.getLeaveType());
-        mTvBeginTime.setText(infoBean.getStartDate());
-        mTvEndTime.setText(infoBean.getEndDate());
-        mTvLeaveDuration.setText(infoBean.getHowlong());
-        mTvLeaveReason.setText(infoBean.getIncident());
+        mTvDeptName.setText(infoBean.getSection());
+        mTvDuties.setText(infoBean.getJob());
+        mTvBuyItems.setText(infoBean.getBuyItems());
+        mTvApprovalTime.setText(infoBean.getFillformDate());
+        mTvBuyReason.setText(infoBean.getIncident());
         mApproverAdapter.setNewData(infoBean.getApproverList());
         if (infoBean.getCourtesyCopyId() != 0) {
             ImageLoadUtil.getInstance().loadAvatar(this, infoBean.getCopylP(), mIvCcAvatar, infoBean.getCopySex());
@@ -172,6 +164,8 @@ public class LeaveApprovalDetailActivity extends BaseApprovalDetailActivity {
     protected void rejectApproval(String rejectReason) {
         HandlerApprovalParams params = new HandlerApprovalParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mId, rejectReason);
         showLoading("提交中...");
-        HttpHelper.getInstance().rejectLeave(params, mHandleCallback);
+        HttpHelper.getInstance().rejectBuyItems(params, mHandleCallback);
     }
+
+
 }

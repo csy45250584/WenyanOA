@@ -9,6 +9,8 @@
     android:layout_marginRight="@dimen/dp_10"
     android:layout_marginTop="@dimen/dp_8"
     android:background="@android:color/white"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/dp_8">
 
     <FrameLayout

@@ -53,7 +53,7 @@ public class ContactDetailActivity extends BaseActivity implements ContactDetail
         mMidTitleBar.addBackArrow(this, R.drawable.fanhui1);
         ContactResultBean.ContactBean contactBean = (ContactResultBean.ContactBean) getIntent().getSerializableExtra(EXTRA_CONTACT);
         if (contactBean != null) {
-            Glide.with(this).load(contactBean.getHeadPhoto()).apply(ImageLoadUtil.sAvatarOptions).into(mIvAvatar);
+            ImageLoadUtil.getInstance().loadAvatar(this,contactBean.getHeadPhoto(),mIvAvatar,contactBean.getSex());
             mTvName.setText(contactBean.getRealname());
             mContactPhone.setContent(contactBean.getTelphone());
             mContactShortPhone.setContent(contactBean.getMobilePhone());

@@ -14,13 +14,11 @@ public class ApproveBuyItemsResultBean {
     private List<BuyItemsBean> data;
 
     @Data
-    public static class BuyItemsBean {
-        private int id; //id
+    public static class BuyItemsBean extends GetIdBean{
         private int state; //审批状态
         private String appStatus; //审批状态
         private String realname; //创建人
         private String fillformDate; //创建时间
-
         private String buyItems; //申购物品
     }
 }

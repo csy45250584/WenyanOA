@@ -122,7 +122,7 @@ public class ApprovalItem2 extends FrameLayout {
     public void setCc(StaffBean staffBean) {
         mCcBean = staffBean;
         mTvCcName.setText(staffBean.getName());
-        Glide.with(mContext).load(staffBean.getAvatar()).apply(ImageLoadUtil.sAvatarOptions).into(mIvCcAvatar);
+        ImageLoadUtil.getInstance().loadAvatar(mContext,staffBean.getAvatar(),mIvCcAvatar,staffBean.getSex());
     }
     public String getContentText() {
         return mEtApprovalItem.getEditableText().toString();

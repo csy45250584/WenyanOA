@@ -67,6 +67,21 @@
             android:name=".activity.approval.LeaveApprovalDetailActivity"
             android:launchMode="singleTop"/>
         <activity
+            android:name=".activity.approval.TripApprovalDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.approval.ChangeShiftApprovalDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.approval.BuyItemsApprovalDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.approval.RepairApprovalDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.approval.ApplyItemsApprovalDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
             android:name=".activity.NewsActivity"
             android:launchMode="singleTop"/>
         <activity

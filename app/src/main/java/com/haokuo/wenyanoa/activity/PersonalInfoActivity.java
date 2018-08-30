@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.bean.UpdateAvatarResultBean;
@@ -96,9 +95,7 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
     }
 
     private void loadInfo() {
-        Glide.with(this).load(mUserInfoDetail.getHeadPhoto())
-                .apply(ImageLoadUtil.sAvatarOptions)
-                .into(mIvAvatar);
+        ImageLoadUtil.getInstance().loadAvatar(this,mUserInfoDetail.getHeadPhoto(),mIvAvatar,mUserInfoDetail.getSex());
         mSivUserName.setContentText(!TextUtils.isEmpty(mUserInfoDetail.getUserName()) ? mUserInfoDetail.getUserName() : "尚未设置用户名");
         mSivRealName.setContentText(!TextUtils.isEmpty(mUserInfoDetail.getRealname()) ? mUserInfoDetail.getRealname() : "尚未设置真实姓名");
         mSivSex.setContentText(!TextUtils.isEmpty(mUserInfoDetail.getSex()) ? mUserInfoDetail.getSex() : "尚未设置性别");

@@ -10,7 +10,7 @@
         android:id="@+id/mid_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"
-        app:midTitle="请假"/>
+        app:midTitle="报修"/>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -118,12 +118,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dp_12"
-                        android:text="请假类别"
+                        android:text="报修物品"
                         android:textColor="@color/text3"
                         android:textSize="@dimen/text_30px"/>
 
                     <TextView
-                        android:id="@+id/tv_leave_type"
+                        android:id="@+id/tv_repair_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text2"
@@ -140,12 +140,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dp_12"
-                        android:text="开始时间"
+                        android:text="维修地点"
                         android:textColor="@color/text3"
                         android:textSize="@dimen/text_30px"/>
 
                     <TextView
-                        android:id="@+id/tv_begin_time"
+                        android:id="@+id/tv_repair_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text2"
@@ -162,56 +162,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dp_12"
-                        android:text="结束时间"
+                        android:text="期望时间"
                         android:textColor="@color/text3"
                         android:textSize="@dimen/text_30px"/>
 
                     <TextView
-                        android:id="@+id/tv_end_time"
+                        android:id="@+id/tv_repair_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text2"
                         android:textSize="@dimen/text_30px"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/dp_12"
-                        android:text="请假时长"
-                        android:textColor="@color/text3"
-                        android:textSize="@dimen/text_30px"/>
-
-                    <TextView
-                        android:id="@+id/tv_leave_duration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text2"
-                        android:textSize="@dimen/text_30px"/>
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dp_12"
-                        android:text="请假事由"
+                        android:text="物品损坏情况及备注"
                         android:textColor="@color/text3"
                         android:textSize="@dimen/text_30px"/>
 
                     <TextView
-                        android:id="@+id/tv_leave_reason"
+                        android:id="@+id/tv_repair_reason"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text2"

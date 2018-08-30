@@ -96,7 +96,7 @@ public class MeFragment extends BaseLazyLoadFragment {
         String userJob = userInfoDetail.getUserJob();
         mTvUserDuties.setText(userJob != null ? String.format("职务：%s", userJob) : "");
         String avatarUrl = userInfoDetail.getHeadPhoto();
-        Glide.with(this).load(avatarUrl).apply(ImageLoadUtil.sAvatarOptions).into(mIvUserAvatar);
+        ImageLoadUtil.getInstance().loadAvatar(getActivity(),avatarUrl,mIvUserAvatar,userInfoDetail.getSex());
     }
 
     @OnClick({R.id.item_attendance, R.id.item_wallet, R.id.item_personal_info, R.id.item_setting})
