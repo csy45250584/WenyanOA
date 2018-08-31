@@ -95,7 +95,7 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
     }
 
     private void loadInfo() {
-        ImageLoadUtil.getInstance().loadAvatar(this,mUserInfoDetail.getHeadPhoto(),mIvAvatar,mUserInfoDetail.getSex());
+        ImageLoadUtil.getInstance().loadAvatar(this, mUserInfoDetail.getHeadPhoto(), mIvAvatar, mUserInfoDetail.getSex());
         mSivUserName.setContentText(!TextUtils.isEmpty(mUserInfoDetail.getUserName()) ? mUserInfoDetail.getUserName() : "尚未设置用户名");
         mSivRealName.setContentText(!TextUtils.isEmpty(mUserInfoDetail.getRealname()) ? mUserInfoDetail.getRealname() : "尚未设置真实姓名");
         mSivSex.setContentText(!TextUtils.isEmpty(mUserInfoDetail.getSex()) ? mUserInfoDetail.getSex() : "尚未设置性别");
@@ -160,9 +160,10 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                 break;
             case R.id.siv_sex:
                 final String[] sexChoice = {"男", "女"};
+                int checkItem = "女".equals(mUserInfoDetail.getSex()) ? 1 : 0;
                 new AlertDialog.Builder(this)
                         .setTitle("修改性别")
-                        .setSingleChoiceItems(sexChoice, 0, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(sexChoice, checkItem, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 sex = sexChoice[which];

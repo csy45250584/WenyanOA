@@ -1,9 +1,12 @@
 package com.haokuo.wenyanoa.adapter.approval;
 
+import android.widget.ImageView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.bean.approval.ApproveBuyItemsResultBean;
+import com.haokuo.wenyanoa.util.ImageLoadUtil;
 
 /**
  * Created by Naix on 2017/8/7 17:29.
@@ -21,5 +24,7 @@ public class ApprovalBuyItemsAdapter extends BaseQuickAdapter<ApproveBuyItemsRes
         helper.setText(R.id.tv_goods_name, String.format("申购物品：%s", item.getBuyItems()));
         helper.setText(R.id.tv_approve_state, item.getAppStatus());
         helper.setText(R.id.tv_fill_form_time, item.getFillformDate());
+        ImageView ivAvatar = helper.getView(R.id.iv_avatar);
+        ImageLoadUtil.getInstance().loadAvatar(mContext, item.getNowPhoto(), ivAvatar, item.getNowSex());
     }
 }

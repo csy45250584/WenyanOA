@@ -20,5 +20,7 @@ public class ApproveBuyItemsResultBean {
         private String realname; //创建人
         private String fillformDate; //创建时间
         private String buyItems; //申购物品
+        private String nowSex; //申购物品
+        private String nowPhoto; //申购物品
     }
 }

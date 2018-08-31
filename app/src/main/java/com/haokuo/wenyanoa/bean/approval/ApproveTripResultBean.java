@@ -21,5 +21,7 @@ public class ApproveTripResultBean {
         private String startDate; //请假开始时间
         private String endDate; //请假结束时间
         private String fillformDate; //创建时间
+        private UserBean user;
+        private ApprovalUserInfoBean userInfo;
     }
 }

@@ -1,9 +1,12 @@
 package com.haokuo.wenyanoa.adapter.approval;
 
+import android.widget.ImageView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.bean.approval.ApproveTripResultBean;
+import com.haokuo.wenyanoa.util.ImageLoadUtil;
 
 /**
  * Created by Naix on 2017/8/7 17:29.
@@ -21,5 +24,8 @@ public class ApprovalTripAdapter extends BaseQuickAdapter<ApproveTripResultBean.
         helper.setText(R.id.tv_end_time, String.format("结束时间：%s", item.getEndDate()));
         helper.setText(R.id.tv_approve_state, item.getAppStatus());
         helper.setText(R.id.tv_fill_form_time, item.getFillformDate());
+        ImageView ivAvatar = helper.getView(R.id.iv_avatar);
+        ImageLoadUtil.getInstance().loadAvatar(mContext,item.getUserInfo().getHeadPhoto(),ivAvatar,item.getUser().getSex());
+
     }
 }

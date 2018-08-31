@@ -22,5 +22,7 @@ public class ApproveRepairResultBean {
 
         private String fixItems; //报修物品
         private String expectfixDate; //期望维修时间
+        private String nowSex; //期望维修时间
+        private String nowPhoto; //期望维修时间
     }
 }
