@@ -1,5 +1,6 @@
 package com.haokuo.wenyanoa.fragment;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.View;
 import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haokuo.wenyanoa.R;
+import com.haokuo.wenyanoa.activity.NewsDetailActivity;
 import com.haokuo.wenyanoa.adapter.NewsAdapter;
 import com.haokuo.wenyanoa.bean.NewsResultBean;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
@@ -77,8 +79,12 @@ public class NewsFragment extends BaseLazyLoadFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 NewsResultBean.NewsBean item = mNewsAdapter.getItem(position);
                 if (item != null) {
-                    int id = item.getId();
                     //TODO 打开详情
+                    int id = item.getId();
+                    Intent intent = new Intent(mContext, NewsDetailActivity.class);
+                    intent.putExtra(NewsDetailActivity.EXTRA_TYPE, type);
+                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS_ID, id);
+                    startActivity(intent);
                 }
             }
         });

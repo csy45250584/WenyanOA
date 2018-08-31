@@ -413,6 +413,7 @@
     <dimen name="sp_17">17sp</dimen>
     <dimen name="sp_17_6">17.6sp</dimen>
     <dimen name="sp_18">18sp</dimen>
+    <dimen name="sp_18_7">18.7sp</dimen>
     <dimen name="sp_19">19sp</dimen>
     <dimen name="sp_19_8">19.8sp</dimen>
     <dimen name="sp_20">20sp</dimen>
@@ -433,6 +434,7 @@
     <dimen name="sp_70">70sp</dimen>
 
     <dimen name="text_36px">@dimen/sp_19_8</dimen>
+    <dimen name="text_34px">@dimen/sp_18_7</dimen>
     <dimen name="text_32px">@dimen/sp_17_6</dimen>
     <dimen name="text_30px">@dimen/sp_16_5</dimen>
     <dimen name="text_28px">@dimen/sp_15_4</dimen>

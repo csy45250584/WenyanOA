@@ -18,7 +18,7 @@
                 android:id="@+id/mid_title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_56"
-                app:midTitle="设置"/>
+                app:midTitle="个人资料"/>
 
             <LinearLayout
                 android:clickable="true"

@@ -129,6 +129,9 @@
         <activity
             android:name=".activity.matters.SelectCcActivity"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.NewsDetailActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>
