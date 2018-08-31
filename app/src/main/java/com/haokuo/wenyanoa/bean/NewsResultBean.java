@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 public class NewsResultBean {
-
+    private int count;
     private List<NewsBean> data;
 
     @Data

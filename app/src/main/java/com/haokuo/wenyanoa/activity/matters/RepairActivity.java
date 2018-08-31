@@ -66,6 +66,7 @@ public class RepairActivity extends BaseCcActivity {
                 mApproverList = JSON.parseObject(json, PrepareMatterResultBean.class);
                 loadClose();
                 mAiApprovers.applyApproverList(mApproverList);
+                mAiCc.setCc(mApproverList.getCc(), true);
             }
 
             @Override

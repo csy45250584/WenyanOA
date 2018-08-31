@@ -38,9 +38,9 @@ import okhttp3.Call;
 
 public class DishesFragment extends BaseLazyLoadFragment {
     private static final String TYPE = "type";
-    public static final int TYPE_BREAKFAST = 1;
-    public static final int TYPE_LAUNCH = 2;
-    public static final int TYPE_DINNER = 3;
+    public static final int TYPE_BREAKFAST = 0;
+    public static final int TYPE_LAUNCH = 1;
+    public static final int TYPE_DINNER = 2;
     @BindView(R.id.rv_dishes)
     RecyclerView mRvDishes;
     @BindView(R.id.srl_dishes)
@@ -117,24 +117,6 @@ public class DishesFragment extends BaseLazyLoadFragment {
                 });
             }
         });
-        //        mSrlDishes.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-        //            @Override
-        //            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
-        //                refreshLayout.finishLoadMore(3000);
-        //            }
-        //
-        //            @Override
-        //            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
-        //                new GetInFoodListParams(mUserInfo.getUserId(),mUserInfo.getApikey(),mWeekday,)
-        //                HttpHelper.getInstance().getFoodList();
-        //                ArrayList<DishesBean> dishesBeans = new ArrayList<>();
-        //                for (int i = 0; i < 20; i++) {
-        //                    dishesBeans.add(new DishesBean());
-        //                }
-        //                mDishesAdapter.setNewData(dishesBeans);
-        //                refreshLayout.finishRefresh(3000);
-        //            }
-        //        });
     }
 
     @Subscribe(priority = 1)

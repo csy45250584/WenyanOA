@@ -34,7 +34,6 @@ public class BasketFragment extends BaseLazyLoadFragment {
         int dividerHeight = (int) (resources.getDimension(R.dimen.dp_1) + 0.5f);
         mRvBasket.addItemDecoration(new RecyclerViewDivider(mContext, LinearLayoutManager.HORIZONTAL, dividerHeight, R.color.divider,
                 dividerPadding, dividerPadding));
-        //        mRvBasket.setItemAnimator(new SlideInRightAnimator());
         BasketAdapter basketAdapter = new BasketAdapter(R.layout.item_basket);
         mRvBasket.setAdapter(basketAdapter);
         ArrayList<DishesBean> dishesBeans = new ArrayList<>();

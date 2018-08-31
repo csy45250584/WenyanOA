@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.activity.BaseActivity;
 import com.haokuo.wenyanoa.activity.matters.BaseCcActivity;
@@ -120,10 +119,18 @@ public class ApprovalItem2 extends FrameLayout {
     }
 
     public void setCc(StaffBean staffBean) {
+        setCc(staffBean, false);
+    }
+
+    public void setCc(StaffBean staffBean, boolean isStatic) {
         mCcBean = staffBean;
         mTvCcName.setText(staffBean.getName());
-        ImageLoadUtil.getInstance().loadAvatar(mContext,staffBean.getAvatar(),mIvCcAvatar,staffBean.getSex());
+        ImageLoadUtil.getInstance().loadAvatar(mContext, staffBean.getAvatar(), mIvCcAvatar, staffBean.getSex());
+        if (isStatic) {
+            mLlCcContainer.setOnClickListener(null);
+        }
     }
+
     public String getContentText() {
         return mEtApprovalItem.getEditableText().toString();
     }

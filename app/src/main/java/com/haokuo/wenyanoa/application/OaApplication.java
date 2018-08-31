@@ -19,6 +19,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
+import org.litepal.LitePal;
 
 /**
  * Created by zjf on 2018-07-16.
@@ -54,7 +55,8 @@ public class OaApplication extends Application {
         //初始化全局Loading样式
         initLoadingStyle();
         initBarStyle();
-//        LitePal.initialize(this);
+        //数据库初始化
+        LitePal.initialize(this);
     }
 
     private void initBarStyle() {

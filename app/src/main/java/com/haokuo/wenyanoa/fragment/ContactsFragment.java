@@ -115,7 +115,7 @@ public class ContactsFragment extends BaseLazyLoadFragment {
                 ContactResultBean.ContactBean item = mContactsAdapter.getItem(position);
                 if (item != null) {
                     if (mIsSelectCc) {
-                        StaffBean cc = new StaffBean(item.getId(), item.getRealname(), item.getHeadPhoto(),item.getSex());
+                        StaffBean cc = new StaffBean(item.getId(), item.getRealname(), item.getHeadPhoto(), item.getSex());
                         Intent intent = new Intent().putExtra(EXTRA_CC, cc);
                         mContext.setResult(Activity.RESULT_OK, intent);
                         mContext.finish();
@@ -145,7 +145,7 @@ public class ContactsFragment extends BaseLazyLoadFragment {
 
                     @Override
                     public void onFailure(Call call, String message) {
-                        ToastUtils.showShort("加载通讯录失败！");
+                        ToastUtils.showShort("加载通讯录失败！" + message);
                         refreshLayout.finishRefresh(false);
                     }
                 });

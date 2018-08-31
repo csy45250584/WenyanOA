@@ -22,21 +22,26 @@ public class PrepareMatterResultBean {
     private String oneLeveSex;
     private String twoLeveSex;
     private String threeLeveSex;
+    private int CourtesyCopyId;
+    private String CourtesyCopySex;
+    private String CourtesyCopylN;
+    private String CourtesyCopylP;
 
     public List<StaffBean> getApproverList() {
         ArrayList<StaffBean> approverBeans = new ArrayList<>();
         if (oneLevelId != 0) {
-            approverBeans.add(new StaffBean(oneLevelId, oneLevelN, oneLevelP,oneLeveSex));
+            approverBeans.add(new StaffBean(oneLevelId, oneLevelN, oneLevelP, oneLeveSex));
         }
         if (twoLevelId != 0) {
-            approverBeans.add(new StaffBean(twoLevelId, twoLevelN, twoLevelP,twoLeveSex));
+            approverBeans.add(new StaffBean(twoLevelId, twoLevelN, twoLevelP, twoLeveSex));
         }
         if (threeLevelId != 0) {
-            approverBeans.add(new StaffBean(threeLevelId, threeLevelN, threeLevelP,threeLeveSex));
+            approverBeans.add(new StaffBean(threeLevelId, threeLevelN, threeLevelP, threeLeveSex));
         }
-
         return approverBeans;
     }
 
-
+    public StaffBean getCc() {
+        return new StaffBean(CourtesyCopyId, CourtesyCopylN, CourtesyCopylP, CourtesyCopySex);
+    }
 }

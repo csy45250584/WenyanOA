@@ -56,11 +56,6 @@ public class MyAttendanceActivity extends BaseActivity {
         mRvMyAttendance.setLayoutManager(new LinearLayoutManager(this));
         mMyAttendanceAdapter = new MyAttendanceAdapter(R.layout.item_my_attendance, this);
         mRvMyAttendance.setAdapter(mMyAttendanceAdapter);
-        //        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
-        //        for (int i = 0; i < 20; i++) {
-        //            dishesBeans.add(new DishesBean());
-        //        }
-        //        mMyAttendanceAdapter.setNewData(dishesBeans);
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
         Calendar instance = Calendar.getInstance();
         String endDayStr = TimeUtils.date2String(instance.getTime(), TimeUtils.CUSTOM_FORMAT);
@@ -76,20 +71,18 @@ public class MyAttendanceActivity extends BaseActivity {
         mSrlMyAttendance.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                mParams.increasePageIndex();
                 HttpHelper.getInstance().getMyAttendanceList(mParams, new NetworkCallback() {
                     @Override
                     public void onSuccess(Call call, String json) {
-                        List<MyAttendanceResultBean.AttendanceBean> data = JSON.parseObject(json, MyAttendanceResultBean.class).getData();
-                        if (data != null) {
-                            mMyAttendanceAdapter.addData(data);
-                            if (data.size() < PAGE_SIZE) {
-                                refreshLayout.finishLoadMoreWithNoMoreData();
-                            }
-                            mParams.increasePageIndex();
-                        } else {
+                        MyAttendanceResultBean resultBean = JSON.parseObject(json, MyAttendanceResultBean.class);
+                        List<MyAttendanceResultBean.AttendanceBean> data = resultBean.getData();
+                        mMyAttendanceAdapter.addData(data);
+                        if (mMyAttendanceAdapter.getData().size() == resultBean.getCount()) {
                             refreshLayout.finishLoadMoreWithNoMoreData();
+                        } else {
+                            refreshLayout.finishLoadMore();
                         }
-                        refreshLayout.finishLoadMore();
                     }
 
                     @Override
@@ -106,12 +99,11 @@ public class MyAttendanceActivity extends BaseActivity {
                 HttpHelper.getInstance().getMyAttendanceList(mParams, new NetworkCallback() {
                     @Override
                     public void onSuccess(Call call, String json) {
-                        List<MyAttendanceResultBean.AttendanceBean> data = JSON.parseObject(json, MyAttendanceResultBean.class).getData();
-                        if (data != null) {
-                            mMyAttendanceAdapter.setNewData(data);
-                            mParams.increasePageIndex();
-                        }
+                        MyAttendanceResultBean resultBean = JSON.parseObject(json, MyAttendanceResultBean.class);
+                        List<MyAttendanceResultBean.AttendanceBean> data = resultBean.getData();
+                        mMyAttendanceAdapter.setNewData(data);
                         refreshLayout.finishRefresh();
+                        refreshLayout.setNoMoreData(mMyAttendanceAdapter.getData().size() == resultBean.getCount());
                     }
 
                     @Override

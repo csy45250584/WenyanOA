@@ -35,7 +35,7 @@ public class BasketAdapter extends BaseQuickAdapter<DishesBean, BaseViewHolder> 
         BigDecimal totalPrice = price.multiply(count);
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
         String priceString = currencyFormatter.format(totalPrice);
-        helper.setText(R.id.tv_dish_count, String.format("总价：%s", priceString));
+        helper.setText(R.id.tv_dish_total_price, String.format("总价：%s", priceString));
         //设置选中框
         SmoothCheckBox cbDish = helper.getView(R.id.cb_dish);
         cbDish.setChecked(item.isChecked());

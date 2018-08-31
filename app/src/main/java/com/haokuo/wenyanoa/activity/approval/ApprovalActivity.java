@@ -130,12 +130,8 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
                 ApproveLeaveResultBean approveLeaveResultBean = JSON.parseObject(json, ApproveLeaveResultBean.class);
                 List<ApproveLeaveResultBean.LeaveBean> data = approveLeaveResultBean.getData();
                 mApprovalLeaveAdapter.setNewData(data);
-                mParams.increasePageIndex();
                 mSrlApproval.finishRefresh();
-                if (approveLeaveResultBean.getCount() < PAGE_SIZE) {
-                    mSrlApproval.finishRefresh();
-                    mSrlApproval.finishLoadMoreWithNoMoreData();
-                }
+                mSrlApproval.setNoMoreData(mApprovalLeaveAdapter.getData().size() == approveLeaveResultBean.getCount());
             }
 
             @Override
@@ -147,17 +143,14 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mLoadMoreLeaveCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveLeaveResultBean.LeaveBean> data = JSON.parseObject(json, ApproveLeaveResultBean.class).getData();
-                if (data != null) {
-                    mApprovalLeaveAdapter.addData(data);
-                    if (data.size() < PAGE_SIZE) {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                        mParams.increasePageIndex();
-                    } else {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                    }
+                ApproveLeaveResultBean approveLeaveResultBean = JSON.parseObject(json, ApproveLeaveResultBean.class);
+                List<ApproveLeaveResultBean.LeaveBean> data = approveLeaveResultBean.getData();
+                mApprovalLeaveAdapter.addData(data);
+                if (mApprovalLeaveAdapter.getData().size() == approveLeaveResultBean.getCount()) {
+                    mSrlApproval.finishLoadMoreWithNoMoreData();
+                } else {
+                    mSrlApproval.finishLoadMore();
                 }
-                mSrlApproval.finishLoadMore();
             }
 
             @Override
@@ -169,12 +162,11 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mTripCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveTripResultBean.TripBean> data = JSON.parseObject(json, ApproveTripResultBean.class).getData();
-                if (data != null) {
-                    mApprovalTripAdapter.setNewData(data);
-                    mParams.increasePageIndex();
-                }
+                ApproveTripResultBean resultBean = JSON.parseObject(json, ApproveTripResultBean.class);
+                List<ApproveTripResultBean.TripBean> data = resultBean.getData();
+                mApprovalTripAdapter.setNewData(data);
                 mSrlApproval.finishRefresh();
+                mSrlApproval.setNoMoreData(mApprovalTripAdapter.getData().size() == resultBean.getCount());
             }
 
             @Override
@@ -186,17 +178,14 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mLoadMoreTripCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveTripResultBean.TripBean> data = JSON.parseObject(json, ApproveTripResultBean.class).getData();
-                if (data != null) {
-                    mApprovalTripAdapter.addData(data);
-                    if (data.size() < PAGE_SIZE) {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                        mParams.increasePageIndex();
-                    } else {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                    }
+                ApproveTripResultBean resultBean = JSON.parseObject(json, ApproveTripResultBean.class);
+                List<ApproveTripResultBean.TripBean> data = resultBean.getData();
+                mApprovalTripAdapter.addData(data);
+                if (mApprovalTripAdapter.getData().size() == resultBean.getCount()) {
+                    mSrlApproval.finishLoadMoreWithNoMoreData();
+                } else {
+                    mSrlApproval.finishLoadMore();
                 }
-                mSrlApproval.finishLoadMore();
             }
 
             @Override
@@ -208,12 +197,11 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mChangeShiftCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveChangeShiftResultBean.ChangeShiftBean> data = JSON.parseObject(json, ApproveChangeShiftResultBean.class).getData();
-                if (data != null) {
-                    mApprovalChangeShiftAdapter.setNewData(data);
-                    mParams.increasePageIndex();
-                }
+                ApproveChangeShiftResultBean resultBean = JSON.parseObject(json, ApproveChangeShiftResultBean.class);
+                List<ApproveChangeShiftResultBean.ChangeShiftBean> data = resultBean.getData();
+                mApprovalChangeShiftAdapter.setNewData(data);
                 mSrlApproval.finishRefresh();
+                mSrlApproval.setNoMoreData(mApprovalChangeShiftAdapter.getData().size() == resultBean.getCount());
             }
 
             @Override
@@ -225,17 +213,14 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mLoadMoreChangeShiftCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveChangeShiftResultBean.ChangeShiftBean> data = JSON.parseObject(json, ApproveChangeShiftResultBean.class).getData();
-                if (data != null) {
-                    mApprovalChangeShiftAdapter.addData(data);
-                    if (data.size() < PAGE_SIZE) {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                        mParams.increasePageIndex();
-                    } else {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                    }
+                ApproveChangeShiftResultBean resultBean = JSON.parseObject(json, ApproveChangeShiftResultBean.class);
+                List<ApproveChangeShiftResultBean.ChangeShiftBean> data = resultBean.getData();
+                mApprovalChangeShiftAdapter.addData(data);
+                if (mApprovalChangeShiftAdapter.getData().size() == resultBean.getCount()) {
+                    mSrlApproval.finishLoadMoreWithNoMoreData();
+                } else {
+                    mSrlApproval.finishLoadMore();
                 }
-                mSrlApproval.finishLoadMore();
             }
 
             @Override
@@ -247,12 +232,11 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mBuyItemsCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveBuyItemsResultBean.BuyItemsBean> data = JSON.parseObject(json, ApproveBuyItemsResultBean.class).getData();
-                if (data != null) {
-                    mApprovalBuyItemsAdapter.setNewData(data);
-                    mParams.increasePageIndex();
-                }
+                ApproveBuyItemsResultBean resultBean = JSON.parseObject(json, ApproveBuyItemsResultBean.class);
+                List<ApproveBuyItemsResultBean.BuyItemsBean> data = resultBean.getData();
+                mApprovalBuyItemsAdapter.setNewData(data);
                 mSrlApproval.finishRefresh();
+                mSrlApproval.setNoMoreData(mApprovalBuyItemsAdapter.getData().size() == resultBean.getCount());
             }
 
             @Override
@@ -264,17 +248,14 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mLoadMoreBuyItemsCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveBuyItemsResultBean.BuyItemsBean> data = JSON.parseObject(json, ApproveBuyItemsResultBean.class).getData();
-                if (data != null) {
-                    mApprovalBuyItemsAdapter.addData(data);
-                    if (data.size() < PAGE_SIZE) {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                        mParams.increasePageIndex();
-                    } else {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                    }
+                ApproveBuyItemsResultBean resultBean = JSON.parseObject(json, ApproveBuyItemsResultBean.class);
+                List<ApproveBuyItemsResultBean.BuyItemsBean> data = resultBean.getData();
+                mApprovalBuyItemsAdapter.addData(data);
+                if (mApprovalBuyItemsAdapter.getData().size() == resultBean.getCount()) {
+                    mSrlApproval.finishLoadMoreWithNoMoreData();
+                } else {
+                    mSrlApproval.finishLoadMore();
                 }
-                mSrlApproval.finishLoadMore();
             }
 
             @Override
@@ -286,12 +267,11 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mRepairCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveRepairResultBean.RepairBean> data = JSON.parseObject(json, ApproveRepairResultBean.class).getData();
-                if (data != null) {
-                    mApprovalRepairAdapter.setNewData(data);
-                    mParams.increasePageIndex();
-                }
+                ApproveRepairResultBean resultBean = JSON.parseObject(json, ApproveRepairResultBean.class);
+                List<ApproveRepairResultBean.RepairBean> data = resultBean.getData();
+                mApprovalRepairAdapter.setNewData(data);
                 mSrlApproval.finishRefresh();
+                mSrlApproval.setNoMoreData(mApprovalRepairAdapter.getData().size() == resultBean.getCount());
             }
 
             @Override
@@ -303,17 +283,14 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mLoadMoreRepairCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveRepairResultBean.RepairBean> data = JSON.parseObject(json, ApproveRepairResultBean.class).getData();
-                if (data != null) {
-                    mApprovalRepairAdapter.addData(data);
-                    if (data.size() < PAGE_SIZE) {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                        mParams.increasePageIndex();
-                    } else {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                    }
+                ApproveRepairResultBean resultBean = JSON.parseObject(json, ApproveRepairResultBean.class);
+                List<ApproveRepairResultBean.RepairBean> data = resultBean.getData();
+                mApprovalRepairAdapter.addData(data);
+                if (mApprovalRepairAdapter.getData().size() == resultBean.getCount()) {
+                    mSrlApproval.finishLoadMoreWithNoMoreData();
+                } else {
+                    mSrlApproval.finishLoadMore();
                 }
-                mSrlApproval.finishLoadMore();
             }
 
             @Override
@@ -325,12 +302,11 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mApplyItemsCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveApplyItemsResultBean.ApplyItemsBean> data = JSON.parseObject(json, ApproveApplyItemsResultBean.class).getData();
-                if (data != null) {
-                    mApprovalApplyItemsAdapter.setNewData(data);
-                    mParams.increasePageIndex();
-                }
+                ApproveApplyItemsResultBean resultBean = JSON.parseObject(json, ApproveApplyItemsResultBean.class);
+                List<ApproveApplyItemsResultBean.ApplyItemsBean> data = resultBean.getData();
+                mApprovalApplyItemsAdapter.setNewData(data);
                 mSrlApproval.finishRefresh();
+                mSrlApproval.setNoMoreData(mApprovalApplyItemsAdapter.getData().size() == resultBean.getCount());
             }
 
             @Override
@@ -342,17 +318,14 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         mLoadMoreApplyItemsCallback = new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
-                List<ApproveApplyItemsResultBean.ApplyItemsBean> data = JSON.parseObject(json, ApproveApplyItemsResultBean.class).getData();
-                if (data != null) {
-                    mApprovalApplyItemsAdapter.addData(data);
-                    if (data.size() < PAGE_SIZE) {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                        mParams.increasePageIndex();
-                    } else {
-                        mSrlApproval.finishLoadMoreWithNoMoreData();
-                    }
+                ApproveApplyItemsResultBean resultBean = JSON.parseObject(json, ApproveApplyItemsResultBean.class);
+                List<ApproveApplyItemsResultBean.ApplyItemsBean> data = resultBean.getData();
+                mApprovalApplyItemsAdapter.addData(data);
+                if (mApprovalApplyItemsAdapter.getData().size() == resultBean.getCount()) {
+                    mSrlApproval.finishLoadMoreWithNoMoreData();
+                } else {
+                    mSrlApproval.finishLoadMore();
                 }
-                mSrlApproval.finishLoadMore();
             }
 
             @Override
@@ -414,6 +387,7 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
     }
 
     private void loadMoreList() {
+        mParams.increasePageIndex();
         switch (mCurrentTab) {
             case 0: //待我审批
                 switch (mCurrentSubTab) {
@@ -504,9 +478,9 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
     }
 
     private void refreshList() {
+        mParams.resetPageIndex();
         switch (mCurrentTab) {
             case 0: //待我审批
-                mParams.resetPageIndex();
                 switch (mCurrentSubTab) {
                     case 0: {//事假
                         mApprovalLeaveAdapter.setNewData(null);
@@ -548,7 +522,6 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
                 break;
 
             case 1: //我发起的
-                mParams.resetPageIndex();
                 switch (mCurrentSubTab) {
                     case 0: {//事假
                         mApprovalLeaveAdapter.setNewData(null);
@@ -589,7 +562,6 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
                 }
                 break;
             case 2://抄送给我
-                mParams.resetPageIndex();
                 switch (mCurrentSubTab) {
                     case 0: {//事假
                         mParams.setMatterType(0);
@@ -670,36 +642,7 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
             refreshList();
         }
     }
-    //    public static class MyNetworkCallback implements NetworkCallback {
-    //
-    //        private final Class mClassName;
-    //        private final RecyclerView.Adapter<BaseViewHolder> mAdapter;
-    //        private final PageParams mParams;
-    //        private final RefreshLayout mRefreshLayout;
-    //
-    //        public MyNetworkCallback(Class className, RecyclerView.Adapter<BaseViewHolder> adapter, PageParams params, RefreshLayout refreshLayout) {
-    //            mClassName = className;
-    //            mAdapter = adapter;
-    //            mParams = params;
-    //            mRefreshLayout = refreshLayout;
-    //        }
-    //
-    //        @Override
-    //        public void onSuccess(Call call, String json) {
-    //            List<ApproveLeaveResultBean.LeaveBean> data = JSON.parseObject(json, mClassName).getData();
-    //            if (data != null) {
-    //                mApprovalLeaveAdapter.setNewData(data);
-    //                ApprovalActivity.this.mParams.increasePageIndex();
-    //            }
-    //            refreshLayout.finishRefresh();
-    //        }
-    //
-    //        @Override
-    //        public void onFailure(Call call, String message) {
-    //            ToastUtils.showShort(message);
-    //            refreshLayout.finishRefresh(false);
-    //        }
-    //    }
+
 
     public static class TitleTab implements CustomTabEntity {
 

@@ -46,6 +46,8 @@ public class NewsFragment extends BaseLazyLoadFragment {
     private UserInfoBean mUserInfo;
     private PageParams mParams;
     private NewsAdapter mNewsAdapter;
+    private NetworkCallback mRefreshCallback;
+    private NetworkCallback mLoadMoreCallback;
 
     @Override
     protected int initContentLayout() {
@@ -65,6 +67,45 @@ public class NewsFragment extends BaseLazyLoadFragment {
         mRvNews.setAdapter(mNewsAdapter);
         mUserInfo = OaSpUtil.getUserInfo();
         mParams = new PageParams(mUserInfo.getUserId(), mUserInfo.getApikey(), 0, PAGE_SIZE);
+        initCallback();
+    }
+
+    private void initCallback() {
+        mRefreshCallback = new NetworkCallback() {
+            @Override
+            public void onSuccess(Call call, String json) {
+                NewsResultBean resultBean = JSON.parseObject(json, NewsResultBean.class);
+                List<NewsResultBean.NewsBean> data = resultBean.getData();
+                mNewsAdapter.setNewData(data);
+                mSrlNews.finishRefresh();
+                mSrlNews.setNoMoreData(mNewsAdapter.getData().size() == resultBean.getCount());
+            }
+
+            @Override
+            public void onFailure(Call call, String message) {
+                ToastUtils.showShort(message);
+                mSrlNews.finishRefresh(false);
+            }
+        };
+        mLoadMoreCallback = new NetworkCallback() {
+            @Override
+            public void onSuccess(Call call, String json) {
+                NewsResultBean resultBean = JSON.parseObject(json, NewsResultBean.class);
+                List<NewsResultBean.NewsBean> data = resultBean.getData();
+                mNewsAdapter.addData(data);
+                if (mNewsAdapter.getData().size() == resultBean.getCount()) {
+                    mSrlNews.finishLoadMoreWithNoMoreData();
+                } else {
+                    mSrlNews.finishLoadMore();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, String message) {
+                ToastUtils.showShort(message);
+                mSrlNews.finishLoadMore(false/*,false*/);//传入false表示加载失败
+            }
+        };
     }
 
     @Override
@@ -79,7 +120,6 @@ public class NewsFragment extends BaseLazyLoadFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 NewsResultBean.NewsBean item = mNewsAdapter.getItem(position);
                 if (item != null) {
-                    //TODO 打开详情
                     int id = item.getId();
                     Intent intent = new Intent(mContext, NewsDetailActivity.class);
                     intent.putExtra(NewsDetailActivity.EXTRA_TYPE, type);
@@ -91,78 +131,16 @@ public class NewsFragment extends BaseLazyLoadFragment {
         mSrlNews.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                mParams.increasePageIndex();
                 switch (type) {
                     case TYPE_CONFERENCE:
-                        HttpHelper.getInstance().getConference(mParams, new NetworkCallback() {
-                            @Override
-                            public void onSuccess(Call call, String json) {
-                                List<NewsResultBean.NewsBean> data = JSON.parseObject(json, NewsResultBean.class).getData();
-                                if (data != null) {
-                                    mNewsAdapter.addData(data);
-                                    if (data.size() < PAGE_SIZE) {
-                                        refreshLayout.finishLoadMoreWithNoMoreData();
-                                    }
-                                    mParams.increasePageIndex();
-                                } else {
-                                    refreshLayout.finishLoadMoreWithNoMoreData();
-                                }
-                                refreshLayout.finishLoadMore();
-                            }
-
-                            @Override
-                            public void onFailure(Call call, String message) {
-                                ToastUtils.showShort(message);
-                                refreshLayout.finishLoadMore(false/*,false*/);//传入false表示加载失败
-                            }
-                        });
+                        HttpHelper.getInstance().getConference(mParams, mLoadMoreCallback);
                         break;
                     case TYPE_NEWS:
-                        HttpHelper.getInstance().getNewsList(mParams, new NetworkCallback() {
-                            @Override
-                            public void onSuccess(Call call, String json) {
-                                List<NewsResultBean.NewsBean> data = JSON.parseObject(json, NewsResultBean.class).getData();
-                                if (data != null) {
-                                    mNewsAdapter.addData(data);
-                                    if (data.size() < PAGE_SIZE) {
-                                        refreshLayout.finishLoadMoreWithNoMoreData();
-                                    }
-                                    mParams.increasePageIndex();
-                                } else {
-                                    refreshLayout.finishLoadMoreWithNoMoreData();
-                                }
-                                refreshLayout.finishLoadMore();
-                            }
-
-                            @Override
-                            public void onFailure(Call call, String message) {
-                                ToastUtils.showShort(message);
-                                refreshLayout.finishLoadMore(false/*,false*/);//传入false表示加载失败
-                            }
-                        });
+                        HttpHelper.getInstance().getNewsList(mParams, mLoadMoreCallback);
                         break;
                     case TYPE_NOTICE:
-                        HttpHelper.getInstance().getNoticeList(mParams, new NetworkCallback() {
-                            @Override
-                            public void onSuccess(Call call, String json) {
-                                List<NewsResultBean.NewsBean> data = JSON.parseObject(json, NewsResultBean.class).getData();
-                                if (data != null) {
-                                    mNewsAdapter.addData(data);
-                                    if (data.size() < PAGE_SIZE) {
-                                        refreshLayout.finishLoadMoreWithNoMoreData();
-                                    }
-                                    mParams.increasePageIndex();
-                                } else {
-                                    refreshLayout.finishLoadMoreWithNoMoreData();
-                                }
-                                refreshLayout.finishLoadMore();
-                            }
-
-                            @Override
-                            public void onFailure(Call call, String message) {
-                                ToastUtils.showShort(message);
-                                refreshLayout.finishLoadMore(false/*,false*/);//传入false表示加载失败
-                            }
-                        });
+                        HttpHelper.getInstance().getNoticeList(mParams, mLoadMoreCallback);
                         break;
                 }
             }
@@ -172,63 +150,15 @@ public class NewsFragment extends BaseLazyLoadFragment {
                 mParams.resetPageIndex();
                 switch (type) {
                     case TYPE_CONFERENCE: {
-                        HttpHelper.getInstance().getConference(mParams, new NetworkCallback() {
-                            @Override
-                            public void onSuccess(Call call, String json) {
-                                List<NewsResultBean.NewsBean> data = JSON.parseObject(json, NewsResultBean.class).getData();
-                                if (data != null) {
-                                    mNewsAdapter.setNewData(data);
-                                    mParams.increasePageIndex();
-                                }
-                                refreshLayout.finishRefresh();
-                            }
-
-                            @Override
-                            public void onFailure(Call call, String message) {
-                                ToastUtils.showShort(message);
-                                refreshLayout.finishRefresh(false);
-                            }
-                        });
+                        HttpHelper.getInstance().getConference(mParams, mRefreshCallback);
                     }
                     break;
                     case TYPE_NEWS: {
-                        HttpHelper.getInstance().getNewsList(mParams, new NetworkCallback() {
-                            @Override
-                            public void onSuccess(Call call, String json) {
-                                List<NewsResultBean.NewsBean> data = JSON.parseObject(json, NewsResultBean.class).getData();
-                                if (data != null) {
-                                    mNewsAdapter.setNewData(data);
-                                    mParams.increasePageIndex();
-                                }
-                                refreshLayout.finishRefresh();
-                            }
-
-                            @Override
-                            public void onFailure(Call call, String message) {
-                                ToastUtils.showShort(message);
-                                refreshLayout.finishRefresh(false);
-                            }
-                        });
+                        HttpHelper.getInstance().getNewsList(mParams, mRefreshCallback);
                     }
                     break;
                     case TYPE_NOTICE: {
-                        HttpHelper.getInstance().getNoticeList(mParams, new NetworkCallback() {
-                            @Override
-                            public void onSuccess(Call call, String json) {
-                                List<NewsResultBean.NewsBean> data = JSON.parseObject(json, NewsResultBean.class).getData();
-                                if (data != null) {
-                                    mNewsAdapter.setNewData(data);
-                                    mParams.increasePageIndex();
-                                }
-                                refreshLayout.finishRefresh();
-                            }
-
-                            @Override
-                            public void onFailure(Call call, String message) {
-                                ToastUtils.showShort(message);
-                                refreshLayout.finishRefresh(false);
-                            }
-                        });
+                        HttpHelper.getInstance().getNoticeList(mParams, mRefreshCallback);
                     }
                     break;
                 }

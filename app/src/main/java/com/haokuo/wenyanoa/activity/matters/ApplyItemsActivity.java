@@ -60,6 +60,7 @@ public class ApplyItemsActivity extends BaseCcActivity {
                 mApproverList = JSON.parseObject(json, PrepareMatterResultBean.class);
                 loadClose();
                 mAiApprovers.applyApproverList(mApproverList);
+                mAiCc.setCc(mApproverList.getCc(), true);
             }
 
             @Override
@@ -74,8 +75,6 @@ public class ApplyItemsActivity extends BaseCcActivity {
     protected void initListener() {
 
     }
-
-
 
     @OnClick(R.id.btn_commit)
     public void onViewClicked() {
