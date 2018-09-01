@@ -20,6 +20,7 @@
     <color name="textLightScrims">#33000000</color>
     <color name="transparent">#00000000</color>
     <color name="colorRipple">#1f000000</color>
+    <color name="colorColorRipple">#334787E4</color>
     <color name="colorUnable">#FF2A3039</color>
     <color name="colorApproveState">#e7a44c</color>
 

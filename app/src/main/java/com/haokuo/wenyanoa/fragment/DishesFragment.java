@@ -1,11 +1,16 @@
 package com.haokuo.wenyanoa.fragment;
 
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,6 +23,7 @@ import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
 import com.haokuo.wenyanoa.util.OaSpUtil;
+import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.haokuo.wenyanoa.view.RecyclerViewDivider;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -27,6 +33,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -88,12 +95,34 @@ public class DishesFragment extends BaseLazyLoadFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-                    case R.id.iv_delete_dish:
-                        mDishesAdapter.changeCount(position, false);
+                    case R.id.btn_add_dish:
+                        View inflate = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_dish, null);
+                        final EditText etPersonalInfo = inflate.findViewById(R.id.et_personal_info);
+                        etPersonalInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        etPersonalInfo.setText("1");
+                        etPersonalInfo.setHint("数量");
+                        new AlertDialog.Builder(mContext)
+                                .setTitle("请输入菜品数量")
+                                .setView(inflate)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .setNegativeButton("取消", null)
+                                .create().show();
                         break;
-                    case R.id.iv_add_dish:
-                        mDishesAdapter.changeCount(position, true);
-                        break;
+                    //                    case R.id.iv_delete_dish:
+                    //                        mDishesAdapter.changeCount(position, false);
+                    //                        GetFoodListResultBean.DishesBean item = mDishesAdapter.getItem(position);
+                    //                        String selectedDate = getSelectedDate(mWeekday);
+                    //                        EventBus.getDefault().post(new DishClickEvent(item, mWeekday, selectedDate));
+                    //                        break;
+                    //                    case R.id.iv_add_dish:
+                    //                        mDishesAdapter.changeCount(position, true);
+                    //
+                    //                        break;
                 }
             }
         });
@@ -117,6 +146,23 @@ public class DishesFragment extends BaseLazyLoadFragment {
                 });
             }
         });
+    }
+
+    private String getSelectedDate(int weekday) {
+        int currentWeekday = TimeUtils.getWeekIndex(TimeUtils.getNowDate());
+        currentWeekday = currentWeekday == 1 ? 7 : currentWeekday - 1;
+
+        if (currentWeekday == weekday) {
+            return TimeUtils.getNowString(TimeUtils.CUSTOM_FORMAT);
+        }
+        if (currentWeekday < weekday) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, weekday - currentWeekday);
+            return TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, weekday - currentWeekday + 7);
+        return TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
     }
 
     @Subscribe(priority = 1)

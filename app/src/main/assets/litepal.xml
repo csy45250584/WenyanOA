@@ -13,12 +13,12 @@
     <!--
     要映射的实体类路径
         For example:
-        <list>
+        <list>2
             <mapping class="com.test.model.Reader" />
             <mapping class="com.test.model.Magazine" />
         </list>
     -->
     <list>
-        <mapping class="com.haokuo.wenyanoa.bean.ContactResultBean.ContactBean2" />
+        <mapping class="com.haokuo.wenyanoa.bean.BasketDishesBean" />
     </list>
 </litepal>

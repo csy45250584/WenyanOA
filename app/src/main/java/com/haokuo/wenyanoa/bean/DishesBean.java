@@ -13,8 +13,8 @@ public class DishesBean {
     private int count;
     private String time;
     private boolean isChecked;
-
-
+    private String weekday;
+    private String diningDate;
 
     public DishesBean() {
     }

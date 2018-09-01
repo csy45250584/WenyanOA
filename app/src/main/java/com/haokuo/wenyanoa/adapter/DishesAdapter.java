@@ -29,21 +29,21 @@ public class DishesAdapter extends BaseQuickAdapter<GetFoodListResultBean.Dishes
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         String format = currencyInstance.format(BigDecimal.valueOf(item.getFoodPrice()));
         helper.setText(R.id.tv_dish_price, format);
-        int count = item.getCount();
-        helper.setText(R.id.tv_dish_count, String.valueOf(count));
-        helper.setGone(R.id.iv_delete_dish, count != 0);
-        helper.setGone(R.id.tv_dish_count, count != 0);
-        helper.addOnClickListener(R.id.iv_delete_dish);
-        helper.addOnClickListener(R.id.iv_add_dish);
+        helper.addOnClickListener(R.id.btn_add_dish);
+        //        helper.setText(R.id.tv_dish_count, String.valueOf(count));
+        //        helper.setGone(R.id.iv_delete_dish, count != 0);
+        //        helper.setGone(R.id.tv_dish_count, count != 0);
+        //        helper.addOnClickListener(R.id.iv_delete_dish);
+        //        helper.addOnClickListener(R.id.iv_add_dish);
     }
 
-    public void changeCount(int position, boolean isAdd) {
-        GetFoodListResultBean.DishesBean dishesBean = mData.get(position);
-        if (isAdd) {
-            dishesBean.setCount(dishesBean.getCount() + 1);
-        } else {
-            dishesBean.setCount(dishesBean.getCount() - 1);
-        }
-        notifyItemChanged(position);
-    }
+    //    public void changeCount(int position, boolean isAdd) {
+    //        GetFoodListResultBean.DishesBean dishesBean = mData.get(position);
+    //        if (isAdd) {
+    //            dishesBean.setCount(dishesBean.getCount() + 1);
+    //        } else {
+    //            dishesBean.setCount(dishesBean.getCount() - 1);
+    //        }
+    //        notifyItemChanged(position);
+    //    }
 }
