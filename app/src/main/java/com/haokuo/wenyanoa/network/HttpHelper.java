@@ -8,13 +8,16 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.haokuo.wenyanoa.bean.SuccessBean;
 import com.haokuo.wenyanoa.bean.UserInfoDetailBean;
+import com.haokuo.wenyanoa.network.bean.AddDestinationParams;
 import com.haokuo.wenyanoa.network.bean.ApprovalDetailParams;
+import com.haokuo.wenyanoa.network.bean.BuyFoodInBasketParams;
 import com.haokuo.wenyanoa.network.bean.CodeCheckParams;
 import com.haokuo.wenyanoa.network.bean.GetConferenceInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
 import com.haokuo.wenyanoa.network.bean.GetNewsInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetNoticeInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetResetVerfiyCodeParams;
+import com.haokuo.wenyanoa.network.bean.GetStaffDestinationListParams;
 import com.haokuo.wenyanoa.network.bean.HandlerApprovalParams;
 import com.haokuo.wenyanoa.network.bean.LaunchApplyItemsParams;
 import com.haokuo.wenyanoa.network.bean.LaunchChangeShiftParams;
@@ -24,10 +27,12 @@ import com.haokuo.wenyanoa.network.bean.LaunchTripParams;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
 import com.haokuo.wenyanoa.network.bean.ResetPasswordParams;
 import com.haokuo.wenyanoa.network.bean.SaveBuyItemsParams;
+import com.haokuo.wenyanoa.network.bean.SaveFoodInBasketParams;
 import com.haokuo.wenyanoa.network.bean.UpdateAvatarParams;
 import com.haokuo.wenyanoa.network.bean.UpdatePasswordParams;
 import com.haokuo.wenyanoa.network.bean.base.IGetApiKey;
 import com.haokuo.wenyanoa.network.bean.base.IGetParamsMap;
+import com.haokuo.wenyanoa.network.bean.base.IdParams;
 import com.haokuo.wenyanoa.network.bean.base.PageParamWithFillTime;
 import com.haokuo.wenyanoa.network.bean.base.PageParams;
 import com.haokuo.wenyanoa.network.bean.base.PageWithTimeParams;
@@ -264,13 +269,28 @@ public class HttpHelper {
     }
 
     /** 保存菜品到我的菜篮 */
-    public void saveFoodInBasket(GetInFoodListParams params, NetworkCallback callback) {
+    public void saveFoodInBasket(SaveFoodInBasketParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildSaveFoodInBasketUrl(), callback);
     }
 
     /** 获取我的菜篮列表 */
-    public void getBasketList(GetInFoodListParams params, NetworkCallback callback) {
+    public void getBasketList(PageParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetBasketListUrl(), callback);
+    }
+
+    /** 获取我的订单 */
+    public void getFoodOrderList(PageWithTimeParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetFoodOrderListUrl(), callback);
+    }
+
+    /** 购买菜篮中的菜品 */
+    public void buyFoodInBasket(BuyFoodInBasketParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildBuyFoodInBasketUrl(), callback);
+    }
+
+    /** 购买菜篮中的菜品 */
+    public void deleteItemById(IdParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildDeleteItemByIdUrl(), callback);
     }
 
     /** 发起物品申购前的数据准备 */
@@ -356,11 +376,6 @@ public class HttpHelper {
     /** 我的钱包 */
     public void getMyWallet(UserIdApiKeyParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetMyWalletUrl(), callback);
-    }
-
-    /** 获取我的订单 */
-    public void getFoodOrderList(PageWithTimeParams params, NetworkCallback callback) {
-        doPost(params, UrlBuilder.buildGetFoodOrderListUrl(), callback);
     }
 
     /** 发起物品申购 */
@@ -571,5 +586,25 @@ public class HttpHelper {
     /** 获取抄送给我信息 */
     public void getCopy2MeApproval(PageParamWithFillTime params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildCopy2MeApprovalUrl(), callback);
+    }
+
+    /** 获取人员去向列表 */
+    public void getStaffDestinationList(GetStaffDestinationListParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetStaffDestinationListUrl(), callback);
+    }
+
+    /** 根据ID获取人员去向列表详情 */
+    public void getStaffDestinationInfo(PageParamWithFillTime params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetStaffDestinationInfoUrl(), callback);
+    }
+
+    /** 删除人员去向 */
+    public void deleteDestination(IdParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildDeleteDestinationUrl(), callback);
+    }
+
+    /** 新增人员去向 */
+    public void addDestination(AddDestinationParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildAddDestinationUrl(), callback);
     }
 }

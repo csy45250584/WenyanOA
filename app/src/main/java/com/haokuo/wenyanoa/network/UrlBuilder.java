@@ -35,7 +35,9 @@ public class UrlBuilder {
     private static final String GET_IN_FOOD_LIST_URL = "/mess/getInFoodList.do";
     private static final String GET_FOOD_ORDER_LIST_URL = "/mess/getInOrderList.do";
     private static final String SAVE_FOOD_IN_BASKET_URL = "/mess/saveInPreOrder.do";
+    private static final String BUY_FOOD_IN_BASKET = "/mess/saveInOrder.do";
     private static final String GET_BASKET_LIST_URL = "/mess/getIPopuralityList.do";
+    private static final String DELETE_BASKET_ITEM_BY_ID = "/mess/delInPreOrderById.do";
     //物品申购
     private static final String GET_IN_BUY_ITEMS_URL = "/oaOffice/getInbuyitems.do";
     private static final String SAVE_BUY_ITEMS_URL = "/oaOffice/saveInBuyItems.do";
@@ -85,6 +87,27 @@ public class UrlBuilder {
     private static final String GET_CHANGE_SHIFT_BY_ID_URL = "/oaCustom/getInfoTransfer.do";
     private static final String AGREE_CHANGE_SHIFT_URL = "/oaCustom/updateTransferA.do";
     private static final String REJECT_CHANGE_SHIFT_URL = "/oaCustom/updateTransferN.do";
+    //工作信息
+    private static final String GET_STAFF_DESTINATION_LIST_URL = "/noteNew/getLoginUserContact.do";
+    private static final String GET_STAFF_DESTINATION_INFO_URL = "/noteNew/getInfoUserLocal.do";
+    private static final String DELETE_DESTINATION_URL = "/noteNew/delInUserLocal.do";
+    private static final String ADD_DESTINATION_URL = "/noteNew/addUserLocal.do";
+
+    public static String buildGetStaffDestinationInfoUrl() {
+        return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_INFO_URL).toString();
+    }
+
+    public static String buildAddDestinationUrl() {
+        return new StringBuilder(BASE_URL).append(ADD_DESTINATION_URL).toString();
+    }
+
+    public static String buildDeleteDestinationUrl() {
+        return new StringBuilder(BASE_URL).append(DELETE_DESTINATION_URL).toString();
+    }
+
+    public static String buildGetStaffDestinationListUrl() {
+        return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_LIST_URL).toString();
+    }
 
     public static String buildLoginUrl() {
         return new StringBuilder(BASE_URL).append(LOGIN_URL).toString();
@@ -266,6 +289,10 @@ public class UrlBuilder {
         return new StringBuilder(BASE_URL).append(SAVE_FOOD_IN_BASKET_URL).toString();
     }
 
+    public static String buildBuyFoodInBasketUrl() {
+        return new StringBuilder(BASE_URL).append(BUY_FOOD_IN_BASKET).toString();
+    }
+
     public static String buildGetBasketListUrl() {
         return new StringBuilder(BASE_URL).append(GET_BASKET_LIST_URL).toString();
     }
@@ -340,6 +367,10 @@ public class UrlBuilder {
 
     public static String buildRejectApplyItemsUrl() {
         return new StringBuilder(BASE_URL).append(REJECT_APPLY_ITEMS_URL).toString();
+    }
+
+    public static String buildDeleteItemByIdUrl() {
+        return new StringBuilder(BASE_URL).append(DELETE_BASKET_ITEM_BY_ID).toString();
     }
 
     public static List<String> parseImageUrl(String imagesUrl) {

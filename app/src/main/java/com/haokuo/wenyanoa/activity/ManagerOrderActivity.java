@@ -9,11 +9,9 @@ import android.widget.TextView;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.OrderListAdapter;
-import com.haokuo.wenyanoa.bean.DishesBean;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -54,11 +52,11 @@ public class ManagerOrderActivity extends BaseActivity {
         mRvOrderList.setLayoutManager(new LinearLayoutManager(this));
         OrderListAdapter orderListAdapter = new OrderListAdapter(R.layout.item_order_list);
         mRvOrderList.setAdapter(orderListAdapter);
-        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            dishesBeans.add(new DishesBean());
-        }
-        orderListAdapter.setNewData(dishesBeans);
+//        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            dishesBeans.add(new DishesBean());
+//        }
+//        orderListAdapter.setNewData(dishesBeans);
         mCurrentDay = Calendar.getInstance();
     }
 

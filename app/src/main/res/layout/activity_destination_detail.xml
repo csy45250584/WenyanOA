@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.haokuo.midtitlebar.MidTitleBar
+        android:id="@+id/mid_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"
+        app:midTitle="去向修改"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/tv_approval_tips"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="请填写调动人员"/>
+
+            <com.haokuo.wenyanoa.view.ApprovalItem1
+                android:id="@+id/ai_staff_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_8"
+                app:editorHint="请填写调动人员"
+                app:itemType="editor"
+                app:titleText="调动人员"/>
+
+            <TextView
+                style="@style/tv_approval_tips"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="请填写调动信息"/>
+
+            <com.haokuo.wenyanoa.view.ApprovalItem1
+                android:id="@+id/ai_begin_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_8"
+                app:itemType="selector"
+                app:selectText="请选择开始时间"
+                app:titleText="开始时间"/>
+
+            <com.haokuo.wenyanoa.view.ApprovalItem1
+                android:id="@+id/ai_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_1"
+                app:itemType="selector"
+                app:selectText="请选择结束时间"
+                app:titleText="结束时间"/>
+
+            <com.haokuo.wenyanoa.view.ApprovalItem1
+                android:id="@+id/ai_destination"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_1"
+                app:editorHint="请填写人员去向"
+                app:itemType="editor"
+                app:titleText="人员去向"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.rey.material.widget.Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_40"
+        android:background="@drawable/bg_red_button"
+        android:text="提交"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_30px"
+        app:rd_style="@style/LoginButtonStyle"/>
+</LinearLayout>

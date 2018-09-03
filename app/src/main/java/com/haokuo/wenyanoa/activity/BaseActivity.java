@@ -59,23 +59,23 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void operatingData() {
     }
 
-    protected void showLoading() {
+    public void showLoading() {
         getLoadingDialog().show();
     }
 
-    protected void showLoading(String loadingText, String successText, String failedText) {
+    public void showLoading(String loadingText, String successText, String failedText) {
         getLoadingDialog().setLoadingText(loadingText)
                 .setSuccessText(successText)
                 .setFailedText(failedText);
         getLoadingDialog().show();
     }
 
-    protected void showLoading(String loadingText) {
+    public void showLoading(String loadingText) {
         getLoadingDialog().setLoadingText(loadingText);
         getLoadingDialog().show();
     }
 
-    protected void loadSuccess() {
+    public void loadSuccess() {
         getLoadingDialog().loadSuccess();
         mLoadingDialog = null;
     }
@@ -84,42 +84,42 @@ public abstract class BaseActivity extends AppCompatActivity {
         getLoadingDialog().setLoadingText(loadingText);
     }
 
-    protected void loadSuccess(String successText) {
+    public void loadSuccess(String successText) {
         getLoadingDialog().setSuccessText(successText);
         getLoadingDialog().loadSuccess();
         mLoadingDialog = null;
     }
 
-    protected void loadSuccess(String successText, boolean isFinish) {
+    public void loadSuccess(String successText, boolean isFinish) {
         getLoadingDialog().setSuccessText(successText);
         getLoadingDialog().setFinishSuccess(isFinish);
         getLoadingDialog().loadSuccess();
         mLoadingDialog = null;
     }
 
-    protected void loadSuccess(String successText, LoadingDialog.OnFinishListener listener) {
+    public void loadSuccess(String successText, LoadingDialog.OnFinishListener listener) {
         getLoadingDialog().setSuccessText(successText);
         getLoadingDialog().setOnFinishListener(listener);
         getLoadingDialog().loadSuccess();
         mLoadingDialog = null;
     }
 
-    protected void loadFailed() {
+    public void loadFailed() {
         getLoadingDialog().loadFailed();
         mLoadingDialog = null;
     }
 
-    protected void loadFailed(String failedText) {
+    public void loadFailed(String failedText) {
         getLoadingDialog().setFailedText(failedText);
         getLoadingDialog().loadFailed();
         mLoadingDialog = null;
     }
 
-    protected void loadClose() {
+    public void loadClose() {
       loadClose(false);
     }
 
-    protected void loadClose(boolean isFinish) {
+    public void loadClose(boolean isFinish) {
         getLoadingDialog().close();
         mLoadingDialog = null;
         if (isFinish) {

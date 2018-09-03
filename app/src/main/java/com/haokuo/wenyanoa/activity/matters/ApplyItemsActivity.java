@@ -54,7 +54,7 @@ public class ApplyItemsActivity extends BaseCcActivity {
         //数据准备
         showLoading("正在准备数据...");
         UserIdApiKeyParams params = new UserIdApiKeyParams(mUserInfo.getUserId(), mUserInfo.getApikey());
-        HttpHelper.getInstance().getInBuyItems(params, new NetworkCallback() {
+        HttpHelper.getInstance().prepareApplyItems(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
                 mApproverList = JSON.parseObject(json, PrepareMatterResultBean.class);

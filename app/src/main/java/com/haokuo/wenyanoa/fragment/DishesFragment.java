@@ -18,10 +18,12 @@ import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.DishesAdapter;
 import com.haokuo.wenyanoa.bean.GetFoodListResultBean;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
+import com.haokuo.wenyanoa.eventbus.DishRefreshEvent;
 import com.haokuo.wenyanoa.eventbus.WeekdaySelectedEvent;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
+import com.haokuo.wenyanoa.network.bean.SaveFoodInBasketParams;
 import com.haokuo.wenyanoa.util.OaSpUtil;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
@@ -94,6 +96,10 @@ public class DishesFragment extends BaseLazyLoadFragment {
         mDishesAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                final GetFoodListResultBean.DishesBean item = mDishesAdapter.getItem(position);
+                if (item == null) {
+                    return;
+                }
                 switch (view.getId()) {
                     case R.id.btn_add_dish:
                         View inflate = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_dish, null);
@@ -107,7 +113,24 @@ public class DishesFragment extends BaseLazyLoadFragment {
                                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        int num = Integer.parseInt(etPersonalInfo.getEditableText().toString().trim());
+                                        //添加到菜篮
+                                        mContext.showLoading("添加中");
+                                        SaveFoodInBasketParams params = new SaveFoodInBasketParams(mUserInfo.getUserId(), mUserInfo.getApikey(), item.getId(), num, item.getSalesStatus(), getSelectedDate(mWeekday));
+                                        HttpHelper.getInstance().saveFoodInBasket(params, new NetworkCallback() {
+                                            @Override
+                                            public void onSuccess(Call call, String json) {
+                                                mContext.loadClose();
+                                                ToastUtils.showShort("添加菜品成功");
+                                                EventBus.getDefault().post(new DishRefreshEvent());
+                                            }
 
+                                            @Override
+                                            public void onFailure(Call call, String message) {
+                                                mContext.loadClose();
+                                                ToastUtils.showShort("添加菜品失败，" + message);
+                                            }
+                                        });
                                     }
                                 })
                                 .setNegativeButton("取消", null)

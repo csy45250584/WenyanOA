@@ -18,12 +18,19 @@ import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.MainFragmentPagerAdapter;
 import com.haokuo.wenyanoa.adapter.SelectDayAdapter;
+import com.haokuo.wenyanoa.bean.BasketListResultBean;
+import com.haokuo.wenyanoa.bean.UserInfoBean;
 import com.haokuo.wenyanoa.eventbus.WeekdaySelectedEvent;
 import com.haokuo.wenyanoa.fragment.BasketFragment;
 import com.haokuo.wenyanoa.fragment.ChooseDishesFragment;
 import com.haokuo.wenyanoa.fragment.OrderListFragment;
+import com.haokuo.wenyanoa.network.HttpHelper;
+import com.haokuo.wenyanoa.network.NetworkCallback;
+import com.haokuo.wenyanoa.network.bean.BuyFoodInBasketParams;
+import com.haokuo.wenyanoa.util.OaSpUtil;
 import com.haokuo.wenyanoa.util.utilscode.SizeUtils;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
+import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.haokuo.wenyanoa.view.RecyclerViewDivider;
 import com.rey.material.app.Dialog;
 import com.rey.material.app.DialogFragment;
@@ -31,11 +38,14 @@ import com.rey.material.widget.Spinner;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import okhttp3.Call;
 
 /**
  * Created by zjf on 2018-08-08.
@@ -58,6 +68,7 @@ public class OrderFoodActivity extends BaseActivity {
     private int mWindowWidth;
     private BasketFragment mBasketFragment;
     private ChooseDishesFragment mChooseDishesFragment;
+    private UserInfoBean mUserInfo;
 
     @Override
     protected int initContentLayout() {
@@ -81,7 +92,7 @@ public class OrderFoodActivity extends BaseActivity {
         String[] stringArray = getResources().getStringArray(R.array.weekday);
         List<String> strings = Arrays.asList(stringArray);
         mSpinnerWeekday.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner, strings));
-
+        mUserInfo = OaSpUtil.getUserInfo();
         //        setWeekday(weekIndex);
     }
 
@@ -201,10 +212,52 @@ public class OrderFoodActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getTitle().toString()) {
             case "购买":
+                List<BasketListResultBean.BasketBean> basketList = mBasketFragment.getBasketList();
+                BigDecimal totalPrice = BigDecimal.valueOf(0);
+                StringBuilder stringBuilder = new StringBuilder();
+                int totalCount = 0;
+                for (BasketListResultBean.BasketBean basketBean : basketList) {
+                    if (basketBean.isChecked()) {
+                        totalPrice = totalPrice.add(BigDecimal.valueOf(basketBean.getFoodPrice()).multiply(BigDecimal.valueOf(basketBean.getNum())));
+                        stringBuilder.append(basketBean.getId()).append(",");
+                        totalCount++;
+                    }
+                }
+                if (totalCount == 0) {
+                    ToastUtils.showShort("尚未勾选菜品");
+                    return super.onOptionsItemSelected(item);
+                }
+                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+                String totalPriceString = currencyFormatter.format(totalPrice);
+                String ids = stringBuilder.toString();
+                ids = ids.substring(0, ids.length() - 1);
                 View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_bug_food, null);
                 TextView tvTotalPrice = inflate.findViewById(R.id.tv_total_price);
-                tvTotalPrice.setText("总价格：30元");
+                tvTotalPrice.setText(String.format("总价格：%s元", totalPriceString));
+                final String finalIds = ids;
+                final int finalTotalCount = totalCount;
                 Dialog.Builder builder = new Dialog.Builder() {
+                    @Override
+                    public void onPositiveActionClicked(DialogFragment fragment) {
+                        super.onPositiveActionClicked(fragment);
+                        //提交订单
+                        showLoading("正在提交订单...");
+                        BuyFoodInBasketParams params = new BuyFoodInBasketParams(mUserInfo.getUserId(), mUserInfo.getApikey(), finalTotalCount, finalIds);
+                        HttpHelper.getInstance().buyFoodInBasket(params, new NetworkCallback() {
+                            @Override
+                            public void onSuccess(Call call, String json) {
+                                loadSuccess("提交成功", false);
+                                mBasketFragment.refreshList();
+
+                            }
+
+                            @Override
+                            public void onFailure(Call call, String message) {
+                                loadFailed("提交失败," + message);
+                            }
+                        });
+                    }
+
                     @Override
                     public void onNegativeActionClicked(DialogFragment fragment) {
                         super.onNegativeActionClicked(fragment);

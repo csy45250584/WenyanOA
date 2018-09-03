@@ -6,11 +6,11 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.haokuo.wenyanoa.activity.BaseActivity;
 import com.xiasuhuei321.loadingdialog.util.SafeHandler;
 
 import butterknife.ButterKnife;
@@ -28,7 +28,7 @@ public abstract class BaseFragment extends Fragment {
     private boolean isLazyLoad;
     protected boolean loadDataFinished;
     protected Unbinder unbinder;
-    protected FragmentActivity mContext;
+    protected BaseActivity mContext;
     private Handler.Callback mCallback = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -64,7 +64,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mContext = getActivity();
+        mContext = (BaseActivity) getActivity();
         initData();
         initListener();
     }
