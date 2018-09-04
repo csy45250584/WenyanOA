@@ -2,6 +2,8 @@ package com.haokuo.wenyanoa.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +15,6 @@ import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.MainFragmentPagerAdapter;
 import com.haokuo.wenyanoa.fragment.ContactsFragment;
-import com.haokuo.wenyanoa.fragment.IMFragment;
 import com.haokuo.wenyanoa.fragment.MeFragment;
 import com.haokuo.wenyanoa.fragment.WorkFragment;
 import com.haokuo.wenyanoa.util.utilscode.KeyboardUtils;
@@ -71,13 +72,21 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        int width = metric.widthPixels;     // 屏幕宽度（像素）
+        int height = metric.heightPixels;   // 屏幕高度（像素）
+        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
+        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
+
+        Log.d("tiandandan", "width height density densityDpi" + width + " || " + height + " || " + density + " || " + densityDpi + " || ");
         setSupportActionBar(mMidTitleBar);
         initBottomNaviBar();
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new IMFragment());
-        fragments.add(new WorkFragment());
+//        fragments.add(new IMFragment());
         mContactsFragment = new ContactsFragment();
         fragments.add(mContactsFragment);
+        fragments.add(new WorkFragment());
         fragments.add(new MeFragment());
         MainFragmentPagerAdapter adapter = new MainFragmentPagerAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(adapter);
@@ -93,9 +102,9 @@ public class MainActivity extends BaseActivity {
                 .setInActiveColor(R.color.text4)//默认未选择颜色
                 .setBarBackgroundColor("#FFFFFF");//默认背景色
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.news, "消息"))
-                .addItem(new BottomNavigationItem(R.drawable.work1, "工作"))
+//                .addItem(new BottomNavigationItem(R.drawable.news, "消息"))
                 .addItem(new BottomNavigationItem(R.drawable.tongxun, "通讯录"))
+                .addItem(new BottomNavigationItem(R.drawable.work1, "工作"))
                 .addItem(new BottomNavigationItem(R.drawable.my, "我的"))
                 .setFirstSelectedPosition(DEFAULT_TAB_POSITION)//设置默认选择的按钮
                 .initialise();//所有的设置需在调用该方法前完成
@@ -121,24 +130,24 @@ public class MainActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 mBottomNavigationBar.selectTab(position);
                 switch (position) {
-                    case 0:
-                        mMidTitleBar.setMidTitle("消息");
-                        mMidTitleBar.getMenu().clear();
-                        mSearchView.closeSearch();
-                        break;
+//                    case 0:
+//                        mMidTitleBar.setMidTitle("消息");
+//                        mMidTitleBar.getMenu().clear();
+//                        mSearchView.closeSearch();
+//                        break;
                     case 1:
                         mMidTitleBar.setMidTitle("闻堰OA");
                         mMidTitleBar.getMenu().clear();
                         mSearchView.closeSearch();
                         break;
-                    case 2:
+                    case 0:
                         mMidTitleBar.setMidTitle("通讯录");
                         mMidTitleBar.getMenu().clear();
                         MenuItem menuItem = mMidTitleBar.getMenu().add(0, R.id.menu_search, 0, null).setIcon(R.drawable.ic_action_action_search);
                         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                         mSearchView.setMenuItem(menuItem);
                         break;
-                    case 3:
+                    case 2:
                         mMidTitleBar.setMidTitle("个人中心");
                         mMidTitleBar.getMenu().clear();
                         mSearchView.closeSearch();

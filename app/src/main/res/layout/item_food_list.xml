@@ -10,6 +10,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_food_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="阴阳健康早餐"
@@ -19,14 +20,15 @@
         <TextView
             android:id="@+id/tv_food_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="@dimen/dp_40"
-            android:textSize="@dimen/text_24px"
             android:text="X1"
-            android:textColor="@color/text3"/>
+            android:textColor="@color/text3"
+            android:textSize="@dimen/text_24px"/>
 
         <TextView
+            android:id="@+id/tv_dish_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

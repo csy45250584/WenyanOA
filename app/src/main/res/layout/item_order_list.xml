@@ -27,6 +27,7 @@
             android:layout_marginBottom="@dimen/dp_5">
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="蔡书宜的订单"
@@ -34,6 +35,7 @@
                 android:textSize="@dimen/text_30px"/>
 
             <TextView
+                android:id="@+id/tv_order_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -61,6 +63,7 @@
                 android:textSize="@dimen/text_30px"/>
 
             <TextView
+                android:id="@+id/tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -89,6 +92,7 @@
                 android:textSize="@dimen/text_28px"/>
 
             <TextView
+                android:id="@+id/tv_eat_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -110,6 +114,7 @@
                 android:textSize="@dimen/text_28px"/>
 
             <TextView
+                android:id="@+id/tv_tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -130,6 +135,7 @@
                 android:textSize="@dimen/text_28px"/>
 
             <TextView
+                android:id="@+id/tv_pay_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

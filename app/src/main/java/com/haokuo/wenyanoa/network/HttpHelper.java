@@ -13,6 +13,8 @@ import com.haokuo.wenyanoa.network.bean.ApprovalDetailParams;
 import com.haokuo.wenyanoa.network.bean.BuyFoodInBasketParams;
 import com.haokuo.wenyanoa.network.bean.CodeCheckParams;
 import com.haokuo.wenyanoa.network.bean.GetConferenceInfoParams;
+import com.haokuo.wenyanoa.network.bean.GetDocInfoParams;
+import com.haokuo.wenyanoa.network.bean.GetDocListParams;
 import com.haokuo.wenyanoa.network.bean.GetInFoodListParams;
 import com.haokuo.wenyanoa.network.bean.GetNewsInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetNoticeInfoParams;
@@ -611,5 +613,15 @@ public class HttpHelper {
     /** 修改人员去向 */
     public void editDestination(AddDestinationParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildEditDestinationUrl(), callback);
+    }
+
+    /** 获取公文列表 */
+    public void getDocList(GetDocListParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetDocListUrl(), callback);
+    }
+
+    /** 获取公文详情 */
+    public void getDocInfo(GetDocInfoParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetDocInfoUrl(), callback);
     }
 }

@@ -96,8 +96,8 @@ public class WorkFragment extends BaseLazyLoadFragment {
         ArrayList<ApplicationBean> applicationBeans = new ArrayList<>();
         applicationBeans.add(new ApplicationBean(1, "通知公告", R.drawable.gonggao));
         applicationBeans.add(new ApplicationBean(2, "审批", R.drawable.shenpi));
-        applicationBeans.add(new ApplicationBean(3, "考勤打卡", R.drawable.kaoqing_2));
-        applicationBeans.add(new ApplicationBean(4, "公文流传", R.drawable.gongwen));
+//        applicationBeans.add(new ApplicationBean(3, "考勤打卡", R.drawable.kaoqing_2));
+//        applicationBeans.add(new ApplicationBean(4, "公文流传", R.drawable.gongwen));
         applicationBeans.add(new ApplicationBean(5, "订餐", R.drawable.dingcan_2));
         applicationBeans.add(new ApplicationBean(6, "订单管理", R.drawable.dingcan_order));
         applicationBeans.add(new ApplicationBean(7, "事项申请", R.drawable.sxsq));

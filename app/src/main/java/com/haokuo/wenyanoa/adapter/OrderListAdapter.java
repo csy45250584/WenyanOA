@@ -6,10 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haokuo.wenyanoa.R;
-import com.haokuo.wenyanoa.bean.DishesBean;
 import com.haokuo.wenyanoa.bean.OrderListResultBean;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Naix on 2017/8/7 17:29.
@@ -22,14 +21,22 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListResultBean.Order
 
     @Override
     protected void convert(final BaseViewHolder helper, final OrderListResultBean.OrderBean item) {
+        helper.setText(R.id.tv_name, String.format("%s的订单", item.getRealname()));
+        helper.setText(R.id.tv_order_date, item.getApplicationTime());
+        helper.setText(R.id.tv_eat_date, item.getEatTime());
+        helper.setText(R.id.tv_tel, item.getTelPhone());
+        helper.setText(R.id.tv_pay_method, item.getPayMethod());
+        helper.setText(R.id.tv_total_price, item.getTotalPrice());
+
         RecyclerView rvFoodList = helper.getView(R.id.rv_food_list);
         rvFoodList.setLayoutManager(new LinearLayoutManager(mContext));
         FoodListAdapter foodListAdapter = new FoodListAdapter(R.layout.item_food_list);
         rvFoodList.setAdapter(foodListAdapter);
-        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            dishesBeans.add(new DishesBean());
-        }
-        foodListAdapter.setNewData(dishesBeans);
+        //        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
+        //        for (int i = 0; i < 20; i++) {
+        //            dishesBeans.add(new DishesBean());
+        //        }
+        List<OrderListResultBean.DishBean> dishes = item.getDishes();
+        foodListAdapter.setNewData(dishes);
     }
 }

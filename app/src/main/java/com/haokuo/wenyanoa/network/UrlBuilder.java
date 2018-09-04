@@ -93,9 +93,20 @@ public class UrlBuilder {
     private static final String DELETE_DESTINATION_URL = "/noteNew/delInUserLocal.do";
     private static final String ADD_DESTINATION_URL = "/noteNew/addUserLocal.do";
     private static final String EDIT_DESTINATION_URL = "/noteNew/editUserLocal.do";
+    //公文管理
+    private static final String GET_DOC_LIST_URL = "/oaOffice/getInBumfListJson.do";
+    private static final String GET_DOC_INFO_URL = "/oaOffice/toGetInfoSendBumf.do";
 
     public static String buildGetStaffDestinationInfoUrl() {
         return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_INFO_URL).toString();
+    }
+
+    public static String buildGetDocListUrl() {
+        return new StringBuilder(BASE_URL).append(GET_DOC_LIST_URL).toString();
+    }
+
+    public static String buildGetDocInfoUrl() {
+        return new StringBuilder(BASE_URL).append(GET_DOC_INFO_URL).toString();
     }
 
     public static String buildAddDestinationUrl() {
