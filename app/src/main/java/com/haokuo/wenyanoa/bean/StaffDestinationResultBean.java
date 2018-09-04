@@ -2,6 +2,7 @@ package com.haokuo.wenyanoa.bean;
 
 import com.haokuo.wenyanoa.bean.approval.ApprovalUserInfoBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
@@ -15,7 +16,7 @@ public class StaffDestinationResultBean {
     private List<StaffDestinationBean> data;
 
     @Data
-    public static class StaffDestinationBean {
+    public static class StaffDestinationBean implements Serializable{
         private String name;
         private String endDate;
         private String createDate;

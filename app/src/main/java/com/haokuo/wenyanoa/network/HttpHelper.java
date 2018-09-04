@@ -607,4 +607,9 @@ public class HttpHelper {
     public void addDestination(AddDestinationParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildAddDestinationUrl(), callback);
     }
+
+    /** 修改人员去向 */
+    public void editDestination(AddDestinationParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildEditDestinationUrl(), callback);
+    }
 }

@@ -33,8 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_8"
-                app:editorHint="请填写调动人员"
-                app:itemType="editor"
+                app:itemType="selector"
+                app:selectText="请选择调动人员"
                 app:titleText="调动人员"/>
 
             <TextView

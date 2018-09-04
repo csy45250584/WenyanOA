@@ -132,6 +132,9 @@
         <activity
             android:name=".activity.NewsDetailActivity"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.DestinationDetailActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

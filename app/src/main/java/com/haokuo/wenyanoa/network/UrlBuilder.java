@@ -92,6 +92,7 @@ public class UrlBuilder {
     private static final String GET_STAFF_DESTINATION_INFO_URL = "/noteNew/getInfoUserLocal.do";
     private static final String DELETE_DESTINATION_URL = "/noteNew/delInUserLocal.do";
     private static final String ADD_DESTINATION_URL = "/noteNew/addUserLocal.do";
+    private static final String EDIT_DESTINATION_URL = "/noteNew/editUserLocal.do";
 
     public static String buildGetStaffDestinationInfoUrl() {
         return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_INFO_URL).toString();
@@ -99,6 +100,10 @@ public class UrlBuilder {
 
     public static String buildAddDestinationUrl() {
         return new StringBuilder(BASE_URL).append(ADD_DESTINATION_URL).toString();
+    }
+
+    public static String buildEditDestinationUrl() {
+        return new StringBuilder(BASE_URL).append(EDIT_DESTINATION_URL).toString();
     }
 
     public static String buildDeleteDestinationUrl() {

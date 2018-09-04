@@ -5,9 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,7 +42,7 @@ import okhttp3.Call;
 
 public class StaffDestinationActivity extends BaseActivity {
     private static final int PAGE_SIZE = 10;
-    public static final String EXTRA_DESTINATION_ID = "com.haokuo.wenyanoa.extra.EXTRA_DESTINATION_ID";
+    public static final String EXTRA_DESTINATION = "com.haokuo.wenyanoa.extra.EXTRA_DESTINATION";
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
     @BindView(R.id.rv_staff_destination)
@@ -68,7 +72,6 @@ public class StaffDestinationActivity extends BaseActivity {
         mRvStaffDestination.setAdapter(mStaffDestinationAdapter);
         mUserInfo = OaSpUtil.getUserInfo();
         mParams = new GetStaffDestinationListParams(mUserInfo.getUserId(), mUserInfo.getApikey(), 0, PAGE_SIZE, "");
-        mSrlStaffDestination.autoRefresh();
         //        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
         //        for (int i = 0; i < 20; i++) {
         //            dishesBeans.add(new DishesBean());
@@ -77,13 +80,42 @@ public class StaffDestinationActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mSrlStaffDestination.autoRefresh();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                Intent intent = new Intent(StaffDestinationActivity.this, DestinationDetailActivity.class);
+                //                intent.putExtra(EXTRA_DESTINATION, mStaffDestinationAdapter.getItem(position).getId());
+                startActivity(intent);
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_destination_toolbar, menu);
+        return true;
+    }
+
+    @Override
     protected void initListener() {
+        mEtName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //搜索
+                    mParams.setName(mEtName.getEditableText().toString().trim());
+                    mSrlStaffDestination.autoRefresh();
+                }
+                return false;
+            }
+        });
         mSrlStaffDestination.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
@@ -130,20 +162,20 @@ public class StaffDestinationActivity extends BaseActivity {
                 });
             }
         });
-        mStaffDestinationAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(StaffDestinationActivity.this, DestinationDetailActivity.class);
-                intent.putExtra(EXTRA_DESTINATION_ID, mStaffDestinationAdapter.getItem(position).getId());
-                startActivity(intent);
-            }
-        });
+        //        mStaffDestinationAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        //            @Override
+        //            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        //
+        //            }
+        //        });
         mStaffDestinationAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 switch (view.getId()) {
                     case R.id.btn_modify:
-                        Log.v("MY_CUSTOM_TAG", "StaffDestinationActivity onItemChildClick()-->" + "btn_modify");
+                        Intent intent = new Intent(StaffDestinationActivity.this, DestinationDetailActivity.class);
+                        intent.putExtra(EXTRA_DESTINATION, mStaffDestinationAdapter.getItem(position));
+                        startActivity(intent);
                         break;
                     case R.id.btn_delete:
                         Log.v("MY_CUSTOM_TAG", "StaffDestinationActivity onItemChildClick()-->" + "btn_delete");
@@ -152,7 +184,8 @@ public class StaffDestinationActivity extends BaseActivity {
                         HttpHelper.getInstance().deleteDestination(params, new NetworkCallback() {
                             @Override
                             public void onSuccess(Call call, String json) {
-                                loadSuccess("删除成功",false);
+                                mStaffDestinationAdapter.remove(position);
+                                loadSuccess("删除成功", false);
                             }
 
                             @Override

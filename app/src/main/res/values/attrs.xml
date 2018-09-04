@@ -9,6 +9,7 @@
         <enum name="selector" value="1"/>
         <enum name="approver" value="2"/>
         <enum name="cc" value="3"/>
+        <enum name="personSelector" value="4"/>
     </attr>
     <declare-styleable name="ItemButton">
         <attr name="recColor" format="color"/>
@@ -20,7 +21,6 @@
         <attr name="titleText"/>
         <attr name="selectText" format="string"/>
         <attr name="editorHint"/>
-
         <attr name="itemType" />
     </declare-styleable>
     <declare-styleable name="ApprovalItem2">

@@ -53,11 +53,6 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         calendar.add(Calendar.MONTH, -1);
         String startTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
         mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, startTime, endTime);
-        //        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
-        //        for (int i = 0; i < 20; i++) {
-        //            dishesBeans.add(new DishesBean());
-        //        }
-        //        orderListAdapter.setNewData(dishesBeans);
     }
 
     @Override

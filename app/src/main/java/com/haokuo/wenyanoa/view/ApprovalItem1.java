@@ -2,6 +2,7 @@ package com.haokuo.wenyanoa.view;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.haokuo.wenyanoa.R;
+import com.haokuo.wenyanoa.activity.BaseActivity;
+import com.haokuo.wenyanoa.activity.matters.BaseCcActivity;
+import com.haokuo.wenyanoa.activity.matters.SelectCcActivity;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
@@ -102,8 +106,18 @@ public class ApprovalItem1 extends FrameLayout {
         });
     }
 
-    public void setSingleChoiceSelector(final String title, final String[] choiceItems) {
+    public void setStaffSelector() {
+        mLlTvContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseActivity activity = (BaseActivity) mContext;
+                Intent intent = new Intent(mContext, SelectCcActivity.class);
+                activity.startActivityForResult(intent, BaseCcActivity.REQUEST_CODE_CC);
+            }
+        });
+    }
 
+    public void setSingleChoiceSelector(final String title, final String[] choiceItems) {
         mLlTvContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +144,10 @@ public class ApprovalItem1 extends FrameLayout {
 
     public void setSelectText(String selectText) {
         mTvSelect.setText(selectText);
+    }
+
+    public void setEditorText(String editorText) {
+        mEtApprovalItem.setText(editorText);
     }
 
     public String getContentText() {
