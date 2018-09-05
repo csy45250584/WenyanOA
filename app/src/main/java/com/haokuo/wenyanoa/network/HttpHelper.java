@@ -27,6 +27,7 @@ import com.haokuo.wenyanoa.network.bean.LaunchLeaveParams;
 import com.haokuo.wenyanoa.network.bean.LaunchRepairParams;
 import com.haokuo.wenyanoa.network.bean.LaunchTripParams;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
+import com.haokuo.wenyanoa.network.bean.ManageOrderParams;
 import com.haokuo.wenyanoa.network.bean.ResetPasswordParams;
 import com.haokuo.wenyanoa.network.bean.SaveBuyItemsParams;
 import com.haokuo.wenyanoa.network.bean.SaveFoodInBasketParams;
@@ -283,6 +284,11 @@ public class HttpHelper {
     /** 获取我的订单 */
     public void getFoodOrderList(PageWithTimeParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetFoodOrderListUrl(), callback);
+    }
+
+    /** 管理订单数据 */
+    public void manageOrderList(ManageOrderParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildManageOrderListUrl(), callback);
     }
 
     /** 购买菜篮中的菜品 */

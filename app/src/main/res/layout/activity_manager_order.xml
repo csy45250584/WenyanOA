@@ -26,9 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:orientation="vertical"
                 app:layout_scrollFlags="scroll|enterAlways"
                 >
 
@@ -39,6 +39,7 @@
                     android:layout_marginBottom="@dimen/dp_12"
                     android:layout_marginLeft="@dimen/dp_24"
                     android:layout_marginRight="@dimen/dp_24"
+                    android:imeOptions="actionSearch"
                     android:layout_marginTop="@dimen/dp_12"
                     android:background="@drawable/bg_gray_editor"
                     android:drawableLeft="@drawable/xiaoxi_sousuo"
@@ -103,10 +104,18 @@
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_order_list"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_order_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_order_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

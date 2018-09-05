@@ -20,7 +20,7 @@ public class FoodListAdapter extends BaseQuickAdapter<OrderListResultBean.DishBe
     @Override
     protected void convert(final BaseViewHolder helper, final OrderListResultBean.DishBean item) {
         helper.setText(R.id.tv_food_name, item.getFoodName());
-        helper.setText(R.id.tv_food_count, String.format("X%d", item.getFoodName()));
+        helper.setText(R.id.tv_food_count, String.format("X%d", item.getNum()));
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         String foodPrice = currencyInstance.format(BigDecimal.valueOf(item.getFoodPrice()));
         helper.setText(R.id.tv_dish_price, foodPrice);

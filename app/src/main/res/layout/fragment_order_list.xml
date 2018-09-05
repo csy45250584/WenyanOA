@@ -1,20 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDefBg"
     android:orientation="vertical">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/srl_order_list"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_order_list"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll|enterAlways"
+                >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dp_12"
+                    android:paddingLeft="@dimen/dp_24"
+                    android:paddingRight="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_12">
+
+                    <TextView
+                        android:id="@+id/tv_start_time"
+                        android:layout_width="@dimen/dp_160"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_gray_editor"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:paddingLeft="@dimen/dp_24"
+                        android:paddingRight="@dimen/dp_24"
+                        android:paddingTop="@dimen/dp_8"
+                        android:text="请选择开始时间"
+                        android:textColor="@color/text4"
+                        android:textSize="@dimen/text_28px"/>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="~"
+                        android:textColor="@color/text3"
+                        android:textSize="@dimen/text_32px"/>
+
+                    <TextView
+                        android:id="@+id/tv_end_time"
+                        android:layout_width="@dimen/dp_160"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/bg_gray_editor"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:paddingLeft="@dimen/dp_24"
+                        android:paddingRight="@dimen/dp_24"
+                        android:paddingTop="@dimen/dp_8"
+                        android:text="请选择结束时间"
+                        android:textColor="@color/text4"
+                        android:textSize="@dimen/text_28px"/>
+                </FrameLayout>
+
+                <include layout="@layout/include_divider"/>
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_order_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_order_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

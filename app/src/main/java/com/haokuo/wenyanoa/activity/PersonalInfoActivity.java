@@ -2,7 +2,6 @@ package com.haokuo.wenyanoa.activity;
 
 import android.content.DialogInterface;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -20,6 +19,7 @@ import com.haokuo.wenyanoa.bean.UserInfoDetailBean;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.UpdateAvatarParams;
+import com.haokuo.wenyanoa.util.DirUtil;
 import com.haokuo.wenyanoa.util.ImageBase64Util;
 import com.haokuo.wenyanoa.util.ImageLoadUtil;
 import com.haokuo.wenyanoa.util.OaSpUtil;
@@ -28,6 +28,8 @@ import com.haokuo.wenyanoa.view.SettingItemView;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TResult;
+import com.rey.material.app.BottomSheetDialog;
+import com.rey.material.widget.Button;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import java.io.File;
@@ -109,6 +111,39 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
         mSivDuties.setContentText(!TextUtils.isEmpty(mUserInfoDetail.getUserJob()) ? mUserInfoDetail.getUserJob() : "尚未设置职务");
     }
 
+    private void showBottomSheet() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialog);
+        View v = LayoutInflater.from(this).inflate(R.layout.view_take_photo, null);
+        Button btnGallery = v.findViewById(R.id.btn_gallery);
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File outFile = new File(DirUtil.getImageDir(), mUserInfoDetail.getUserId() + "_" + System.currentTimeMillis() + ".jpg");
+                Uri uri = Uri.fromFile(outFile);
+                CropOptions cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(true).create();
+                CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(1024 * 1024).setMaxPixel(1024).create();
+                getTakePhoto().onEnableCompress(compressConfig, true);
+                getTakePhoto().onPickFromGalleryWithCrop(uri, cropOptions);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        Button btnCapture = v.findViewById(R.id.btn_capture);
+        btnCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File outFile = new File(DirUtil.getImageDir(), mUserInfoDetail.getUserId() + "_" + System.currentTimeMillis() + ".jpg");
+                Uri uri = Uri.fromFile(outFile);
+                CropOptions cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(true).create();
+                CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(1024 * 1024).setMaxPixel(1024).create();
+                getTakePhoto().onEnableCompress(compressConfig, true);
+                getTakePhoto().onPickFromCaptureWithCrop(uri, cropOptions);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        bottomSheetDialog.contentView(v)
+                .show();
+    }
+
     private String sex;
 
     @OnClick({R.id.ll_avatar, R.id.siv_real_name, R.id.siv_birth_day, R.id.siv_sex, R.id.siv_tel, R.id.siv_short_tel, R.id.siv_qq, R.id.siv_wechat})
@@ -116,15 +151,7 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
         switch (view.getId()) {
             case R.id.ll_avatar:
                 //启动修改头像
-                String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/wenyanOA/CompressAvatar/";
-                File file = new File(dir);
-                file.mkdirs();
-                File outFile = new File(dir, mUserInfoDetail.getUserId() + "_" + System.currentTimeMillis() + ".jpg");
-                Uri uri = Uri.fromFile(outFile);
-                CropOptions cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(true).create();
-                CompressConfig compressConfig = new CompressConfig.Builder().setMaxSize(1024 * 1024).setMaxPixel(1024).create();
-                getTakePhoto().onEnableCompress(compressConfig, true);
-                getTakePhoto().onPickFromGalleryWithCrop(uri, cropOptions);
+                showBottomSheet();
                 break;
             case R.id.siv_birth_day:
                 final Calendar calendar = Calendar.getInstance();
@@ -278,6 +305,7 @@ public class PersonalInfoActivity extends BaseTakePhotoActivity {
                         mUserInfoDetail.setHeadPhoto(avatarUrl);
                         OaSpUtil.saveUserDetailInfo(mUserInfoDetail);
                         loadSuccess("修改成功", false);
+                        ImageLoadUtil.getInstance().loadAvatar(PersonalInfoActivity.this, avatarUrl, mIvAvatar, mUserInfoDetail.getSex());
                     }
 
                     @Override

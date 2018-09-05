@@ -74,11 +74,13 @@ public class DishesFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         Bundle arguments = getArguments();
         if (arguments != null) {
             mType = arguments.getInt(TYPE);
         }
-        EventBus.getDefault().register(this);
+        mWeekday = TimeUtils.getWeekIndex(TimeUtils.getNowDate());
+        mWeekday = mWeekday == 1 ? 7 : mWeekday - 1;
         Resources resources = getResources();
         mRvDishes.setLayoutManager(new LinearLayoutManager(mContext));
         int dividerPadding = (int) (resources.getDimension(R.dimen.dp_16) + 0.5f);

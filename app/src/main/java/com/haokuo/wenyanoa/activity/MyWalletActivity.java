@@ -1,5 +1,6 @@
 package com.haokuo.wenyanoa.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -72,7 +73,7 @@ public class MyWalletActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_order_food:
-
+                startActivity(new Intent(this, OrderFoodActivity.class));
                 break;
         }
     }

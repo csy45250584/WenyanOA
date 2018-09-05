@@ -9,6 +9,7 @@ import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.model.TakePhotoOptions;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
@@ -48,6 +49,9 @@ public abstract class BaseTakePhotoActivity extends BaseActivity implements Take
     public TakePhoto getTakePhoto() {
         if (takePhoto == null) {
             takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
+            TakePhotoOptions.Builder builder = new TakePhotoOptions.Builder()
+                    .setCorrectImage(true);
+            takePhoto.setTakePhotoOptions(builder.create());
         }
         return takePhoto;
     }

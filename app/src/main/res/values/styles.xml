@@ -66,5 +66,13 @@
         <item name="rd_cornerRadius">@dimen/button_corners</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Button</item>
     </style>
-
+    <style name="BottomSheetDialog">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="bsd_inDuration">100</item>
+        <item name="bsd_outDuration">100</item>
+        <item name="bsd_cancelable">true</item>
+        <item name="bsd_canceledOnTouchOutside">true</item>
+        <item name="bsd_dimAmount">0.5</item>
+    </style>
 </resources>

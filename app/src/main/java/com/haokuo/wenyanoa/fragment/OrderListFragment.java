@@ -3,6 +3,8 @@ package com.haokuo.wenyanoa.fragment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.haokuo.wenyanoa.R;
@@ -18,11 +20,14 @@ import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import lombok.val;
 import okhttp3.Call;
 
 /**
@@ -34,8 +39,15 @@ public class OrderListFragment extends BaseLazyLoadFragment {
     RecyclerView mRvOrderList;
     @BindView(R.id.srl_order_list)
     SmartRefreshLayout mSrlOrderList;
+    @BindView(R.id.tv_start_time)
+    TextView mTvStartTime;
+    @BindView(R.id.tv_end_time)
+    TextView mTvEndTime;
     private PageWithTimeParams mParams;
     private OrderListAdapter mOrderListAdapter;
+    private Calendar mBeginDay;
+    private Calendar mEndDay;
+    private Calendar mCurrentDay;
 
     @Override
     protected int initContentLayout() {
@@ -52,7 +64,8 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         String endTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
         calendar.add(Calendar.MONTH, -1);
         String startTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
-        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, startTime, endTime);
+        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, "", "");
+        mCurrentDay = Calendar.getInstance();
     }
 
     @Override
@@ -67,7 +80,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             @Override
             public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
                 mParams.increasePageIndex();
-                HttpHelper.getInstance().getBasketList(mParams, new NetworkCallback() {
+                HttpHelper.getInstance().getFoodOrderList(mParams, new NetworkCallback() {
                     @Override
                     public void onSuccess(Call call, String json) {
                         OrderListResultBean resultBean = JSON.parseObject(json, OrderListResultBean.class);
@@ -82,7 +95,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
 
                     @Override
                     public void onFailure(Call call, String message) {
-                        ToastUtils.showShort("获取菜篮列表失败，" + message);
+                        ToastUtils.showShort("获取订单列表失败，" + message);
                         refreshLayout.finishLoadMore(false);
                     }
                 });
@@ -91,7 +104,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
             @Override
             public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
                 mParams.resetPageIndex();
-                HttpHelper.getInstance().getBasketList(mParams, new NetworkCallback() {
+                HttpHelper.getInstance().getFoodOrderList(mParams, new NetworkCallback() {
                     @Override
                     public void onSuccess(Call call, String json) {
                         OrderListResultBean resultBean = JSON.parseObject(json, OrderListResultBean.class);
@@ -103,11 +116,73 @@ public class OrderListFragment extends BaseLazyLoadFragment {
 
                     @Override
                     public void onFailure(Call call, String message) {
-                        ToastUtils.showShort("获取菜篮列表失败，" + message);
+                        ToastUtils.showShort("获取订单列表失败，" + message);
                         refreshLayout.finishRefresh(false);
                     }
                 });
             }
         });
+    }
+
+    @OnClick({R.id.tv_start_time, R.id.tv_end_time})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_start_time:
+                val beginDpd = DatePickerFragmentDialog.newInstance(
+                        new DatePickerFragmentDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                if (mBeginDay == null) {
+                                    mBeginDay = Calendar.getInstance();
+                                }
+                                mBeginDay.set(year, monthOfYear, dayOfMonth);
+                                String beginTime = TimeUtils.CUSTOM_FORMAT.format(mBeginDay.getTime());
+                                mTvStartTime.setText(beginTime);
+                                if (mEndDay != null) {
+                                    String endTime = mTvEndTime.getText().toString();
+                                    mParams.setStartTime(beginTime);
+                                    mParams.setEndTime(endTime);
+                                    mSrlOrderList.autoRefresh();
+                                }
+                            }
+                        }, mCurrentDay.get(Calendar.YEAR), // Initial year selection
+                        mCurrentDay.get(Calendar.MONTH), // Initial month selection
+                        mCurrentDay.get(Calendar.DAY_OF_MONTH) // Inital day selection
+                );
+                if (mEndDay != null) {
+                    beginDpd.setMaxDate(mEndDay);
+                }
+                beginDpd.setTitle("请选择开始时间");
+                beginDpd.show(mContext.getSupportFragmentManager(), "BeginDatePickerDialog");
+                break;
+            case R.id.tv_end_time:
+                val endDpd = DatePickerFragmentDialog.newInstance(
+                        new DatePickerFragmentDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerFragmentDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                if (mEndDay == null) {
+                                    mEndDay = Calendar.getInstance();
+                                }
+                                mEndDay.set(year, monthOfYear, dayOfMonth);
+                                String endTime = TimeUtils.CUSTOM_FORMAT.format(mEndDay.getTime());
+                                mTvEndTime.setText(endTime);
+                                if (mBeginDay != null) {
+                                    String startTime = mTvStartTime.getText().toString();
+                                    mParams.setStartTime(startTime);
+                                    mParams.setEndTime(endTime);
+                                    mSrlOrderList.autoRefresh();
+                                }
+                            }
+                        }, mCurrentDay.get(Calendar.YEAR), // Initial year selection
+                        mCurrentDay.get(Calendar.MONTH), // Initial month selection
+                        mCurrentDay.get(Calendar.DAY_OF_MONTH) // Inital day selection
+                );
+                if (mBeginDay != null) {
+                    endDpd.setMinDate(mBeginDay);
+                }
+                endDpd.setTitle("请选择结束时间");
+                endDpd.show(mContext.getSupportFragmentManager(), "EndDatePickerDialog");
+                break;
+        }
     }
 }

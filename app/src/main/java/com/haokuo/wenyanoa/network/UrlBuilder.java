@@ -38,6 +38,7 @@ public class UrlBuilder {
     private static final String BUY_FOOD_IN_BASKET = "/mess/saveInOrder.do";
     private static final String GET_BASKET_LIST_URL = "/mess/getIPopuralityList.do";
     private static final String DELETE_BASKET_ITEM_BY_ID = "/mess/delInPreOrderById.do";
+    private static final String MANAGE_ORDER_LIST = "/mess/getInOrderManageList.do";
     //物品申购
     private static final String GET_IN_BUY_ITEMS_URL = "/oaOffice/getInbuyitems.do";
     private static final String SAVE_BUY_ITEMS_URL = "/oaOffice/saveInBuyItems.do";
@@ -99,6 +100,10 @@ public class UrlBuilder {
 
     public static String buildGetStaffDestinationInfoUrl() {
         return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_INFO_URL).toString();
+    }
+
+    public static String buildManageOrderListUrl() {
+        return new StringBuilder(BASE_URL).append(MANAGE_ORDER_LIST).toString();
     }
 
     public static String buildGetDocListUrl() {

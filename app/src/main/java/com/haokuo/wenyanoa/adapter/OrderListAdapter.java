@@ -32,10 +32,6 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListResultBean.Order
         rvFoodList.setLayoutManager(new LinearLayoutManager(mContext));
         FoodListAdapter foodListAdapter = new FoodListAdapter(R.layout.item_food_list);
         rvFoodList.setAdapter(foodListAdapter);
-        //        ArrayList<DishesBean> dishesBeans = new ArrayList<>();
-        //        for (int i = 0; i < 20; i++) {
-        //            dishesBeans.add(new DishesBean());
-        //        }
         List<OrderListResultBean.DishBean> dishes = item.getDishes();
         foodListAdapter.setNewData(dishes);
     }

@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import com.haokuo.midtitlebar.BarStyle;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
+import com.haokuo.wenyanoa.util.DirUtil;
 import com.haokuo.wenyanoa.util.utilscode.Utils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -80,5 +81,6 @@ public class OaApplication extends Application {
     }
 
     private void createDirs() {
+        DirUtil.createDir();
     }
 }
