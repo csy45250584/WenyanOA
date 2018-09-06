@@ -30,6 +30,8 @@ public class NewsActivity extends BaseActivity {
         return R.layout.activity_news;
     }
 
+
+
     @Override
     protected void initData() {
         setSupportActionBar(mMidTitleBar);

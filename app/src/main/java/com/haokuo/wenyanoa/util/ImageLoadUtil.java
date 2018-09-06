@@ -39,4 +39,7 @@ public class ImageLoadUtil {
     public void loadAvatar(Context context, String url, ImageView iv, String sex) {
         Glide.with(context).load(url).apply("女".equals(sex) ? sWomanAvatarOptions : sManAvatarOptions).into(iv);
     }
+    //通过RequestOptions扩展功能
+
+
 }

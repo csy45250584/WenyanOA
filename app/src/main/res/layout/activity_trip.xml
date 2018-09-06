@@ -11,7 +11,7 @@
         android:id="@+id/mid_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"
-        app:midTitle="报修"/>
+        app:midTitle="公差申请"/>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

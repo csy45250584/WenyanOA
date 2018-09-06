@@ -10,6 +10,7 @@ import com.haokuo.wenyanoa.util.utilscode.SPUtils;
  */
 
 public class OaSpUtil {
+
     public static UserInfoBean getUserInfo() {
         SPUtils utils = SPUtils.getInstance(SpConsts.FILE_PERSONAL_INFORMATION);
         int userId = utils.getInt(SpConsts.KEY_USER_ID, -1);

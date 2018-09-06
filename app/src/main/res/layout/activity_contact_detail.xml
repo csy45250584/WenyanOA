@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"
         app:hasBackArrow="true"
-        app:midTitle=""/>
+        app:midTitle="详细信息"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"

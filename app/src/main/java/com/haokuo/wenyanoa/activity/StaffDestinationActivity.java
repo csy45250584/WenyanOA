@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +19,13 @@ import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.StaffDestinationAdapter;
 import com.haokuo.wenyanoa.bean.StaffDestinationResultBean;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
+import com.haokuo.wenyanoa.consts.SpConsts;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.GetStaffDestinationListParams;
 import com.haokuo.wenyanoa.network.bean.base.IdParams;
 import com.haokuo.wenyanoa.util.OaSpUtil;
+import com.haokuo.wenyanoa.util.utilscode.SPUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.haokuo.wenyanoa.view.RecyclerViewDivider;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -54,6 +55,7 @@ public class StaffDestinationActivity extends BaseActivity {
     private StaffDestinationAdapter mStaffDestinationAdapter;
     private GetStaffDestinationListParams mParams;
     private UserInfoBean mUserInfo;
+    private int mRoleId;
 
     @Override
     protected int initContentLayout() {
@@ -77,6 +79,8 @@ public class StaffDestinationActivity extends BaseActivity {
         //            dishesBeans.add(new DishesBean());
         //        }
         //        staffDestinationAdapter.setNewData(dishesBeans);
+        SPUtils spUtils = SPUtils.getInstance(SpConsts.FILE_PERSONAL_INFORMATION);
+        mRoleId = spUtils.getInt(SpConsts.KEY_ROLE_ID);
     }
 
     @Override
@@ -89,6 +93,10 @@ public class StaffDestinationActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add:
+                if (mRoleId == 2 || mRoleId == 12 || mRoleId == 14) {
+                    ToastUtils.showShort("账号无权限操作！");
+                    break;
+                }
                 Intent intent = new Intent(StaffDestinationActivity.this, DestinationDetailActivity.class);
                 //                intent.putExtra(EXTRA_DESTINATION, mStaffDestinationAdapter.getItem(position).getId());
                 startActivity(intent);
@@ -173,12 +181,19 @@ public class StaffDestinationActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 switch (view.getId()) {
                     case R.id.btn_modify:
+                        if (mRoleId == 2 || mRoleId == 12 || mRoleId == 14) {
+                            ToastUtils.showShort("账号无权限操作！");
+                            break;
+                        }
                         Intent intent = new Intent(StaffDestinationActivity.this, DestinationDetailActivity.class);
                         intent.putExtra(EXTRA_DESTINATION, mStaffDestinationAdapter.getItem(position));
                         startActivity(intent);
                         break;
                     case R.id.btn_delete:
-                        Log.v("MY_CUSTOM_TAG", "StaffDestinationActivity onItemChildClick()-->" + "btn_delete");
+                        if (mRoleId == 2 || mRoleId == 12 || mRoleId == 14) {
+                            ToastUtils.showShort("账号无权限操作！");
+                            break;
+                        }
                         IdParams params = new IdParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mStaffDestinationAdapter.getItem(position).getId());
                         showLoading("正在删除...");
                         HttpHelper.getInstance().deleteDestination(params, new NetworkCallback() {

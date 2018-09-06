@@ -34,6 +34,7 @@ public final class ScreenUtils {
      * 打印关于屏幕的信息(单位:px),屏幕宽度,屏幕高度,屏幕密度,屏幕密度DPI
      */
     public static void printScreenInfo() {
+
         WindowManager windowManager = (WindowManager) Utils.getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();

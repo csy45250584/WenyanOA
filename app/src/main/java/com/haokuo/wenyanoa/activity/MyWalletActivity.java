@@ -62,6 +62,19 @@ public class MyWalletActivity extends BaseActivity {
                 ToastUtils.showShort("获取钱包信息失败，" + message);
             }
         });
+        LeakThread leakThread = new LeakThread();
+        leakThread.start();
+    }
+
+    class LeakThread extends Thread {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(6 * 60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

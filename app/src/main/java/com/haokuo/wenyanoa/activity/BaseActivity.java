@@ -148,6 +148,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mLoadingDialog;
     }
 
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        OaApplication.getRefWatcher(this).watch(this);
+//    }
+
     protected void unableInputSpace(EditText... editTexts) {
         InputFilter inputFilter = new InputFilter() {
             @Override

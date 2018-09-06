@@ -630,4 +630,14 @@ public class HttpHelper {
     public void getDocInfo(GetDocInfoParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetDocInfoUrl(), callback);
     }
+
+    /** 获取用户权限ID */
+    public void getUserPermission(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetUserPermissionUrl(), callback);
+    }
+
+    /** 获取我的出勤天数和和待审批申请数量 */
+    public void getAppSomeCount(UserIdApiKeyParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildGetAppSomeCountUrl(), callback);
+    }
 }

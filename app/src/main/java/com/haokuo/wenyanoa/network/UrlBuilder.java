@@ -19,11 +19,13 @@ public class UrlBuilder {
     private static final String GET_RESET_VERFIY_CODE_URL = "/oamessage/getResetVerfiyCode.do";
     private static final String CODE_CHECK_URL = "/oamessage/codeCheck.do";
     private static final String FORGET_PASSWORD_URL = "/oamessage/forgetPassword.do";
+    private static final String GET_USER_PERMISSION = "/oaCustom/getAppMenuList.do";
     //用户相关信息
     private static final String GET_CONTACT_URL = "/oaCustom/getLoginUserContact.do";
     private static final String GET_MY_ATTENDANCE_LIST_URL = "/oaCustom/getMyAttendanceList.do";
     private static final String GET_MY_WALLET_URL = "/oaCustom/listMywallet.do";
     private static final String GET_COPY2ME_APPROVAL_URL = "/oaOffice/getInUnmessageList.do";
+    private static final String GET_APP_SOME_COUNT = "/oaCustom/getAppSomeCount.do";
     //通知讯息类
     private static final String GET_CONFERENCE_URL = "/noteNew/getInConferenceJson.do";
     private static final String GET_INFO_CONFERENCE_URL = "/noteNew/getInfoConference.do";
@@ -100,6 +102,14 @@ public class UrlBuilder {
 
     public static String buildGetStaffDestinationInfoUrl() {
         return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_INFO_URL).toString();
+    }
+
+    public static String buildGetAppSomeCountUrl() {
+        return new StringBuilder(BASE_URL).append(GET_APP_SOME_COUNT).toString();
+    }
+
+    public static String buildGetUserPermissionUrl() {
+        return new StringBuilder(BASE_URL).append(GET_USER_PERMISSION).toString();
     }
 
     public static String buildManageOrderListUrl() {

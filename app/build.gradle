@@ -84,4 +84,9 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
+    implementation 'me.jessyan:autosize:0.9.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
 }

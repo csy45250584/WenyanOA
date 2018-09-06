@@ -81,7 +81,7 @@ public class BarStyle {
         }
 
         public BarStyle build() {
-            return new BarStyle(this.backgroundColor, this.titleSize, this.titleColor, this.hasBackArrow,this.navigationIconId);
+            return new BarStyle(this.backgroundColor, this.titleSize, this.titleColor, this.hasBackArrow, this.navigationIconId);
         }
     }
 }

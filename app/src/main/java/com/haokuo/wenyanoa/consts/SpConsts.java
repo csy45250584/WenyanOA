@@ -25,4 +25,5 @@ public class SpConsts {
     public static final String KEY_SECTION_PHONE = "section_phone";
     public static final String KEY_WE_CHAT = "we_chat";
     public static final String KEY_HEAD_PHOTO = "head_photo";
+    public static final String KEY_ROLE_ID = "role_id";
 }

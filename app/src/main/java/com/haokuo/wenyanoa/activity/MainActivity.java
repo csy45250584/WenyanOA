@@ -2,8 +2,6 @@ package com.haokuo.wenyanoa.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,11 +12,15 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.adapter.MainFragmentPagerAdapter;
+import com.haokuo.wenyanoa.eventbus.LogoutEvent;
 import com.haokuo.wenyanoa.fragment.ContactsFragment;
 import com.haokuo.wenyanoa.fragment.MeFragment;
 import com.haokuo.wenyanoa.fragment.WorkFragment;
 import com.haokuo.wenyanoa.util.utilscode.KeyboardUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -71,19 +73,23 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initData() {
-        DisplayMetrics metric = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metric);
-        int width = metric.widthPixels;     // 屏幕宽度（像素）
-        int height = metric.heightPixels;   // 屏幕高度（像素）
-        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
-        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
-        Log.d("tiandandan", "width height density densityDpi" + width + " || " + height + " || " + density + " || " + densityDpi + " || ");
+    @Subscribe
+    public void onLogoutEvent(LogoutEvent event) {
+        finish();
+    }
+
+    @Override
+    protected void initData() {
+        EventBus.getDefault().register(this);
         setSupportActionBar(mMidTitleBar);
         initBottomNaviBar();
         ArrayList<Fragment> fragments = new ArrayList<>();
-//        fragments.add(new IMFragment());
+        //        fragments.add(new IMFragment());
         mContactsFragment = new ContactsFragment();
         fragments.add(mContactsFragment);
         fragments.add(new WorkFragment());
@@ -92,6 +98,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(fragments.size()); //设置缓存fragment数量，防止fragment生命周期多次调用
         mViewPager.setCurrentItem(DEFAULT_TAB_POSITION); //设置初始化的位置
+        mSearchView.setCursorDrawable(R.drawable.search_bar_cursor);
     }
 
     private void initBottomNaviBar() {
@@ -102,7 +109,7 @@ public class MainActivity extends BaseActivity {
                 .setInActiveColor(R.color.text4)//默认未选择颜色
                 .setBarBackgroundColor("#FFFFFF");//默认背景色
         mBottomNavigationBar
-//                .addItem(new BottomNavigationItem(R.drawable.news, "消息"))
+                //                .addItem(new BottomNavigationItem(R.drawable.news, "消息"))
                 .addItem(new BottomNavigationItem(R.drawable.tongxun, "通讯录"))
                 .addItem(new BottomNavigationItem(R.drawable.work1, "工作"))
                 .addItem(new BottomNavigationItem(R.drawable.my, "我的"))
@@ -130,11 +137,11 @@ public class MainActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 mBottomNavigationBar.selectTab(position);
                 switch (position) {
-//                    case 0:
-//                        mMidTitleBar.setMidTitle("消息");
-//                        mMidTitleBar.getMenu().clear();
-//                        mSearchView.closeSearch();
-//                        break;
+                    //                    case 0:
+                    //                        mMidTitleBar.setMidTitle("消息");
+                    //                        mMidTitleBar.getMenu().clear();
+                    //                        mSearchView.closeSearch();
+                    //                        break;
                     case 1:
                         mMidTitleBar.setMidTitle("闻堰OA");
                         mMidTitleBar.getMenu().clear();

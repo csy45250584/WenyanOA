@@ -5,9 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
 import com.haokuo.wenyanoa.R;
-import com.haokuo.wenyanoa.activity.LoginActivity;
 import com.haokuo.wenyanoa.activity.MyAttendanceActivity;
 import com.haokuo.wenyanoa.activity.MyWalletActivity;
 import com.haokuo.wenyanoa.activity.PersonalInfoActivity;
@@ -49,12 +47,7 @@ public class MeFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initListener() {
-        mIvUserAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, LoginActivity.class));
-            }
-        });
+
     }
 
     @Override
