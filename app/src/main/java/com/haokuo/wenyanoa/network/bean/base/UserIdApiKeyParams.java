@@ -1,13 +1,11 @@
 package com.haokuo.wenyanoa.network.bean.base;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Created by zjf on 2018-08-15.
  */
-@Getter
-@Setter
+@Data
 public class UserIdApiKeyParams implements IGetApiKey {
     private int userId;
     private String apiKey;

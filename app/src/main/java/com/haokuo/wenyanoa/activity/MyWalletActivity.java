@@ -44,6 +44,7 @@ public class MyWalletActivity extends BaseActivity {
     protected void initData() {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this, R.drawable.fanhui1);
+
         mTvWalletMoney.setText("");
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
         UserIdApiKeyParams params = new UserIdApiKeyParams(userInfo.getUserId(), userInfo.getApikey());
@@ -62,20 +63,9 @@ public class MyWalletActivity extends BaseActivity {
                 ToastUtils.showShort("获取钱包信息失败，" + message);
             }
         });
-        LeakThread leakThread = new LeakThread();
-        leakThread.start();
     }
 
-    class LeakThread extends Thread {
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(6 * 60 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
     @Override
     protected void initListener() {
