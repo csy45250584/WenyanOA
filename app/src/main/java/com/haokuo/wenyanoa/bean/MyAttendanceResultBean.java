@@ -29,23 +29,39 @@ public class MyAttendanceResultBean {
         private String minLeave; //早退时长（已有在状态为“迟到”时才有）
 
         public void setClockOnTime(String clockOnTime) {
-            String[] split = clockOnTime.split(" ");
-            this.clockOnTime = split[1];
+            String[] splits = clockOnTime.split(" ");
+            if (splits.length > 1) {
+                this.clockOnTime = splits[1];
+            } else {
+                this.clockOnTime = clockOnTime;
+            }
         }
 
         public void setClockOffTime(String clockOffTime) {
-            String[] split = clockOffTime.split(" ");
-            this.clockOffTime = split[1];
+            String[] splits = clockOffTime.split(" ");
+            if (splits.length > 1) {
+                this.clockOffTime = splits[1];
+            } else {
+                this.clockOffTime = clockOffTime;
+            }
         }
 
         public void setOnTime(String onTime) {
-            String[] split = onTime.split(" ");
-            this.onTime = split[1];
+            String[] splits = onTime.split(" ");
+            if (splits.length > 1) {
+                this.onTime = splits[1];
+            } else {
+                this.onTime = onTime;
+            }
         }
 
         public void setOffTime(String offTime) {
-            String[] split = offTime.split(" ");
-            this.offTime = split[1];
+            String[] splits = offTime.split(" ");
+            if (splits.length > 1) {
+                this.offTime = splits[1];
+            } else {
+                this.offTime = offTime;
+            }
         }
     }
 }

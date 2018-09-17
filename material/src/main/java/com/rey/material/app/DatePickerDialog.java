@@ -504,7 +504,6 @@ public class DatePickerDialog extends Dialog {
                     if(mYearPicker.getMeasuredHeight() != height)
                         mYearPicker.measure(ws, MeasureSpec.makeMeasureSpec(Math.min(mYearPicker.getMeasuredHeight(), height), MeasureSpec.EXACTLY));
                 }
-
                 setMeasuredDimension(widthSize, heightSize);
             }
         }

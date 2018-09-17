@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.bean.ContactResultBean;
+import com.haokuo.wenyanoa.bean.UserInfoBean;
+import com.haokuo.wenyanoa.network.UrlBuilder;
 import com.haokuo.wenyanoa.util.ImageLoadUtil;
+import com.haokuo.wenyanoa.util.OaSpUtil;
 import com.haokuo.wenyanoa.util.utilscode.PhoneUtils;
 import com.haokuo.wenyanoa.view.ContactDetailItem;
 
@@ -41,6 +44,8 @@ public class ContactDetailActivity extends BaseActivity implements ContactDetail
     CircleImageView mIvAvatar;
     @BindView(R.id.tv_name)
     TextView mTvName;
+    private UserInfoBean mUserInfo;
+    private ContactResultBean.ContactBean mContactBean;
 
     @Override
     protected int initContentLayout() {
@@ -51,16 +56,17 @@ public class ContactDetailActivity extends BaseActivity implements ContactDetail
     protected void initData() {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this, R.drawable.fanhui1);
-        ContactResultBean.ContactBean contactBean = (ContactResultBean.ContactBean) getIntent().getSerializableExtra(EXTRA_CONTACT);
-        if (contactBean != null) {
-            ImageLoadUtil.getInstance().loadAvatar(this,contactBean.getHeadPhoto(),mIvAvatar,contactBean.getSex());
-            mTvName.setText(contactBean.getRealname());
-            mContactPhone.setContent(contactBean.getTelphone());
-            mContactShortPhone.setContent(contactBean.getMobilePhone());
-            mContactOfficePhone.setContent(contactBean.getSectionPhone());
-            mContactDuties.setContent(contactBean.getJob());
-            mContactOffice.setContent(contactBean.getSecition());
+        mContactBean = (ContactResultBean.ContactBean) getIntent().getSerializableExtra(EXTRA_CONTACT);
+        if (mContactBean != null) {
+            ImageLoadUtil.getInstance().loadAvatar(this, mContactBean.getHeadPhoto(), mIvAvatar, mContactBean.getSex());
+            mTvName.setText(mContactBean.getRealname());
+            mContactPhone.setContent(mContactBean.getTelphone());
+            mContactShortPhone.setContent(mContactBean.getMobilePhone());
+            mContactOfficePhone.setContent(mContactBean.getSectionPhone());
+            mContactDuties.setContent(mContactBean.getJob());
+            mContactOffice.setContent(mContactBean.getSecition());
         }
+        mUserInfo = OaSpUtil.getUserInfo();
     }
 
     @Override
@@ -74,8 +80,32 @@ public class ContactDetailActivity extends BaseActivity implements ContactDetail
     public void onSmsClick(View v, String phone) {
         switch (v.getId()) {
             case R.id.contact_phone:
-                //发短信
-                PhoneUtils.sendSms(phone, "");
+                String url = UrlBuilder.buildChatOnLineUrl()+"?fromId="+mUserInfo.getUserId()+"&toId="+mContactBean.getId();
+                Intent intent = new Intent(ContactDetailActivity.this, ChatOnlineActivity.class);
+                intent.putExtra(ChatOnlineActivity.EXTRA_URL,url);
+                intent.putExtra(ChatOnlineActivity.EXTRA_NAME,mContactBean.getRealname());
+                startActivity(intent);
+                //                //发短信
+                //                PhoneUtils.sendSms(phone, "");
+                //                ChatOnLineParams params = new ChatOnLineParams(mUserInfo.getUserId(), mUserInfo.getApikey(), mUserInfo.getUserId(),  mContactBean.getId());
+                //
+                //                showLoading("正在获取...");
+                //                HttpHelper.getInstance().chatOnLine(params, new NetworkCallback() {
+                //                    @Override
+                //                    public void onSuccess(Call call, String json) {
+                //                        ChatOnlineResultBean resultBean = JSON.parseObject(json, ChatOnlineResultBean.class);
+                //                        loadClose();
+                //                        Intent intent = new Intent(ContactDetailActivity.this, ChatOnlineActivity.class);
+                //                        intent.putExtra(ChatOnlineActivity.EXTRA_URL, resultBean.getChatpath());
+                //                        startActivity(intent);
+                //                    }
+                //
+                //                    @Override
+                //                    public void onFailure(Call call, String message) {
+                //                        loadClose();
+                //                        ToastUtils.showShort("获取聊天链接失败，" + message);
+                //                    }
+                //                });
                 break;
         }
     }

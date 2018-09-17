@@ -181,7 +181,7 @@ public class OrderFoodActivity extends BaseActivity {
                     case 2:
                         mMidTitleBar.setMidTitle("订单");
                         mMidTitleBar.getMenu().clear();
-                        mMidTitleBar.getMenu().add(0, 0, 0, MENU_ORDER).setIcon(null).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//                        mMidTitleBar.getMenu().add(0, 0, 0, MENU_ORDER).setIcon(null).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                         mSpinnerWeekday.setVisibility(View.GONE);
                         break;
                 }

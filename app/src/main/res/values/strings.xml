@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">wenyanoa</string>
+    <string name="app_name">闻堰OA</string>
     <string name="fd">购买</string>
     <string-array name="weekday">
         <item>周一</item>

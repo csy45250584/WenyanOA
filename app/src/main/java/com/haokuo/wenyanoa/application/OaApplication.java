@@ -17,11 +17,8 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.squareup.leakcanary.LeakCanary;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
-
-import org.litepal.LitePal;
 
 /**
  * Created by zjf on 2018-07-16.
@@ -50,12 +47,11 @@ public class OaApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+        //LeakCanary初始化
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        LeakCanary.install(this);
         //创建文件夹
         createDirs();
         //初始化工具类
@@ -64,14 +60,13 @@ public class OaApplication extends Application {
         initLoadingStyle();
         initBarStyle();
         //数据库初始化
-        LitePal.initialize(this);
     }
 
     private void initBarStyle() {
         Resources resources = getResources();
         BarStyle barStyle = new BarStyle.Builder()
                 .setBackgroundColor(resources.getColor(R.color.colorPrimary))
-                .setTitleColor(resources.getColor(R.color.colorBarTitle))
+                .setTitleColor(resources.getColor(R.color.colorWhite))
                 .setTitleSize(resources.getDimension(R.dimen.sp_19))
                 .setHasBackArrow(true)
                 .setNavigationIconId(R.drawable.fanhui1)

@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -22,6 +25,7 @@ public class MidTitleBar extends Toolbar {
     private Context mContext;
     private TextView mMidTitleView;
     private int mNaviIconId;
+    private Paint mPaint;
 
     public MidTitleBar(Context context) {
         this(context, null);
@@ -57,6 +61,10 @@ public class MidTitleBar extends Toolbar {
         //            setNavigationOnClickListener(null);
         //        }
         setBackgroundColor(backgroundColor);
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(ContextCompat.getColor(mContext, R.color.divider));
+        mPaint.setStrokeWidth(getResources().getDimension(R.dimen.dp_1));
     }
 
     public void setMidTitle(String midTitle, float titleSize, int titleColor) {
@@ -71,6 +79,14 @@ public class MidTitleBar extends Toolbar {
             mMidTitleView.setTextColor(titleColor);
         }
         mMidTitleView.setText(midTitle);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        //        int bottom = getBottom();
+        //
+        canvas.drawLine(0, getBottom(), getWidth(), getBottom(), mPaint);
     }
 
     public void setMidTitle(String midTitle) {

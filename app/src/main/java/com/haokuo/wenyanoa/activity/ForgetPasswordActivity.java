@@ -70,7 +70,6 @@ public class ForgetPasswordActivity extends BaseActivity {
         mTvGetCode.setText("重新获取");
     }
 
-
     @Override
     protected int initContentLayout() {
         return R.layout.activity_forget_password;
@@ -110,6 +109,7 @@ public class ForgetPasswordActivity extends BaseActivity {
                         public void onSuccess(Call call, String json) {
                             countDownTimer.start();
                         }
+
                         @Override
                         public void onFailure(Call call, String message) {
                             ToastUtils.showShort("获取验证码失败，" + message);
@@ -179,7 +179,7 @@ public class ForgetPasswordActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call call, String message) {
-                        loadFailed("重置密码失败，"+message);
+                        loadFailed("重置密码失败，" + message);
                     }
                 });
             }

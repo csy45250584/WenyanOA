@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UrlBuilder {
     private static final String IMAGE_STRING_SPLIT = ",";
-    private static final String BASE_URL = "http://192.168.1.92:9079/oai/";
+    private static final String BASE_URL = "http://115.238.87.10:9081/oai/";
     //用户登录
     private static final String LOGIN_URL = "/oaCustom/loginByPassword.do";
     private static final String UPDATE_PASSWORD_URL = "/oaCustom/updatePassword.do";
@@ -99,9 +99,15 @@ public class UrlBuilder {
     //公文管理
     private static final String GET_DOC_LIST_URL = "/oaOffice/getInBumfListJson.do";
     private static final String GET_DOC_INFO_URL = "/oaOffice/toGetInfoSendBumf.do";
+    //聊天
+    private static final String CHAT_ON_LINE_URL = "/oaChat/gotoAppchat.do";
 
     public static String buildGetStaffDestinationInfoUrl() {
         return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_INFO_URL).toString();
+    }
+
+    public static String buildChatOnLineUrl() {
+        return new StringBuilder(BASE_URL).append(CHAT_ON_LINE_URL).toString();
     }
 
     public static String buildGetAppSomeCountUrl() {

@@ -67,7 +67,6 @@ public class AttendanceClockActivity extends BaseActivity {
         mMidTitleBar.addBackArrow(this);
         mStepperClockIn.bindSteppers(null, mStepperClockOut);
         //网络请求准备数据
-
         initLocation();
         AttendanceClockActivityPermissionsDispatcher.startLocationWithPermissionCheck(this);
     }
@@ -75,7 +74,6 @@ public class AttendanceClockActivity extends BaseActivity {
     private void initLocation() {
         //初始化定位
         mLocationClient = new AMapLocationClient(getApplicationContext());
-
         //设置定位回调
         AMapLocationListener locationListener = new AMapLocationListener() {
             @Override
@@ -88,7 +86,6 @@ public class AttendanceClockActivity extends BaseActivity {
                         DPoint currentPoint = new DPoint(latitude, longitude);
                         DPoint currentPoint2 = new DPoint(latitude + 0.01, longitude + 0.01);
                         float distance = CoordinateConverter.calculateLineDistance(currentPoint, currentPoint2);
-                        Log.v("MY_CUSTOM_TAG", "AttendanceClockActivity onLocationChanged()-->distance = " + distance);
                     } else {
                         //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表网址如下：
                         //https://lbs.amap.com/api/android-location-sdk/guide/utilities/errorcode

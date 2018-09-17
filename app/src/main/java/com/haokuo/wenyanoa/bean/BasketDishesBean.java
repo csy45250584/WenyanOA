@@ -1,14 +1,12 @@
 package com.haokuo.wenyanoa.bean;
 
-import org.litepal.crud.LitePalSupport;
-
 import lombok.Data;
 
 /**
  * Created by zjf on 2018/9/1.
  */
 @Data
-public class BasketDishesBean extends LitePalSupport {
+public class BasketDishesBean {
     private final double totalPrice;
     private long id;
     private String foodName;

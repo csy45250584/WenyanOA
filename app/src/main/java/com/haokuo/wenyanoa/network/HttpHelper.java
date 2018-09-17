@@ -11,6 +11,7 @@ import com.haokuo.wenyanoa.bean.UserInfoDetailBean;
 import com.haokuo.wenyanoa.network.bean.AddDestinationParams;
 import com.haokuo.wenyanoa.network.bean.ApprovalDetailParams;
 import com.haokuo.wenyanoa.network.bean.BuyFoodInBasketParams;
+import com.haokuo.wenyanoa.network.bean.ChatOnLineParams;
 import com.haokuo.wenyanoa.network.bean.CodeCheckParams;
 import com.haokuo.wenyanoa.network.bean.GetConferenceInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetDocInfoParams;
@@ -639,5 +640,10 @@ public class HttpHelper {
     /** 获取我的出勤天数和和待审批申请数量 */
     public void getAppSomeCount(UserIdApiKeyParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildGetAppSomeCountUrl(), callback);
+    }
+
+    /** 获取我的出勤天数和和待审批申请数量 */
+    public void chatOnLine(ChatOnLineParams params, NetworkCallback callback) {
+        doPost(params, UrlBuilder.buildChatOnLineUrl(), callback);
     }
 }

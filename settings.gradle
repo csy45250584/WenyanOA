@@ -1,1 +1,1 @@
-include ':app', ':MidTitleBar', ':SmoothCheckBox', ':StepView', ':material', ':MaterialDEmo',':daterangepicker'
+include ':app', ':MidTitleBar', ':SmoothCheckBox', ':StepView', ':material', ':MaterialDEmo',':daterangepicker','agentweb-download'
