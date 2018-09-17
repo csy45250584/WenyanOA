@@ -181,7 +181,7 @@ public class OrderFoodActivity extends BaseActivity {
                     case 2:
                         mMidTitleBar.setMidTitle("订单");
                         mMidTitleBar.getMenu().clear();
-//                        mMidTitleBar.getMenu().add(0, 0, 0, MENU_ORDER).setIcon(null).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                        //                        mMidTitleBar.getMenu().add(0, 0, 0, MENU_ORDER).setIcon(null).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                         mSpinnerWeekday.setVisibility(View.GONE);
                         break;
                 }
@@ -228,7 +228,8 @@ public class OrderFoodActivity extends BaseActivity {
                     return super.onOptionsItemSelected(item);
                 }
                 NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-                String totalPriceString = currencyFormatter.format(totalPrice);
+                final String totalPriceString = currencyFormatter.format(totalPrice);
+                final double doublePrice = totalPrice.doubleValue();
                 String ids = stringBuilder.toString();
                 ids = ids.substring(0, ids.length() - 1);
                 View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_bug_food, null);
@@ -242,13 +243,13 @@ public class OrderFoodActivity extends BaseActivity {
                         super.onPositiveActionClicked(fragment);
                         //提交订单
                         showLoading("正在提交订单...");
-                        BuyFoodInBasketParams params = new BuyFoodInBasketParams(mUserInfo.getUserId(), mUserInfo.getApikey(), finalTotalCount, finalIds);
+
+                        BuyFoodInBasketParams params = new BuyFoodInBasketParams(mUserInfo.getUserId(), mUserInfo.getApikey(), doublePrice, finalIds);
                         HttpHelper.getInstance().buyFoodInBasket(params, new NetworkCallback() {
                             @Override
                             public void onSuccess(Call call, String json) {
                                 loadSuccess("提交成功", false);
                                 mBasketFragment.refreshList();
-
                             }
 
                             @Override

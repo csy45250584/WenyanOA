@@ -86,10 +86,14 @@ public class ApplyItemsActivity extends BaseCcActivity {
             return;
         }
         //发起请求
+        int ccId = 0;
+        if (mCcBean != null) {
+            ccId = mCcBean.getId();
+        }
         showLoading("正在提交请求...");
         LaunchApplyItemsParams params = new LaunchApplyItemsParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                 mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                mCcBean.getId(), goodsName, detailInfo);
+                ccId, goodsName, detailInfo);
         HttpHelper.getInstance().launchApplyItems(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {

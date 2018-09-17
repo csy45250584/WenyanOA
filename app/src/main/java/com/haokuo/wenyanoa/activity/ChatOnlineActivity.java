@@ -134,6 +134,7 @@ public class ChatOnlineActivity extends BaseActivity {
              */
             @Override
             public boolean onResult(String path, String url, Throwable throwable) {
+                Log.i(TAG, "onResult: " + "download file path = " + path);
                 if (null == throwable) { //下载成功
                     //do you work
                 } else {//下载失败
@@ -142,7 +143,7 @@ public class ChatOnlineActivity extends BaseActivity {
                 return false; // true  不会发出下载完成的通知 , 或者打开文件
             }
         };
-
+        Log.i(TAG, "initData: " + "load url = " + url);
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent((FrameLayout) mFlWebContainer, new FrameLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()

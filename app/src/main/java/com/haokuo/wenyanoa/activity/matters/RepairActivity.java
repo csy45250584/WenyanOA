@@ -96,9 +96,13 @@ public class RepairActivity extends BaseCcActivity {
                 }
                 //发起请求
                 showLoading("正在提交请求...");
+                int ccId = 0;
+                if (mCcBean != null) {
+                    ccId = mCcBean.getId();
+                }
                 LaunchRepairParams params = new LaunchRepairParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                         mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                        mCcBean.getId(), date,goodsName,content,address,null);
+                        ccId, date,goodsName,content,address,null);
                 HttpHelper.getInstance().launchRepair(params, new NetworkCallback() {
                     @Override
                     public void onSuccess(Call call, String json) {

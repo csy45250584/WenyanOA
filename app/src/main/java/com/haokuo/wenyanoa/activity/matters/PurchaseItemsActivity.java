@@ -87,9 +87,13 @@ public class PurchaseItemsActivity extends BaseCcActivity {
         }
         //发起请求
         showLoading("正在提交请求...");
+        int ccId = 0;
+        if (mCcBean != null) {
+            ccId = mCcBean.getId();
+        }
         SaveBuyItemsParams params = new SaveBuyItemsParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                 mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                mCcBean.getId(), goodsName, detailInfo);
+                ccId, goodsName, detailInfo);
         HttpHelper.getInstance().saveBuyItems(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {

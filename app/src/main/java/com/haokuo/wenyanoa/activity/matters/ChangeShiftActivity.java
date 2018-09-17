@@ -105,9 +105,13 @@ public class ChangeShiftActivity extends BaseCcActivity {
         }
         //发起请求
         showLoading("正在提交请求...");
+        int ccId = 0;
+        if (mCcBean != null) {
+            ccId = mCcBean.getId();
+        }
         LaunchChangeShiftParams params = new LaunchChangeShiftParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                 mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                mCcBean.getId(), originalDate, changeShiftDate, mChangeShiftStaff.getId(), detailInfo,mApproverList.getOneLevelId());
+                ccId, originalDate, changeShiftDate, mChangeShiftStaff.getId(), detailInfo,mApproverList.getOneLevelId());
         HttpHelper.getInstance().launchChangeShift(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {

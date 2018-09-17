@@ -9,10 +9,10 @@ import lombok.Data;
  */
 @Data
 public class BuyFoodInBasketParams extends UserIdApiKeyParams {
-    private int total;
+    private double total;
     private String ids;
 
-    public BuyFoodInBasketParams(int userId, String apiKey, int total, String ids) {
+    public BuyFoodInBasketParams(int userId, String apiKey, double total, String ids) {
         super(userId, apiKey);
         this.total = total;
         this.ids = ids;

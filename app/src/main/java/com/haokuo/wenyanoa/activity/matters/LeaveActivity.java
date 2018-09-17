@@ -99,9 +99,13 @@ public class LeaveActivity extends BaseCcActivity {
         }
         //发起请求
         showLoading("正在提交请求...");
+        int ccId = 0;
+        if (mCcBean != null) {
+            ccId = mCcBean.getId();
+        }
         LaunchLeaveParams params = new LaunchLeaveParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                 mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                mCcBean.getId(), leaveType, detailInfo, startDate, endDate, duration);
+                ccId, leaveType, detailInfo, startDate, endDate, duration);
         HttpHelper.getInstance().launchLeave(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {

@@ -94,9 +94,13 @@ public class TripActivity extends BaseCcActivity {
         }
         //发起请求
         showLoading("正在提交请求...");
+        int ccId = 0;
+        if (mCcBean != null) {
+            ccId = mCcBean.getId();
+        }
         LaunchTripParams params = new LaunchTripParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                 mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                mCcBean.getId(), null, detailInfo, startDate, endDate, duration);
+                ccId, null, detailInfo, startDate, endDate, duration);
         HttpHelper.getInstance().launchTrip(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {
