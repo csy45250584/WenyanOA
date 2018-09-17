@@ -109,6 +109,7 @@ public class DishesFragment extends BaseLazyLoadFragment {
                         etPersonalInfo.setInputType(InputType.TYPE_CLASS_NUMBER);
                         etPersonalInfo.setText("1");
                         etPersonalInfo.setHint("数量");
+                        etPersonalInfo.setSelection(etPersonalInfo.getEditableText().length());
                         new AlertDialog.Builder(mContext)
                                 .setTitle("请输入菜品数量")
                                 .setView(inflate)
