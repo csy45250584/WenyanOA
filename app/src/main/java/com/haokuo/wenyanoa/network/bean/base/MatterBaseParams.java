@@ -11,12 +11,12 @@ import lombok.Data;
 public class MatterBaseParams extends UserIdApiKeyParams {
     /** 填表时间 */
     private String fillformDate;
-    private int onelevelId;
-    private int twolevelId;
-    private int threelevelId;
-    private int courtesyCopyId;
+    private Integer onelevelId;
+    private Integer twolevelId;
+    private Integer threelevelId;
+    private Integer courtesyCopyId;
 
-    public MatterBaseParams(int userId, String apiKey, int onelevelId, int twolevelId, int threelevelId, int courtesyCopyId) {
+    public MatterBaseParams(int userId, String apiKey, Integer onelevelId, Integer twolevelId, Integer threelevelId, Integer courtesyCopyId) {
         super(userId, apiKey);
         this.fillformDate = TimeUtils.getNowString(TimeUtils.CUSTOM_FORMAT);
         this.onelevelId = onelevelId;

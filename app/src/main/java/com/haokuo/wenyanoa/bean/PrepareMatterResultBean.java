@@ -10,9 +10,9 @@ import lombok.Data;
  */
 @Data
 public class PrepareMatterResultBean {
-    private int oneLevelId;
-    private int twoLevelId;
-    private int threeLevelId;
+    private Integer oneLevelId;
+    private Integer twoLevelId;
+    private Integer threeLevelId;
     private String oneLevelN;
     private String twoLevelN;
     private String threeLevelN;
@@ -22,20 +22,20 @@ public class PrepareMatterResultBean {
     private String oneLeveSex;
     private String twoLeveSex;
     private String threeLeveSex;
-    private int CourtesyCopyId;
+    private Integer CourtesyCopyId;
     private String CourtesyCopySex;
     private String CourtesyCopylN;
     private String CourtesyCopylP;
 
     public List<StaffBean> getApproverList() {
         ArrayList<StaffBean> approverBeans = new ArrayList<>();
-        if (oneLevelId != 0) {
+        if (oneLevelId != null && oneLevelId != 0) {
             approverBeans.add(new StaffBean(oneLevelId, oneLevelN, oneLevelP, oneLeveSex));
         }
-        if (twoLevelId != 0) {
+        if (twoLevelId != null && twoLevelId != 0) {
             approverBeans.add(new StaffBean(twoLevelId, twoLevelN, twoLevelP, twoLeveSex));
         }
-        if (threeLevelId != 0) {
+        if (threeLevelId != null && threeLevelId != 0) {
             approverBeans.add(new StaffBean(threeLevelId, threeLevelN, threeLevelP, threeLeveSex));
         }
         return approverBeans;

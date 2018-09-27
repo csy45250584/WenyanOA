@@ -15,7 +15,7 @@ public class LaunchChangeShiftParams extends MatterBaseParams {
     private String incident; //换班事由
     private int nowlevelId; //当前审批人
 
-    public LaunchChangeShiftParams(int userId, String apiKey, int onelevelId, int twolevelId, int threelevelId, int courtesyCopyId, String oldWorkDate, String newWorkDate, int transferId, String incident, int nowlevelId) {
+    public LaunchChangeShiftParams(int userId, String apiKey, Integer onelevelId, Integer twolevelId, Integer threelevelId, Integer courtesyCopyId, String oldWorkDate, String newWorkDate, int transferId, String incident, int nowlevelId) {
         super(userId, apiKey, onelevelId, twolevelId, threelevelId, courtesyCopyId);
         this.oldWorkDate = oldWorkDate;
         this.newWorkDate = newWorkDate;

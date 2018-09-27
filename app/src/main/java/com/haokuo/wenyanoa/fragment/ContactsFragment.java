@@ -57,6 +57,8 @@ public class ContactsFragment extends BaseLazyLoadFragment {
     private List<ContactResultBean.ContactBean> mContactList;
     private UserIdApiKeyParams mParams;
     private boolean mIsSelectCc;
+    private int mToPosition;
+    private boolean mShouldScroll;
 
     @Override
     protected void handleMessage(Message msg) {
@@ -171,6 +173,8 @@ public class ContactsFragment extends BaseLazyLoadFragment {
         } else {
             // 第三种可能:跳转位置在最后可见项之后
             mRecyclerView.smoothScrollToPosition(position);
+            mToPosition = position;
+            mShouldScroll = true;
         }
     }
 

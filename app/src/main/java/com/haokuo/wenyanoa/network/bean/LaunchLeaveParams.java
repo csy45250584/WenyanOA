@@ -15,7 +15,7 @@ public class LaunchLeaveParams extends MatterBaseParams {
     private String endDate; //结束时间
     private String howlong; //请假时长
 
-    public LaunchLeaveParams(int userId, String apiKey, int onelevelId, int twolevelId, int threelevelId, int courtesyCopyId, String leaveType, String incident, String startDate, String endDate, String howlong) {
+    public LaunchLeaveParams(int userId, String apiKey, Integer onelevelId, Integer twolevelId, Integer threelevelId, Integer courtesyCopyId, String leaveType, String incident, String startDate, String endDate, String howlong) {
         super(userId, apiKey, onelevelId, twolevelId, threelevelId, courtesyCopyId);
         this.leaveType = leaveType;
         this.incident = incident;

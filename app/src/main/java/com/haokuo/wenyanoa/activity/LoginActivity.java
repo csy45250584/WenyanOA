@@ -21,8 +21,11 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.widget.Button;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
+import java.util.HashSet;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.Call;
 
 /**
@@ -121,6 +124,9 @@ public class LoginActivity extends BaseActivity {
                 loadSuccess("登录成功", new LoadingDialog.OnFinishListener() {
                     @Override
                     public void onFinish() {
+                        HashSet<String> tags = new HashSet<>();
+                        tags.add(String.valueOf(mLoginResult.getUserId()));
+                        JPushInterface.setTags(LoginActivity.this,0,tags);
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }

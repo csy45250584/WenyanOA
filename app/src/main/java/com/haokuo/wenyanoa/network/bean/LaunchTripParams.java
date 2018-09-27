@@ -15,7 +15,7 @@ public class LaunchTripParams extends MatterBaseParams {
     private String endDate; //结束时间
     private String howlong; //公差时长
 
-    public LaunchTripParams(int userId, String apiKey, int onelevelId, int twolevelId, int threelevelId, int courtesyCopyId, String trip_place, String incident, String startDate, String endDate, String howlong) {
+    public LaunchTripParams(int userId, String apiKey, Integer onelevelId, Integer twolevelId, Integer threelevelId, Integer courtesyCopyId, String trip_place, String incident, String startDate, String endDate, String howlong) {
         super(userId, apiKey, onelevelId, twolevelId, threelevelId, courtesyCopyId);
         this.trip_place = trip_place;
         this.incident = incident;

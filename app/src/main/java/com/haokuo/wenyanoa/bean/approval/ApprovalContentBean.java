@@ -66,21 +66,6 @@ public class ApprovalContentBean {
     private String items_name;
     private String appState;
 
-    public String getLeaveType() {
-        int leaveTypeInt = Integer.parseInt(leaveType);
-        switch (leaveTypeInt) {
-            case 0:
-                return "公假";
-            case 1:
-                return "病假";
-            case 2:
-                return "事假";
-            case 3:
-                return "其他";
-        }
-        return null;
-    }
-
     public String getState() {
         switch (state) {
             case 0:
@@ -109,7 +94,4 @@ public class ApprovalContentBean {
 
         return approverBeans;
     }
-
-
-
 }

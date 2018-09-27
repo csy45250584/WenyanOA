@@ -15,7 +15,7 @@ public class LaunchRepairParams extends MatterBaseParams {
     private String fixAddress; //维修地址
     private String notes; //备注
 
-    public LaunchRepairParams(int userId, String apiKey, int onelevelId, int twolevelId, int threelevelId, int courtesyCopyId, String expectfixDate, String fixItems, String damage, String fixAddress, String notes) {
+    public LaunchRepairParams(int userId, String apiKey, Integer onelevelId, Integer twolevelId, Integer threelevelId, Integer courtesyCopyId, String expectfixDate, String fixItems, String damage, String fixAddress, String notes) {
         super(userId, apiKey, onelevelId, twolevelId, threelevelId, courtesyCopyId);
         this.expectfixDate = expectfixDate;
         this.fixItems = fixItems;

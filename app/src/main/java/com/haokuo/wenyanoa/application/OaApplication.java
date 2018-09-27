@@ -20,6 +20,8 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by zjf on 2018-07-16.
  */
@@ -48,10 +50,13 @@ public class OaApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //LeakCanary初始化
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            return;
-//        }
-//        LeakCanary.install(this);
+        //        if (LeakCanary.isInAnalyzerProcess(this)) {
+        //            return;
+        //        }
+        //        LeakCanary.install(this);
+        //极光推送初始化
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         //创建文件夹
         createDirs();
         //初始化工具类
