@@ -28,6 +28,13 @@
                 app:title="修改密码"/>
 
             <com.haokuo.wenyanoa.view.SettingItemView
+                android:id="@+id/siv_check_version"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_53"
+                android:layout_marginTop="@dimen/dp_16"
+                app:title="查看版本"/>
+
+            <com.haokuo.wenyanoa.view.SettingItemView
                 android:id="@+id/siv_logout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_53"

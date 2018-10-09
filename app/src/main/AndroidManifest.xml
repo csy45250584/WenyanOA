@@ -25,6 +25,7 @@
 
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="com.haokuo.wenyanoa.permission.JPUSH_MESSAGE"/>
     <application
@@ -156,6 +157,19 @@
         <activity
             android:name=".activity.DocFlowActivity"
             android:launchMode="singleTop"/>
+
+        <!--文件 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.haokuo.wenyanoa.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest>

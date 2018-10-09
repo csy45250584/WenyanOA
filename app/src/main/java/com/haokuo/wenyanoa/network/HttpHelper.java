@@ -42,7 +42,10 @@ import com.haokuo.wenyanoa.network.bean.base.PageParams;
 import com.haokuo.wenyanoa.network.bean.base.PageWithTimeParams;
 import com.haokuo.wenyanoa.network.bean.base.UserIdApiKeyParams;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.Map;
@@ -142,6 +145,94 @@ public class HttpHelper {
         }
     }
 
+    static class OkDownloadCallBack implements Callback {
+        private DownloadCallback callback;
+        private Handler mHandler;
+
+        public OkDownloadCallBack(DownloadCallback callback) {
+            this.callback = callback;
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+
+        @Override
+        public void onFailure(final Call call, final IOException e) {
+            Log.e(TAG, "okhttp failed, message = " + e.getMessage());
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    String message;
+                    if (e instanceof SocketTimeoutException) {
+                        message = "连接超时";
+                    } else if (e instanceof ConnectException) {
+                        message = "连接异常";
+                    } else {
+                        message = e.getMessage();
+                    }
+                    callback.onFailure(call, message);
+                }
+            });
+        }
+
+        @Override
+        public void onResponse(final Call call, Response response) {
+            InputStream is = null;//输入流
+            FileOutputStream fos = null;//输出流
+            try {
+                is = response.body().byteStream();//获取输入流
+                final long total = response.body().contentLength();//获取文件大小
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onStart(call, total);
+                    }
+                });
+                if (is != null) {
+                    Log.d(TAG, "onResponse: 不为空");
+                    File file = new File(callback.getFilePath());// 设置路径
+                    fos = new FileOutputStream(file);
+                    byte[] buf = new byte[1024];
+                    int ch = -1;
+                    long process = 0;
+                    while ((ch = is.read(buf)) != -1) {
+                        fos.write(buf, 0, ch);
+                        process += ch;
+                        callback.onProgress(call, process);
+                    }
+                }
+                fos.flush();
+                // 下载完成
+                if (fos != null) {
+                    fos.close();
+                }
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onSuccess(call);
+                    }
+                });
+
+            } catch (final Exception e) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onFailure(call, e.getMessage());
+                    }
+                });
+                Log.d(TAG, e.toString());
+            } finally {
+                try {
+                    if (is != null)
+                        is.close();
+                } catch (IOException e) {
+                }
+                try {
+                    if (fos != null)
+                        fos.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
     //    private void doPost(IGetParamsMap iGetParamsMap, String url, NetworkCallback callback) {
     //        String jsonString = JSON.toJSONString(iGetParamsMap);
     //        Log.i(TAG, "doPost: " + "jsonString = " + jsonString);
@@ -249,6 +340,9 @@ public class HttpHelper {
     }
 
     private String buildFullUrl(String url, IGetParamsMap iGetParamsMap) {
+        if(iGetParamsMap==null) {
+            return url;
+        }
         StringBuilder builder = new StringBuilder(url);
         builder.append("?");
         Map<String, String> params = iGetParamsMap.getParamsMap();
@@ -645,5 +739,18 @@ public class HttpHelper {
     /** 获取我的出勤天数和和待审批申请数量 */
     public void chatOnLine(ChatOnLineParams params, NetworkCallback callback) {
         doPost(params, UrlBuilder.buildChatOnLineUrl(), callback);
+    }
+    /** 获取我的出勤天数和和待审批申请数量 */
+    public void getNewVersion(NetworkCallback callback) {
+        doGet(null, UrlBuilder.buildGetNewVersionUrl(), callback);
+    }
+    /** 下载文件 */
+    public void downloadFile(String url, DownloadCallback callBack) {
+        FormBody.Builder builder = new FormBody.Builder();
+        FormBody body = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        mClient.newCall(request).enqueue(new OkDownloadCallBack(callBack));
     }
 }

@@ -1,9 +1,11 @@
 package com.haokuo.wenyanoa.activity;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.haokuo.midtitlebar.MidTitleBar;
+import com.haokuo.wenyanoa.BuildConfig;
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.consts.SpConsts;
 import com.haokuo.wenyanoa.eventbus.LogoutEvent;
@@ -24,6 +26,8 @@ public class SettingActivity extends BaseActivity {
     MidTitleBar mMidTitleBar;
     @BindView(R.id.siv_modify_password)
     SettingItemView mSivModifyPassword;
+    @BindView(R.id.siv_check_version)
+    SettingItemView mSivCheckVersion;
     @BindView(R.id.siv_logout)
     SettingItemView mSivLogout;
 
@@ -43,11 +47,18 @@ public class SettingActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.siv_modify_password, R.id.siv_logout})
+    @OnClick({R.id.siv_modify_password, R.id.siv_check_version, R.id.siv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.siv_modify_password:
                 startActivity(new Intent(this, ModifyPasswordActivity.class));
+                break;
+            case R.id.siv_check_version:
+                new AlertDialog.Builder(this).setTitle("版本信息")
+                        .setMessage("当前版本号:" + BuildConfig.VERSION_NAME)
+                        .setPositiveButton("了解", null)
+                        .create()
+                        .show();
                 break;
             case R.id.siv_logout:
                 SPUtils spUtils = SPUtils.getInstance(SpConsts.FILE_PERSONAL_INFORMATION);

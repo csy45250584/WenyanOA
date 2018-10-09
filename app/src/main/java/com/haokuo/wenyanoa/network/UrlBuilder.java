@@ -101,6 +101,12 @@ public class UrlBuilder {
     private static final String GET_DOC_INFO_URL = "/oaOffice/toGetInfoSendBumf.do";
     //聊天
     private static final String CHAT_ON_LINE_URL = "/oaChat/gotoAppchat.do";
+    //版本更新
+    private static final String GET_NEW_VERSION_URL = "/version/getNewVersion.do";
+
+    public static String buildGetNewVersionUrl() {
+        return new StringBuilder(BASE_URL).append(GET_NEW_VERSION_URL).toString();
+    }
 
     public static String buildGetStaffDestinationInfoUrl() {
         return new StringBuilder(BASE_URL).append(GET_STAFF_DESTINATION_INFO_URL).toString();
