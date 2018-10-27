@@ -65,12 +65,12 @@
                 android:gravity="center">
 
                 <com.haokuo.wenyanoa.view.ItemButton
-                    android:id="@+id/btn_leave"
+                    android:id="@+id/btn_notices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:iconSrc="@drawable/qingjia_1"
+                    app:iconSrc="@drawable/tzgg"
                     app:recColor="#EFEFEF"
-                    app:titleText="请假"/>
+                    app:titleText="通知公告"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -83,7 +83,7 @@
                     android:id="@+id/btn_whereabouts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:iconSrc="@drawable/quyuanquxiang"
+                    app:iconSrc="@drawable/qingjia_1"
                     app:recColor="#EFEFEF"
                     app:titleText="人员去向"/>
             </RelativeLayout>

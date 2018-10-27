@@ -157,6 +157,7 @@
         <activity
             android:name=".activity.DocFlowActivity"
             android:launchMode="singleTop"/>
+        <activity android:name=".activity.approval.Approval2Activity"/>
 
         <!--文件 -->
         <provider

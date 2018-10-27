@@ -13,15 +13,20 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.haokuo.wenyanoa.R;
-import com.haokuo.wenyanoa.activity.AttendanceClockActivity;
 import com.haokuo.wenyanoa.activity.ManagerOrderActivity;
 import com.haokuo.wenyanoa.activity.MyAttendanceActivity;
 import com.haokuo.wenyanoa.activity.NewsActivity;
 import com.haokuo.wenyanoa.activity.OrderFoodActivity;
 import com.haokuo.wenyanoa.activity.StaffDestinationActivity;
+import com.haokuo.wenyanoa.activity.approval.Approval2Activity;
 import com.haokuo.wenyanoa.activity.approval.ApprovalActivity;
+import com.haokuo.wenyanoa.activity.matters.ApplyItemsActivity;
+import com.haokuo.wenyanoa.activity.matters.ChangeShiftActivity;
 import com.haokuo.wenyanoa.activity.matters.LeaveActivity;
 import com.haokuo.wenyanoa.activity.matters.MattersApplyActivity;
+import com.haokuo.wenyanoa.activity.matters.PurchaseItemsActivity;
+import com.haokuo.wenyanoa.activity.matters.RepairActivity;
+import com.haokuo.wenyanoa.activity.matters.TripActivity;
 import com.haokuo.wenyanoa.adapter.MainApplicationAdapter;
 import com.haokuo.wenyanoa.bean.ApplicationBean;
 import com.haokuo.wenyanoa.bean.GetAppSomeCountBean;
@@ -53,8 +58,8 @@ public class WorkFragment extends BaseLazyLoadFragment {
     ItemButton mBtnApproval;
     @BindView(R.id.btn_attendance)
     ItemButton mBtnAttendance;
-    @BindView(R.id.btn_leave)
-    ItemButton mBtnLeave;
+    @BindView(R.id.btn_notices)
+    ItemButton mBtnNotices;
     @BindView(R.id.btn_whereabouts)
     ItemButton mBtnWhereabouts;
     @BindView(R.id.rv_application)
@@ -70,26 +75,53 @@ public class WorkFragment extends BaseLazyLoadFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 int id = mApplicationAdapter.getData().get(position).getId();
                 switch (id) {
-                    case 5:
-                        startActivity(new Intent(mContext, OrderFoodActivity.class));
-                        break;
-                    case 3:
-                        startActivity(new Intent(mContext, AttendanceClockActivity.class));
+                    case 1:
+                        startActivity(new Intent(mContext, LeaveActivity.class));
                         break;
                     case 2:
-                        startActivity(new Intent(mContext, ApprovalActivity.class));
+                        startActivity(new Intent(mContext, TripActivity.class));
                         break;
-                    case 1:
-                        startActivity(new Intent(mContext, NewsActivity.class));
+                    case 3:
+                        startActivity(new Intent(mContext, ChangeShiftActivity.class));
                         break;
-                    case 6:
+                    case 4:
+                        startActivity(new Intent(mContext, OrderFoodActivity.class));
+                        break;
+                    case 5: {
+                        Intent intent = new Intent(mContext, Approval2Activity.class);
+                        intent.putExtra(Approval2Activity.EXTRA_TYPE, 1);
+                        startActivity(intent);
+                    }
+                    break;
+                    case 6: {
+                        Intent intent = new Intent(mContext, Approval2Activity.class);
+                        intent.putExtra(Approval2Activity.EXTRA_TYPE, 0);
+                        startActivity(intent);
+                    }
+                    break;
+                    case 7: {
+                        Intent intent = new Intent(mContext, Approval2Activity.class);
+                        intent.putExtra(Approval2Activity.EXTRA_TYPE, 2);
+                        startActivity(intent);
+                    }
+                    break;
+                    case 8:
+                        startActivity(new Intent(mContext, ApplyItemsActivity.class));
+                        break;
+                    case 9:
+                        startActivity(new Intent(mContext, RepairActivity.class));
+                        break;
+                    case 10:
+                        startActivity(new Intent(mContext, PurchaseItemsActivity.class));
+                        break;
+                    case 11:
                         if (mRoleId == 2 || mRoleId == 8) {
                             ToastUtils.showShort("账号无权限查看！");
                             return;
                         }
                         startActivity(new Intent(mContext, ManagerOrderActivity.class));
                         break;
-                    case 7:
+                    case 12:
                         startActivity(new Intent(mContext, MattersApplyActivity.class));
                         break;
                 }
@@ -110,7 +142,7 @@ public class WorkFragment extends BaseLazyLoadFragment {
 
             @Override
             public void onFailure(Call call, String message) {
-ToastUtils.showShort("获取出勤天数和和待审批申请数量失败，"+message);
+                ToastUtils.showShort("获取出勤天数和和待审批申请数量失败，" + message);
             }
         });
     }
@@ -122,18 +154,23 @@ ToastUtils.showShort("获取出勤天数和和待审批申请数量失败，"+me
         mApplicationAdapter = new MainApplicationAdapter(R.layout.item_common_application);
         mRvApplication.setAdapter(mApplicationAdapter);
         ArrayList<ApplicationBean> applicationBeans = new ArrayList<>();
-        applicationBeans.add(new ApplicationBean(1, "通知公告", R.drawable.gonggao));
-        applicationBeans.add(new ApplicationBean(2, "审批", R.drawable.shenpi));
-        //        applicationBeans.add(new ApplicationBean(3, "考勤打卡", R.drawable.kaoqing_2));
-        //        applicationBeans.add(new ApplicationBean(4, "公文流传", R.drawable.gongwen));
-        applicationBeans.add(new ApplicationBean(5, "订餐", R.drawable.dingcan_2));
-        applicationBeans.add(new ApplicationBean(6, "订单管理", R.drawable.dingcan_order));
-        applicationBeans.add(new ApplicationBean(7, "事项申请", R.drawable.sxsq));
+        applicationBeans.add(new ApplicationBean(1, "事假申请", R.drawable.sjsq));
+        applicationBeans.add(new ApplicationBean(2, "公差申请", R.drawable.gcsq));
+        applicationBeans.add(new ApplicationBean(3, "调班申请", R.drawable.dbsq));
+        applicationBeans.add(new ApplicationBean(4, "我的订餐", R.drawable.wddc));
+        applicationBeans.add(new ApplicationBean(5, "我的发起", R.drawable.wdfq));
+        applicationBeans.add(new ApplicationBean(6, "抄送我的", R.drawable.wdcs));
+        applicationBeans.add(new ApplicationBean(7, "待我审批", R.drawable.wdsp));
+        applicationBeans.add(new ApplicationBean(8, "物品领用", R.drawable.wply));
+        applicationBeans.add(new ApplicationBean(9, "报修申请", R.drawable.bxsq));
+        applicationBeans.add(new ApplicationBean(10, "物品申购", R.drawable.wpsg));
+        applicationBeans.add(new ApplicationBean(11, "订单管理", R.drawable.ddgl));
+        applicationBeans.add(new ApplicationBean(12, " 科室值班", R.drawable.kszb));
         mApplicationAdapter.setNewData(applicationBeans);
         SPUtils spUtils = SPUtils.getInstance(SpConsts.FILE_PERSONAL_INFORMATION);
         mRoleId = spUtils.getInt(SpConsts.KEY_ROLE_ID);
         int corner = (int) (getResources().getDimension(R.dimen.dp_10) + 0.5f);
-        RequestOptions bannerImageOptions = new RequestOptions().transforms(new CenterCrop(),new RoundedCorners(corner));
+        RequestOptions bannerImageOptions = new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(corner));
         Glide.with(this).load(R.drawable.banner).apply(bannerImageOptions).into(mIvBanner);
         mUserInfo = OaSpUtil.getUserInfo();
     }
@@ -143,7 +180,7 @@ ToastUtils.showShort("获取出勤天数和和待审批申请数量失败，"+me
         return R.layout.fragment_work;
     }
 
-    @OnClick({R.id.btn_approval, R.id.btn_attendance, R.id.btn_leave, R.id.btn_whereabouts})
+    @OnClick({R.id.btn_approval, R.id.btn_attendance, R.id.btn_notices, R.id.btn_whereabouts})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_approval:
@@ -152,8 +189,8 @@ ToastUtils.showShort("获取出勤天数和和待审批申请数量失败，"+me
             case R.id.btn_attendance:
                 startActivity(new Intent(mContext, MyAttendanceActivity.class));
                 break;
-            case R.id.btn_leave:
-                startActivity(new Intent(mContext, LeaveActivity.class));
+            case R.id.btn_notices:
+                startActivity(new Intent(mContext, NewsActivity.class));
                 break;
             case R.id.btn_whereabouts:
                 startActivity(new Intent(mContext, StaffDestinationActivity.class));

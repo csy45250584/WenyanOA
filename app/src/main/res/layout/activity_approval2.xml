@@ -12,8 +12,6 @@
         android:layout_height="@dimen/dp_56"
         app:midTitle=""/>
 
-
-
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/indicator_approval_subject"
         android:layout_width="match_parent"
