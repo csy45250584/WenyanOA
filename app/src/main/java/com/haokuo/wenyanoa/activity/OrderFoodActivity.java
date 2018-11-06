@@ -243,7 +243,6 @@ public class OrderFoodActivity extends BaseActivity {
                         super.onPositiveActionClicked(fragment);
                         //提交订单
                         showLoading("正在提交订单...");
-
                         BuyFoodInBasketParams params = new BuyFoodInBasketParams(mUserInfo.getUserId(), mUserInfo.getApikey(), doublePrice, finalIds);
                         HttpHelper.getInstance().buyFoodInBasket(params, new NetworkCallback() {
                             @Override

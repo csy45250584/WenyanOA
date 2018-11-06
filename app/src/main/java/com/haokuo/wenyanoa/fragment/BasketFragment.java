@@ -97,7 +97,6 @@ public class BasketFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void loadData() {
-        super.loadData();
         mSrlBasket.autoRefresh();
     }
 

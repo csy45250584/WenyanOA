@@ -3,6 +3,7 @@ package com.haokuo.wenyanoa.activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -91,7 +92,12 @@ public class ManagerOrderActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     //搜索
-                    mParams.setRealname(mEtName.getEditableText().toString().trim());
+                    String name = mEtName.getEditableText().toString().trim();
+                    if (TextUtils.isEmpty(name)) {
+                        mParams.setRealname("");
+                    } else {
+                        mParams.setRealname(name);
+                    }
                     mSrlOrderList.autoRefresh();
                 }
                 return false;
@@ -161,8 +167,14 @@ public class ManagerOrderActivity extends BaseActivity {
                                 mTvStartTime.setText(beginTime);
                                 if (mEndDay != null) {
                                     String endTime = mTvEndTime.getText().toString();
+                                    String name = mEtName.getEditableText().toString();
                                     mParams.setStartTime(beginTime);
                                     mParams.setEndTime(endTime);
+                                    if (TextUtils.isEmpty(name)) {
+                                        mParams.setRealname("");
+                                    } else {
+                                        mParams.setRealname(name);
+                                    }
                                     mSrlOrderList.autoRefresh();
                                 }
                             }
@@ -191,6 +203,12 @@ public class ManagerOrderActivity extends BaseActivity {
                                     String startTime = mTvStartTime.getText().toString();
                                     mParams.setStartTime(startTime);
                                     mParams.setEndTime(endTime);
+                                    String name = mEtName.getEditableText().toString();
+                                    if (TextUtils.isEmpty(name)) {
+                                        mParams.setRealname("");
+                                    } else {
+                                        mParams.setRealname(name);
+                                    }
                                     mSrlOrderList.autoRefresh();
                                 }
                             }

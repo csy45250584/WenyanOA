@@ -64,7 +64,7 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         String endTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
         calendar.add(Calendar.MONTH, -1);
         String startTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
-        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, "", "");
+        mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, startTime, startTime);
         mCurrentDay = Calendar.getInstance();
     }
 

@@ -28,6 +28,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="com.haokuo.wenyanoa.permission.JPUSH_MESSAGE"/>
+
     <application
         android:name=".application.OaApplication"
         android:allowBackup="true"
@@ -59,7 +60,6 @@
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustNothing">
-
         </activity>
         <activity
             android:name=".activity.ContactDetailActivity"
@@ -163,12 +163,12 @@
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.haokuo.wenyanoa.fileprovider"
-            android:grantUriPermissions="true"
             android:exported="false"
+            android:grantUriPermissions="true"
             >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
 
     </application>

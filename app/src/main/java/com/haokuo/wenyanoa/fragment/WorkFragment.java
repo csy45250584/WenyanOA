@@ -19,11 +19,9 @@ import com.haokuo.wenyanoa.activity.NewsActivity;
 import com.haokuo.wenyanoa.activity.OrderFoodActivity;
 import com.haokuo.wenyanoa.activity.StaffDestinationActivity;
 import com.haokuo.wenyanoa.activity.approval.Approval2Activity;
-import com.haokuo.wenyanoa.activity.approval.ApprovalActivity;
 import com.haokuo.wenyanoa.activity.matters.ApplyItemsActivity;
 import com.haokuo.wenyanoa.activity.matters.ChangeShiftActivity;
 import com.haokuo.wenyanoa.activity.matters.LeaveActivity;
-import com.haokuo.wenyanoa.activity.matters.MattersApplyActivity;
 import com.haokuo.wenyanoa.activity.matters.PurchaseItemsActivity;
 import com.haokuo.wenyanoa.activity.matters.RepairActivity;
 import com.haokuo.wenyanoa.activity.matters.TripActivity;
@@ -122,7 +120,8 @@ public class WorkFragment extends BaseLazyLoadFragment {
                         startActivity(new Intent(mContext, ManagerOrderActivity.class));
                         break;
                     case 12:
-                        startActivity(new Intent(mContext, MattersApplyActivity.class));
+//                        startActivity(new Intent(mContext, MattersApplyActivity.class));
+                        ToastUtils.showLong("功能暂未开放！");
                         break;
                 }
             }
@@ -184,7 +183,9 @@ public class WorkFragment extends BaseLazyLoadFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_approval:
-                startActivity(new Intent(mContext, ApprovalActivity.class));
+                Intent intent = new Intent(mContext, Approval2Activity.class);
+                intent.putExtra(Approval2Activity.EXTRA_TYPE, 0);
+                startActivity(intent);
                 break;
             case R.id.btn_attendance:
                 startActivity(new Intent(mContext, MyAttendanceActivity.class));

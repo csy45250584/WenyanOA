@@ -20,6 +20,9 @@ import com.haokuo.wenyanoa.activity.BaseActivity;
 import com.haokuo.wenyanoa.activity.matters.BaseCcActivity;
 import com.haokuo.wenyanoa.activity.matters.SelectCcActivity;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
+import com.rey.material.app.DatePickerDialog;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.TimePickerDialog;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import java.util.Calendar;
@@ -104,6 +107,57 @@ public class ApprovalItem1 extends FrameLayout {
                 beginDpd.show(activity.getSupportFragmentManager(), "BeginDatePickerDialog");
             }
         });
+    }
+
+    public void setDateAndTimeSelector(final FragmentActivity activity, final String title) {
+        mLlTvContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.Builder builder = new DatePickerDialog.Builder(R.style.MyDatePicker) {
+                    @Override
+                    public void onPositiveActionClicked(DialogFragment fragment) {
+                        DatePickerDialog dialog = (DatePickerDialog) fragment.getDialog();
+                        Calendar calendar = dialog.getCalendar();
+                        showTimeSelect(calendar);
+                        super.onPositiveActionClicked(fragment);
+                    }
+
+                    @Override
+                    public void onNegativeActionClicked(DialogFragment fragment) {
+                        super.onNegativeActionClicked(fragment);
+                    }
+                };
+                builder.title(title)
+                        .positiveAction("确定")
+                        .negativeAction("取消");
+                DialogFragment fragment = DialogFragment.newInstance(builder);
+                fragment.show(((BaseActivity) mContext).getSupportFragmentManager(), null);
+            }
+        });
+    }
+
+    private void showTimeSelect(final Calendar selectDate) {
+        TimePickerDialog.Builder builder = new TimePickerDialog.Builder(R.style.Material_App_Dialog_TimePicker_Light, 24, 00) {
+            @Override
+            public void onPositiveActionClicked(DialogFragment fragment) {
+                TimePickerDialog dialog = (TimePickerDialog) fragment.getDialog();
+                selectDate.set(Calendar.HOUR_OF_DAY, dialog.getHour());
+                selectDate.set(Calendar.MINUTE, dialog.getMinute());
+                mTvSelect.setText(TimeUtils.DEFAULT_FORMAT.format(selectDate.getTime()));
+                super.onPositiveActionClicked(fragment);
+            }
+
+            @Override
+            public void onNegativeActionClicked(DialogFragment fragment) {
+                super.onNegativeActionClicked(fragment);
+            }
+        };
+
+        builder
+                .positiveAction("确定")
+                .negativeAction("取消");
+        DialogFragment fragment = DialogFragment.newInstance(builder);
+        fragment.show(((BaseActivity) mContext).getSupportFragmentManager(), null);
     }
 
     public void setStaffSelector() {

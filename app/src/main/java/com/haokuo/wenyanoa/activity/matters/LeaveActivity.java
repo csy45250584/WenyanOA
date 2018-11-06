@@ -56,8 +56,8 @@ public class LeaveActivity extends BaseCcActivity {
     protected void initData() {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this);
-        mAiStartDate.setDateSelector(this, "请选择开始日期");
-        mAiEndDate.setDateSelector(this, "请选择结束日期");
+        mAiStartDate.setDateAndTimeSelector(this, "请选择开始日期");
+        mAiEndDate.setDateAndTimeSelector(this, "请选择结束日期");
         String[] leaveTypes = {"病假", "事假", "其他"};
         mAiLeaveType.setSingleChoiceSelector("请选择请假类别", leaveTypes);
         mUserInfo = OaSpUtil.getUserInfo();
