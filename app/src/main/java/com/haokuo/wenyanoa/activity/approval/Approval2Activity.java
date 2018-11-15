@@ -5,8 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.aigestudio.wheelpicker.widgets.WheelMonthPicker;
+import com.aigestudio.wheelpicker.widgets.WheelYearPicker;
 import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.CommonTabLayout;
@@ -33,13 +38,20 @@ import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.base.PageParamWithFillTime;
 import com.haokuo.wenyanoa.util.OaSpUtil;
+import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
+import com.rey.material.app.BottomSheetDialog;
+import com.rey.material.widget.Button;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import okhttp3.Call;
@@ -53,6 +65,7 @@ public class Approval2Activity extends BaseActivity implements BaseQuickAdapter.
     public static final String EXTRA_ID = "com.haokuo.wenyanoa.extra.EXTRA_ID";
     public static final String EXTRA_STATE = "com.haokuo.wenyanoa.extra.EXTRA_STATE";
     public static final String EXTRA_TYPE = "com.haokuo.wenyanoa.extra.EXTRA_TYPE";
+    private static final DateFormat TIME_FORMAT = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
     @BindView(R.id.indicator_approval_subject)
@@ -82,6 +95,8 @@ public class Approval2Activity extends BaseActivity implements BaseQuickAdapter.
     private NetworkCallback mLoadMoreBuyItemsCallback;
     private NetworkCallback mLoadMoreRepairCallback;
     private NetworkCallback mLoadMoreApplyItemsCallback;
+    private BottomSheetDialog mBottomSheetDialog;
+    private MenuItem mMenuItem;
 
     @Override
     protected int initContentLayout() {
@@ -117,8 +132,18 @@ public class Approval2Activity extends BaseActivity implements BaseQuickAdapter.
         initAdapters();
         initNetworkCallbacks();
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
-        mParams = new PageParamWithFillTime(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, 0);
+        String nowString = TimeUtils.getNowString(TIME_FORMAT);
+        mParams = new PageParamWithFillTime(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, 0, nowString);
         refreshList();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_approval, menu);
+        mMenuItem = menu.getItem(0);
+        String nowString = TimeUtils.getNowString(TIME_FORMAT);
+        mMenuItem.setTitle(nowString);
+        return true;
     }
 
     private void initAdapters() {
@@ -344,7 +369,58 @@ public class Approval2Activity extends BaseActivity implements BaseQuickAdapter.
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_time:
+                showTimeSelector();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showTimeSelector() {
+        mBottomSheetDialog = new BottomSheetDialog(this, R.style.Material_App_BottomSheetDialog);
+        View v = LayoutInflater.from(this).inflate(R.layout.view_bottom_time_select, null);
+        final WheelYearPicker wheelYearPicker = v.findViewById(R.id.wheel_year_picker);
+        wheelYearPicker.setYearEnd(Calendar.getInstance().get(Calendar.YEAR));
+        final WheelMonthPicker wheelMonthPicker = v.findViewById(R.id.wheel_month_picker);
+        Button btnCancel = v.findViewById(R.id.btn_cancel);
+        Button btnConfirm = v.findViewById(R.id.btn_confirm);
+        String[] split = mParams.getFillformDate().split("-");
+        wheelYearPicker.setSelectedYear(Integer.parseInt(split[0]));
+        wheelMonthPicker.setSelectedMonth(Integer.parseInt(split[1]));
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentYear = wheelYearPicker.getCurrentYear();
+                int currentMonth = wheelMonthPicker.getCurrentMonth();
+                String time;
+                if (currentMonth < 10) {
+                    time = currentYear + "-0" + currentMonth;
+                } else {
+                    time = currentYear + "-" + currentMonth;
+                }
+                mMenuItem.setTitle(time);
+                mParams.setFillformDate(time);
+                mSrlApproval.autoRefresh();
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        mBottomSheetDialog.inDuration(300);
+        mBottomSheetDialog.outDuration(300);
+        mBottomSheetDialog.contentView(v);
+        mBottomSheetDialog.show();
+    }
+
+    @Override
     protected void initListener() {
+
         mIndicatorApprovalSubject.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.rey.material.widget.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.aigestudio.wheelpicker.widgets.WheelYearPicker
+            android:id="@+id/wheel_year_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:wheel_item_text_size="@dimen/text_30px"
+            app:wheel_selected_item_text_color="@color/colorPrimary"/>
+
+        <com.aigestudio.wheelpicker.widgets.WheelMonthPicker
+            android:id="@+id/wheel_month_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:wheel_item_text_size="@dimen/text_30px"
+            app:wheel_selected_item_text_color="@color/colorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_16">
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_30"
+            android:background="@color/colorWhite"
+            android:text="取消"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_26px"
+            app:rd_style="@style/MyRippleWaveStyle"/>
+
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@color/colorWhite"
+            android:text="确定"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_26px"
+            app:rd_style="@style/MyRippleWaveStyle"/>
+    </LinearLayout>
+
+</com.rey.material.widget.LinearLayout>
+

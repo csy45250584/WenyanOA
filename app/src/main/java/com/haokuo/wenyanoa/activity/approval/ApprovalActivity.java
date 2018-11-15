@@ -32,13 +32,17 @@ import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.base.PageParamWithFillTime;
 import com.haokuo.wenyanoa.util.OaSpUtil;
+import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import okhttp3.Call;
@@ -51,6 +55,7 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
     private static final int PAGE_SIZE = 10;
     public static final String EXTRA_ID = "com.haokuo.wenyanoa.extra.EXTRA_ID";
     public static final String EXTRA_STATE = "com.haokuo.wenyanoa.extra.EXTRA_STATE";
+    private static final DateFormat TIME_FORMAT = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
     //    @BindView(R.id.mid_title_bar)
     //    MidTitleBar mMidTitleBar;
     @BindView(R.id.indicator_approval)
@@ -110,7 +115,8 @@ public class ApprovalActivity extends BaseActivity implements BaseQuickAdapter.O
         initAdapters();
         initNetworkCallbacks();
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
-        mParams = new PageParamWithFillTime(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, 0);
+        String nowString = TimeUtils.getNowString(TIME_FORMAT);
+        mParams = new PageParamWithFillTime(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, 0,nowString);
         refreshList();
     }
 
