@@ -60,8 +60,10 @@ public class ChangeShiftActivity extends BaseCcActivity {
     protected void initData() {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this);
-        mAiOriginalDate.setDateSelector(this, "请选择原上班日期");
-        mAiChangeShiftDate.setDateSelector(this, "请选择调班日期");
+        //        mAiOriginalDate.setDateSelector(this, "请选择原上班日期");
+        //        mAiChangeShiftDate.setDateSelector(this, "请选择调班日期");
+        mAiOriginalDate.setMultiDatesSelector("请选择原上班日期");
+        mAiChangeShiftDate.setMultiDatesSelector("请选择调班日期");
         mUserInfo = OaSpUtil.getUserInfo();
         //数据准备
         showLoading("正在准备数据...");
@@ -72,6 +74,7 @@ public class ChangeShiftActivity extends BaseCcActivity {
                 mApproverList = JSON.parseObject(json, PrepareMatterResultBean.class);
                 loadClose();
                 mAiApprovers.applyApproverList(mApproverList);
+                mAiCc.setCc(mApproverList.getCc(), true);
             }
 
             @Override
@@ -111,7 +114,7 @@ public class ChangeShiftActivity extends BaseCcActivity {
         }
         LaunchChangeShiftParams params = new LaunchChangeShiftParams(mUserInfo.getUserId(), mUserInfo.getApikey(),
                 mApproverList.getOneLevelId(), mApproverList.getTwoLevelId(), mApproverList.getThreeLevelId(),
-                ccId, originalDate, changeShiftDate, mChangeShiftStaff.getId(), detailInfo,mApproverList.getOneLevelId());
+                ccId, originalDate, changeShiftDate, mChangeShiftStaff.getId(), detailInfo, mApproverList.getOneLevelId());
         HttpHelper.getInstance().launchChangeShift(params, new NetworkCallback() {
             @Override
             public void onSuccess(Call call, String json) {

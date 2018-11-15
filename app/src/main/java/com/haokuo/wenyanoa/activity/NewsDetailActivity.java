@@ -1,13 +1,9 @@
 package com.haokuo.wenyanoa.activity;
 
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
-import com.alibaba.fastjson.JSON;
 import com.haokuo.midtitlebar.MidTitleBar;
 import com.haokuo.wenyanoa.R;
-import com.haokuo.wenyanoa.bean.ConferenceDetailBean;
-import com.haokuo.wenyanoa.bean.NewsDetailBean;
-import com.haokuo.wenyanoa.bean.NoticeDetailBean;
 import com.haokuo.wenyanoa.bean.UserInfoBean;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
@@ -16,6 +12,8 @@ import com.haokuo.wenyanoa.network.bean.GetNewsInfoParams;
 import com.haokuo.wenyanoa.network.bean.GetNoticeInfoParams;
 import com.haokuo.wenyanoa.util.OaSpUtil;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
+import com.just.agentweb.AgentWeb;
+import com.just.agentweb.DefaultWebClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,14 +32,8 @@ public class NewsDetailActivity extends BaseActivity {
     private static final int TYPE_NOTICE = 3;
     @BindView(R.id.mid_title_bar)
     MidTitleBar mMidTitleBar;
-    @BindView(R.id.tv_news_title)
-    TextView mTvNewsTitle;
-    @BindView(R.id.tv_news_time)
-    TextView mTvNewsTime;
-    @BindView(R.id.tv_news_creator)
-    TextView mTvNewsCreator;
-    @BindView(R.id.tv_news_content)
-    TextView mTvNewsContent;
+    @BindView(R.id.fl_web_container)
+    FrameLayout mFlWebContainer;
 
     @Override
     protected int initContentLayout() {
@@ -50,85 +42,50 @@ public class NewsDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        int newsId = getIntent().getIntExtra(EXTRA_NEWS_ID, -1);
+        final int newsId = getIntent().getIntExtra(EXTRA_NEWS_ID, -1);
         int type = getIntent().getIntExtra(EXTRA_TYPE, -1);
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this);
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
+        final AgentWeb.PreAgentWeb ready = AgentWeb.with(this)
+                .setAgentWebParent((FrameLayout) mFlWebContainer, new FrameLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator()
+                .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他页面时，弹窗质询用户前往其他应用 AgentWeb 3.0.0 加入。
+                .createAgentWeb()
+                .ready();
+        NetworkCallback callback = new NetworkCallback() {
+            @Override
+            public void onSuccess(Call call, String json) {
+                try {
+                    String url = new JSONObject(json).getString("url");
+                    ready.go(url+"?id="+newsId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, String message) {
+                ToastUtils.showShort("加载失败，" + message);
+            }
+        };
         switch (type) {
             case TYPE_CONFERENCE: {
                 mMidTitleBar.setMidTitle("会议通知");
                 GetConferenceInfoParams params = new GetConferenceInfoParams(userInfo.getUserId(), userInfo.getApikey(), newsId);
-                HttpHelper.getInstance().getConferenceInfo(params, new NetworkCallback() {
-                    @Override
-                    public void onSuccess(Call call, String json) {
-                        try {
-                            String jsonString = new JSONObject(json).getString("conference");
-                            ConferenceDetailBean resultBean = JSON.parseObject(jsonString, ConferenceDetailBean.class);
-                            mTvNewsTitle.setText(resultBean.getTheme());
-                            mTvNewsTime.setText(resultBean.getCreateDate());
-                            mTvNewsCreator.setText(resultBean.getCreator());
-                            mTvNewsContent.setText(resultBean.getContent());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call call, String message) {
-                        ToastUtils.showShort("加载失败，" + message);
-                    }
-                });
+                HttpHelper.getInstance().getConferenceInfo(params, callback);
             }
             break;
             case TYPE_NEWS: {
                 mMidTitleBar.setMidTitle("行业新闻");
                 GetNewsInfoParams params = new GetNewsInfoParams(userInfo.getUserId(), userInfo.getApikey(), newsId);
-                HttpHelper.getInstance().getNewsInfo(params, new NetworkCallback() {
-                    @Override
-                    public void onSuccess(Call call, String json) {
-                        try {
-                            String jsonString = new JSONObject(json).getString("news");
-                            NewsDetailBean resultBean = JSON.parseObject(jsonString, NewsDetailBean.class);
-                            mTvNewsTitle.setText(resultBean.getTitle());
-                            mTvNewsTime.setText(resultBean.getCreateDate());
-                            mTvNewsCreator.setText(resultBean.getCreator());
-                            mTvNewsContent.setText(resultBean.getContent());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call call, String message) {
-                        ToastUtils.showShort("加载失败，" + message);
-                    }
-                });
+                HttpHelper.getInstance().getNewsInfo(params, callback);
             }
             break;
             case TYPE_NOTICE: {
                 mMidTitleBar.setMidTitle("最新公告");
                 GetNoticeInfoParams params = new GetNoticeInfoParams(userInfo.getUserId(), userInfo.getApikey(), newsId);
-                HttpHelper.getInstance().getNoticeInfo(params, new NetworkCallback() {
-                    @Override
-                    public void onSuccess(Call call, String json) {
-                        try {
-                            String jsonString = new JSONObject(json).getString("newsSort");
-                            NoticeDetailBean resultBean = JSON.parseObject(jsonString, NoticeDetailBean.class);
-                            mTvNewsTitle.setText(resultBean.getSortName());
-                            mTvNewsTime.setText(resultBean.getCreateDate());
-                            mTvNewsCreator.setText(resultBean.getCreator());
-                            mTvNewsContent.setText(resultBean.getSortContent());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call call, String message) {
-                        ToastUtils.showShort("加载失败，" + message);
-                    }
-                });
+                HttpHelper.getInstance().getNoticeInfo(params,callback);
             }
             break;
         }

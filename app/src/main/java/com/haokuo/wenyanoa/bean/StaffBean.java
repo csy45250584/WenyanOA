@@ -9,12 +9,12 @@ import lombok.Data;
  */
 @Data
 public class StaffBean implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
     private String avatar;
     private String sex;
 
-    public StaffBean(int id, String name, String avatar,String sex) {
+    public StaffBean(Integer id, String name, String avatar,String sex) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;

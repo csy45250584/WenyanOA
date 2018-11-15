@@ -19,13 +19,20 @@ import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.activity.BaseActivity;
 import com.haokuo.wenyanoa.activity.matters.BaseCcActivity;
 import com.haokuo.wenyanoa.activity.matters.SelectCcActivity;
+import com.haokuo.wenyanoa.util.DateUtil;
 import com.haokuo.wenyanoa.util.utilscode.TimeUtils;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.rey.material.app.DatePickerDialog;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.TimePickerDialog;
 import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
+import org.threeten.bp.LocalDate;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,6 +112,69 @@ public class ApprovalItem1 extends FrameLayout {
                 beginDpd.setMinDate(mCurrentDay);
                 beginDpd.setTitle(title);
                 beginDpd.show(activity.getSupportFragmentManager(), "BeginDatePickerDialog");
+            }
+        });
+    }
+
+    public void setMultiDatesSelector(String title) {
+        View inflate = inflate(mContext, R.layout.dialog_multi_dates, null);
+        final MaterialCalendarView calendarView = inflate.findViewById(R.id.calendarView);
+        final List<CalendarDay> selectDays = new ArrayList<>();
+        //判断所在季度
+        Calendar startTime = Calendar.getInstance();
+        startTime.setTime(DateUtil.getCurrentQuarterStartTime());
+        LocalDate startDate = LocalDate.of(startTime.get(Calendar.YEAR), startTime.get(Calendar.MONTH) + 1, startTime.get(Calendar.DAY_OF_MONTH));
+        Calendar endTime = Calendar.getInstance();
+        endTime.setTime(DateUtil.getCurrentQuarterEndTime());
+        LocalDate endDate = LocalDate.of(endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH) + 1, endTime.get(Calendar.DAY_OF_MONTH));
+        calendarView.state().edit()
+                .setMinimumDate(startDate)
+                .setMaximumDate(endDate)
+                .commit();
+        final AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setTitle(title)
+                .setView(inflate)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        calendarView.clearSelection();
+                        for (CalendarDay selectDay : selectDays) {
+                            calendarView.setDateSelected(selectDay, true);
+                        }
+                    }
+                })
+                .setNeutralButton("清空", null)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        List<CalendarDay> selectedDates = calendarView.getSelectedDates();
+                        selectDays.clear();
+                        selectDays.addAll(selectedDates);
+                        if (selectedDates.size() > 0) {
+                            String dateText = "";
+                            for (CalendarDay selectedDate : selectedDates) {
+                                String date = selectedDate.getYear() + "-" + selectedDate.getMonth() + "-" + selectedDate.getDay();
+                                dateText = dateText + date + ",";
+                            }
+                            dateText = dateText.substring(0, dateText.length() - 1);
+                            mTvSelect.setText(dateText);
+                        } else {
+                            mTvSelect.setText(mSelectText);
+                        }
+                    }
+                })
+                .create();
+
+        mLlTvContainer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.show();
+                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        calendarView.clearSelection();
+                    }
+                });
             }
         });
     }

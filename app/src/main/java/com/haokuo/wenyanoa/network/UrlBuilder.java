@@ -9,7 +9,10 @@ import java.util.List;
 
 public class UrlBuilder {
     private static final String IMAGE_STRING_SPLIT = ",";
-    private static final String BASE_URL = "http://115.238.87.10:9081/oai/";
+    //测试
+        private static final String BASE_URL = "http://192.168.1.84:9080/oai/";
+    //线上
+//    private static final String BASE_URL = "http://192.168.1.84:9080/oai/";
     //用户登录
     private static final String LOGIN_URL = "/oaCustom/loginByPassword.do";
     private static final String UPDATE_PASSWORD_URL = "/oaCustom/updatePassword.do";
