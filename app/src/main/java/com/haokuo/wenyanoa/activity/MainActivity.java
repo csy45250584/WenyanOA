@@ -157,6 +157,7 @@ public class MainActivity extends BaseActivity {
                 .setNegativeButton("取消", null)
                 .create()
                 .show();
+
     }
 
     //下载apk操作

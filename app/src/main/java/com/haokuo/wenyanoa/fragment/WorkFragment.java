@@ -93,13 +93,13 @@ public class WorkFragment extends BaseLazyLoadFragment {
                     break;
                     case 6: {
                         Intent intent = new Intent(mContext, Approval2Activity.class);
-                        intent.putExtra(Approval2Activity.EXTRA_TYPE, 0);
+                        intent.putExtra(Approval2Activity.EXTRA_TYPE, 2);
                         startActivity(intent);
                     }
                     break;
                     case 7: {
                         Intent intent = new Intent(mContext, Approval2Activity.class);
-                        intent.putExtra(Approval2Activity.EXTRA_TYPE, 2);
+                        intent.putExtra(Approval2Activity.EXTRA_TYPE, 0);
                         startActivity(intent);
                     }
                     break;

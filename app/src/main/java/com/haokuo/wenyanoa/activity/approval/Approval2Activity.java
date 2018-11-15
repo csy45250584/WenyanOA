@@ -420,7 +420,6 @@ public class Approval2Activity extends BaseActivity implements BaseQuickAdapter.
 
     @Override
     protected void initListener() {
-
         mIndicatorApprovalSubject.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
