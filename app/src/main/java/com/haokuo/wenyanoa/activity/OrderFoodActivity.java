@@ -1,9 +1,11 @@
 package com.haokuo.wenyanoa.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -206,6 +208,14 @@ public class OrderFoodActivity extends BaseActivity {
             public void onTabReselected(int position) {
             }
         });
+    }
+
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.v("MY_CUSTOM_TAG", "OrderFoodActivity onRestoreInstanceState()-->" );
     }
 
     @Override

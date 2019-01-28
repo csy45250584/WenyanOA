@@ -55,8 +55,10 @@ public class TripActivity extends BaseCcActivity {
         setSupportActionBar(mMidTitleBar);
         mMidTitleBar.addBackArrow(this);
         mUserInfo = OaSpUtil.getUserInfo();
-        mAiStartDate.setDateSelector(this, "请选择开始日期");
-        mAiEndDate.setDateSelector(this, "请选择结束日期");
+        mAiStartDate.setDateAndTimeSelector(this, "请选择开始日期");
+        mAiEndDate.setDateAndTimeSelector(this, "请选择结束日期");
+//        mAiStartDate.setDateSelector(this, "请选择开始日期");
+//        mAiEndDate.setDateSelector(this, "请选择结束日期");
         //数据准备
         showLoading("正在准备数据...");
         UserIdApiKeyParams params = new UserIdApiKeyParams(mUserInfo.getUserId(), mUserInfo.getApikey());
@@ -67,6 +69,7 @@ public class TripActivity extends BaseCcActivity {
                 loadClose();
                 mAiApprovers.applyApproverList(mApproverList);
                 mAiCc.setCc(mApproverList.getCc(), true);
+                setCcBean(mApproverList.getCc());
             }
 
             @Override

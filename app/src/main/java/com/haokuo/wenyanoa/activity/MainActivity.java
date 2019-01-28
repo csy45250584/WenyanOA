@@ -27,6 +27,7 @@ import com.haokuo.wenyanoa.network.DownloadCallback;
 import com.haokuo.wenyanoa.network.HttpHelper;
 import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.util.DirUtil;
+import com.haokuo.wenyanoa.util.UpdateUtil;
 import com.haokuo.wenyanoa.util.utilscode.IntentUtils;
 import com.haokuo.wenyanoa.util.utilscode.KeyboardUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
@@ -115,12 +116,13 @@ public class MainActivity extends BaseActivity {
         mViewPager.setOffscreenPageLimit(fragments.size()); //设置缓存fragment数量，防止fragment生命周期多次调用
         mViewPager.setCurrentItem(DEFAULT_TAB_POSITION); //设置初始化的位置
         mSearchView.setCursorDrawable(R.drawable.search_bar_cursor);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                checkUpdate();
-            }
-        },1000);
+        UpdateUtil.getInstance().checkUpdate(1000,this);
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                checkUpdate();
+//            }
+//        },1000);
     }
 
     private void checkUpdate() {

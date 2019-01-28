@@ -3,6 +3,7 @@ package com.haokuo.wenyanoa.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.multidex.MultiDex;
 
 import com.haokuo.midtitlebar.BarStyle;
 import com.haokuo.midtitlebar.MidTitleBar;
@@ -79,6 +80,12 @@ public class OaApplication extends Application {
         MidTitleBar.initStyle(barStyle);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+    }
+
     private void initLoadingStyle() {
         StyleManager styleManager = new StyleManager();
         styleManager.loadText("提交中...").successText("提交成功").failedText("提交失败")
@@ -88,6 +95,7 @@ public class OaApplication extends Application {
     }
 
     private void createDirs() {
+
         DirUtil.createDir();
     }
 }

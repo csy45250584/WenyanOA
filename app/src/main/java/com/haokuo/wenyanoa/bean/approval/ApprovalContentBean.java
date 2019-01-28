@@ -42,7 +42,7 @@ public class ApprovalContentBean {
     private String incident;
     private String leaveType;
     //调班所有
-    private String nowWorkDate;
+    private String newWorkDate;
     private String nowPhoto;
     private String nowSex;
     private String oldWorkDate;

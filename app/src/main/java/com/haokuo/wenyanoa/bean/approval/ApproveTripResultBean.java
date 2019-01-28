@@ -16,6 +16,7 @@ public class ApproveTripResultBean {
     @Data
     public static class TripBean extends GetIdBean {
         private String appStatus; //审批状态
+        private String appState; //审批状态
         private int state; //审批状态
         private String realname; //创建人
         private String startDate; //请假开始时间

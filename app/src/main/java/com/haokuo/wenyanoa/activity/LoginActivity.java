@@ -15,6 +15,7 @@ import com.haokuo.wenyanoa.network.NetworkCallback;
 import com.haokuo.wenyanoa.network.bean.LoginParams;
 import com.haokuo.wenyanoa.network.bean.base.UserIdApiKeyParams;
 import com.haokuo.wenyanoa.util.OaSpUtil;
+import com.haokuo.wenyanoa.util.UpdateUtil;
 import com.haokuo.wenyanoa.util.utilscode.SPUtils;
 import com.haokuo.wenyanoa.util.utilscode.ToastUtils;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -53,6 +54,7 @@ public class LoginActivity extends BaseActivity {
     protected void initData() {
         mInfoSp = SPUtils.getInstance(SpConsts.FILE_PERSONAL_INFORMATION);
         unableInputSpace(mEtAccount, mEtPassword);
+        UpdateUtil.getInstance().checkUpdate(1000,this);
     }
 
     @Override

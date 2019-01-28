@@ -149,7 +149,7 @@ public class ChangeShiftApprovalDetailActivity extends BaseApprovalDetailActivit
         mTvDeptName.setText(infoBean.getTransferSection());
         mTvDuties.setText(infoBean.getTransferJob());
         mTvOriginalTime.setText(infoBean.getOldWorkDate());
-        mTvTargetTime.setText(infoBean.getNowWorkDate());
+        mTvTargetTime.setText(infoBean.getNewWorkDate());
         mTvChangeName.setText(infoBean.getTransferName());
         mTvChangeShiftReason.setText(infoBean.getIncident());
         mApproverAdapter.setNewData(infoBean.getApproverList());

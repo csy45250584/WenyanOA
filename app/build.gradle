@@ -7,8 +7,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 7
+        versionName "1.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -96,7 +96,7 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
-    implementation 'me.jessyan:autosize:0.9.1'
+    implementation 'me.jessyan:autosize:1.1.0'
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
 //    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     // Optional, if you use support library fragments:
@@ -109,4 +109,5 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:1.2.5'  // 此处以JCore 1.2.5 版本为例。
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }

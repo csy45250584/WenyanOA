@@ -1,7 +1,6 @@
 package com.haokuo.wenyanoa.activity;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.haokuo.wenyanoa.R;
 import com.haokuo.wenyanoa.consts.SpConsts;
@@ -30,17 +29,15 @@ public class SplashActivity extends BaseActivity {
         }
         startActivity(new Intent(SplashActivity.this, mClz));
         finish();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                SystemClock.sleep(1000);
-//                startActivity(new Intent(SplashActivity.this, mClz));
-//                finish();
-//            }
-//        }).run();
+        //        new Thread(new Runnable() {
+        //            @Override
+        //            public void run() {
+        //                SystemClock.sleep(1000);
+        //                startActivity(new Intent(SplashActivity.this, mClz));
+        //                finish();
+        //            }
+        //        }).run();
     }
-
-
 
     @Override
     protected void initListener() {

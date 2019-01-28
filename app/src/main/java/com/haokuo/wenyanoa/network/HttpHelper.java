@@ -274,6 +274,7 @@ public class HttpHelper {
                 .build();//创建Request 对象
         mClient.newCall(request).enqueue(new OkHttpCallBack(callback));
     }
+
     //
     //        private void doPostUploadFile(UploadFileParams uploadFileParams, String url, Object tag, NetworkCallback callback) {
     //            List<File> files = uploadFileParams.getFile();
@@ -433,17 +434,20 @@ public class HttpHelper {
 
     /** 获取验证码 */
     public void getResetVerfiyCode(GetResetVerfiyCodeParams params, NetworkCallback callback) {
-        doPostWithoutApiKey(params, UrlBuilder.buildGetResetVerfiyCodeUrl(), callback);
+        String url = UrlBuilder.buildGetResetVerfiyCodeUrl()+"?telphone="+params.getTelphone();
+        doPostWithoutApiKey(params, url, callback);
     }
 
     /** 短信验证码校验 */
     public void codeCheck(CodeCheckParams params, NetworkCallback callback) {
-        doPostWithoutApiKey(params, UrlBuilder.buildCodeCheckUrl(), callback);
+        String url = UrlBuilder.buildCodeCheckUrl()+"?telphone="+params.getTelphone()+"&authCode="+params.getAuthCode();
+        doPostWithoutApiKey(params, url, callback);
     }
 
     /** 重置密码 */
     public void resetPassword(ResetPasswordParams params, NetworkCallback callback) {
-        doPostWithoutApiKey(params, UrlBuilder.buildResetPasswordUrl(), callback);
+        String url = UrlBuilder.buildResetPasswordUrl()+"?telphone="+params.getTelphone()+"&authCode="+params.getAuthCode()+"&password="+params.getPassword();
+        doPostWithoutApiKey(params, url, callback);
     }
 
     /** 获取会议通知 */

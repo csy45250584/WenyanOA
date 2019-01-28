@@ -1,5 +1,6 @@
 package com.haokuo.wenyanoa.adapter.approval;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,7 +23,11 @@ public class ApprovalTripAdapter extends BaseQuickAdapter<ApproveTripResultBean.
         helper.setText(R.id.tv_name, String.format("%s的公差", item.getRealname()));
         helper.setText(R.id.tv_begin_time, String.format("开始时间：%s", item.getStartDate()));
         helper.setText(R.id.tv_end_time, String.format("结束时间：%s", item.getEndDate()));
+        if(TextUtils.isEmpty(item.getAppStatus())) {
+        helper.setText(R.id.tv_approve_state, item.getAppState());
+        }else {
         helper.setText(R.id.tv_approve_state, item.getAppStatus());
+        }
         helper.setText(R.id.tv_fill_form_time, item.getFillformDate());
         ImageView ivAvatar = helper.getView(R.id.iv_avatar);
         ImageLoadUtil.getInstance().loadAvatar(mContext,item.getUserInfo().getHeadPhoto(),ivAvatar,item.getUser().getSex());

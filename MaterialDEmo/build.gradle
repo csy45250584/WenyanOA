@@ -31,7 +31,7 @@ android {
 }
 
 ext{
-    libSupportVersion = '28.0.0-rc01'
+    libSupportVersion = '28.0.0'
 }
 
 dependencies {
@@ -42,6 +42,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.0'
     implementation 'com.squareup.leakcanary:leakcanary-android:1.3.1'
     implementation project(':material')
+    implementation('com.github.hotchemi:permissionsdispatcher:3.1.0') { exclude module: 'support-v13' }
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     implementation('com.github.hotchemi:permissionsdispatcher:3.1.0') { exclude module: 'support-v13' }
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
 }

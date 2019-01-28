@@ -61,8 +61,8 @@ public class OrderListFragment extends BaseLazyLoadFragment {
         mRvOrderList.setAdapter(mOrderListAdapter);
         UserInfoBean userInfo = OaSpUtil.getUserInfo();
         Calendar calendar = Calendar.getInstance();
-        String endTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
-        calendar.add(Calendar.MONTH, -1);
+//        String endTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
+//        calendar.add(Calendar.MONTH, -1);
         String startTime = TimeUtils.date2String(calendar.getTime(), TimeUtils.CUSTOM_FORMAT);
         mParams = new PageWithTimeParams(userInfo.getUserId(), userInfo.getApikey(), 0, PAGE_SIZE, startTime, startTime);
         mCurrentDay = Calendar.getInstance();

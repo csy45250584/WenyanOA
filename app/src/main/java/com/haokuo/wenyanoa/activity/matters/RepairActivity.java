@@ -67,6 +67,7 @@ public class RepairActivity extends BaseCcActivity {
                 loadClose();
                 mAiApprovers.applyApproverList(mApproverList);
                 mAiCc.setCc(mApproverList.getCc(), true);
+                setCcBean(mApproverList.getCc());
             }
 
             @Override

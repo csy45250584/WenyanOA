@@ -30,6 +30,7 @@ import com.shagi.materialdatepicker.date.DatePickerFragmentDialog;
 
 import org.threeten.bp.LocalDate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -187,6 +188,7 @@ public class ApprovalItem1 extends FrameLayout {
                     @Override
                     public void onPositiveActionClicked(DialogFragment fragment) {
                         DatePickerDialog dialog = (DatePickerDialog) fragment.getDialog();
+                        String date = dialog.getFormattedDate(SimpleDateFormat.getDateInstance());
                         Calendar calendar = dialog.getCalendar();
                         showTimeSelect(calendar);
                         super.onPositiveActionClicked(fragment);
